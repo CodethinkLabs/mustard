@@ -1,0 +1,9 @@
+#!/usr/bin/python
+#
+# Copyright (C) 2012 Codethink Limited
+
+
+import mustard
+
+
+mustard.renderer.App().run()
