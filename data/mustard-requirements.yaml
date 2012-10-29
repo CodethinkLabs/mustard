@@ -56,7 +56,7 @@ requirements:
 
       traceability-history:
         info: >
-          The history of how the overall architecture changed over time
+          The history of how the project mustard changed over time
           is preserved. This history includes, among other things, who
           changed or agreed to what when.
 
@@ -105,8 +105,8 @@ requirements:
 
       snapshots:
         info: >
-          External tools can refer to a specific state of the overall
-          architecture, that is, to a specific point in the history of
+          External tools can refer to a specific state of the project
+          mustard, that is, to a specific point in the history of
           the architecture.
 
       deep-linking:
@@ -120,14 +120,14 @@ requirements:
       reports:
         info: >
           A range of useful reports about the state, history and
-          progress of the overall architecture can be generated.
+          progress of the project mustard can be generated.
 
       dangling-objects:
         info: >
           Dangling objects, e.g. components not linked to any
           requirement, can be detected easily in order to generate
-          reports that allow to improve the state of the overall
-          architecture.
+          reports that allow to improve the state of the project
+          mustard.
 
       requirements-coverage:
         info: >
