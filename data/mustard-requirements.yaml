@@ -1,0 +1,176 @@
+--- # MUSTARD architecture
+requirements:
+
+  id: system-requirements
+
+  requirements:
+
+    # Requirements for defining requirements
+
+      describe-requirements:
+        info: Requirements can be defined.
+
+      subrequirements:
+        info: Requirements may have subrequirements.
+
+      requirements-of-objects:
+        info: >
+          Requirements may state that they are a requirement of another
+          object in the system, e.g. of a component or of an
+          architecture.
+
+    # Requirements for defining architectures and components
+
+      describe-architectures:
+        info: Architectures can be defined.
+
+      architecture-composition:
+        info: An architecture is comprised of components and interfaces.
+
+      components:
+        info: Architecture components can be defined.
+
+      interfaces:
+        info: Interfaces can be defined.
+
+      architecture-nesting:
+        info: >
+          An architecture may state what it is an architecture of, e.g.
+          of a component.
+
+      satsify-requirements:
+        info: >
+          Architectures, components and interfaces may state that they
+          satisfy requirements.
+
+      descriptions:
+        info: >
+          Any object, including requirements, may include a description.
+
+      uml-diagrams:
+        info: >
+          Descriptions may include any number of UML diagrams specified
+          in a machine-readable notation (e.g. for rendering).
+
+    # Requirements for traceability
+
+      traceability-history:
+        info: >
+          The history of how the overall architecture changed over time
+          is preserved. This history includes, among other things, who
+          changed or agreed to what when.
+
+    # Requirements for access control
+
+      acl:
+        info: >
+          The data in the system is represented such that access control
+          can be implemented if required.
+
+    # Requirements for tests and integration
+
+      tests:
+        info: Tests can be defined.
+
+      integration-strategies:
+        info: >
+          Integration strategies can be defined.
+
+      integration-stratagies-for-architecture:
+          An integration strategy must state which architecture it is
+          a strategy for integration.
+
+      integration-strategy-description:
+          The description of an integration strategy states how the
+          components of the indicated architecture are integrated in
+          order to verify the corresponding architecture requirements.
+
+      tests-for-requirements:
+        info: >
+          Tests can be associated with any number of requirements or
+          integration strategies. Tests for the latter exist, among
+          other things, to verify that the components of an architecture
+          meet their interface specifications.
+
+    # Requirements for work items
+
+      work-items:
+        info: Work items can be defined.
+
+      work-items-linking:
+        info: Work items can be linked to any object in the tree, e.g.
+          components, requirements, tests or integration strategies.
+
+    # Requirements for integration into external software
+
+      snapshots:
+        info: >
+          External tools can refer to a specific state of the overall
+          architecture, that is, to a specific point in the history of
+          the architecture.
+
+      deep-linking:
+        info: >
+          External tools can refer to a specific object in a given
+          snapshot. (E.g. linking to a specific requirement from an
+          issue tracker.)
+
+    # Requirements for reports
+
+      reports:
+        info: >
+          A range of useful reports about the state, history and
+          progress of the overall architecture can be generated.
+
+      dangling-objects:
+        info: >
+          Dangling objects, e.g. components not linked to any
+          requirement, can be detected easily in order to generate
+          reports that allow to improve the state of the overall
+          architecture.
+
+      requirements-coverage:
+        info: >
+          There exists a way to verify which requirements are covered
+          by components.
+
+      requirements-verification:
+        info: >
+          There exists a way to verify that, at any level, requirements
+          are satisfied.
+
+      work-item-completion:
+        info: >
+          In order to support the previous requirement, work items can
+          be marked as completed.
+
+    # Requirements for tagging objects
+
+    tags:
+      info: Tags can be defined.
+
+    tagging:
+      info: >
+        Any object may refer to zero or more tags. (This can be used to
+        e.g. categorise requirements as functional or non-functional and
+        generate reports based on this.)
+
+    priorities:
+      info: Requirements may be assigned priorities.
+
+    # Requirements for visualisation
+
+    html-rendering:
+      info: >
+        It must be possible to render the full state or at least any
+        existing reports as HTML.
+
+    uml-rendering:
+      info: >
+        The UML diagrams included in object descriptions must be
+        rendered in a form suitable for direct embedding in HTML.
+
+    versioned-external-entities:
+      info: >
+        Any object may refer to any number of specific versions of
+        external entities such as PowerPoint presentations.
