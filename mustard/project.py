@@ -17,6 +17,7 @@ class Project(mustard.elementfactory.Element):
         self.elements[path] = requirement
 
         self._resolve_tags(path, requirement)
+        self._resolve_requirement(path, requirement)
 
     def _propagate_tag(self, path, tag):
         self.elements[path] = tag
@@ -30,12 +31,14 @@ class Project(mustard.elementfactory.Element):
         
         self._resolve_tags(path, architecture)
         self._resolve_components(path, architecture)
+        self._resolve_satisfies(path, architecture)
 
     def _propagate_component(self, path, component):
         self.elements[path] = component
 
         self._resolve_tags(path, component)
         self._resolve_architecture(path, component)
+        self._resolve_satisfies(path, component)
 
     def _resolve_tags(self, path, element):
         for ref in element.tags.iterkeys():
@@ -57,6 +60,18 @@ class Project(mustard.elementfactory.Element):
             element.architecture = (
                     element.architecture, self.elements[element.architecture])
             element.architecture[1].components[path] = element
+
+    def _resolve_satisfies(self, path, element):
+        for ref in element.satisfies:
+            if ref in self.elements:
+                element.satisfies[ref] = self.elements[ref]
+
+    def _resolve_requirement(self, path, requirement):
+        for ref, element in self.elements.iteritems():
+            if hasattr(element, 'satisfies'):
+                if path in element.satisfies:
+                    element.satisfies[path] = requirement
+                    requirement.satisfied_by[ref] = element
 
     def find(self, kind):
         for path, element in self.elements.iteritems():

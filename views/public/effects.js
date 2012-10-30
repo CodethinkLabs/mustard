@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $('dd').hide();
+  //$('dd').hide();
 
   $('dt').css('cursor', 'pointer');
   $('dt').click(function () {

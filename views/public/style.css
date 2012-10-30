@@ -1,9 +1,8 @@
 html {
-  background: #fff;
+  background: #efffdf;
 }
 
 body {
-  background: url("/public/bg.gif") center top no-repeat;
   padding: 0em;
   margin: 0em;
 }
@@ -31,6 +30,12 @@ h1 {
   box-shadow: 0px 0px 5px #999;
 }
 
+h1 span {
+  float:right;
+  text-align: right;
+  opacity: 0.5;
+}
+
 h2 {
   font-size: 1.1em;
 }
@@ -41,16 +46,22 @@ h2 span {
   opacity: 0.5;
 }
 
-dt:hover {
-  text-decoration: underline;
-}
-
 h3 {
   font-size: 1em;
 }
 
+h3 span {
+  float: right;
+  text-align: right;
+  opacity: 0.5;
+}
+
 dl {
   margin: 0em;
+}
+
+dt:hover {
+  text-decoration: underline;
 }
 
 dd {

@@ -12,3 +12,7 @@ class Component(mustard.elementfactory.Element):
         mustard.elementfactory.Element.__init__(self, data)
 
         self.architecture = data.get('architecture', None)
+        
+        self.satisfies = {}
+        for ref in data.get('satisfies', []):
+            self.satisfies[ref] = None

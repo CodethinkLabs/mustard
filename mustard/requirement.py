@@ -10,3 +10,5 @@ class Requirement(mustard.elementfactory.Element):
 
     def __init__(self, data):
         mustard.elementfactory.Element.__init__(self, data)
+
+        self.satisfied_by = {}
