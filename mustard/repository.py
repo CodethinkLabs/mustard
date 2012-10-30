@@ -1,17 +1,21 @@
 # Copyright (C) 2012 Codethink Limited
 
 
+import cliapp
 import collections
 import markdown
 import os
 import yaml
+
+import mustard
 
 
 class Repository(object):
     
     def __init__(self, dirname):
         self.dirname = dirname
-        self.objects = {}
+        self.project = mustard.project.Project()
+        self.element_factory = mustard.elementfactory.ElementFactory()
         self.load()
 
     def load(self):
@@ -23,10 +27,8 @@ class Repository(object):
             # skip all non-YAML files
             files[:] = [x for x in files if x.endswith('.yaml')]
 
-            # load all YAML files into the object store
+            # load all YAML files into the object tree
             self.load_files(root, files)
-
-        self.process_crosslinks()
 
     def load_files(self, dirname, files):
         for filename in [os.path.join(dirname, x) for x in files]:
@@ -43,28 +45,23 @@ class Repository(object):
 
             if isinstance(element, dict):
                 if 'kind' in element:
-                    if path not in self.objects:
+                    if not self.project.lookup(path):
                         self.load_object(path, element)
                     else:
                         raise cliapp.AppException(
-                                'Duplicate object \"%s\" found in \"%s\"' %
+                                'Duplicate element \"%s\" found in \"%s\"' %
                                 (path, filename))
                 else:
                     for child_path, child in element.iteritems():
-                        stack.append((child_path, child))
+                        stack.append((os.path.join(path, child_path), child))
             else:
                 raise cliapp.AppException(
                         'Invalid element \"%s\" found in file \"%s\"' %
                         (path, filename))
 
     def load_object(self, path, element):
-        element['path'] = path
-        element['description'] = markdown.markdown(element['description'])
-        self.objects[path] = element
-
-    def process_crosslinks(self):
-        for path, element in self.objects.iteritems():
-            self.process_tags(self, element)
+        element = self.element_factory.create(element)
+        self.project.insert(path, element)
 
     def process_tags(self, element):
         if 'tags' in element:
@@ -72,5 +69,7 @@ class Repository(object):
                 pass
 
     def requirements(self):
-        return [x for x in self.objects.itervalues()
-                if x['kind'] == 'requirement']
+        return self.project.requirements.iteritems()
+
+    def tags(self):
+        return self.project.tags.iteritems()

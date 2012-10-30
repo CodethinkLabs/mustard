@@ -38,6 +38,10 @@ class App(cliapp.Application):
         def index():
             repository = mustard.repository.Repository(project)
             return bottle.template('index', repository=repository)
+
+        @app.get('/public/<filename>')
+        def stylesheet(filename):
+            return bottle.static_file(filename, root='views/public')
         
         bottle.run(app, host='0.0.0.0', port=self.settings['port'],
                    reloader=True)
