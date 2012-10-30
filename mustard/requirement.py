@@ -6,13 +6,7 @@ import markdown
 import mustard
 
 
-class Requirement(mustard.elementtrie.Trie):
+class Requirement(mustard.elementfactory.Element):
 
     def __init__(self, data):
-        mustard.elementtrie.Trie.__init__(self)
-        
-        self.description = markdown.markdown(data.get('description', ''))
-
-        self.tags = {}
-        for tagref in data.get('tags', []):
-            self.tags[tagref] = None
+        mustard.elementfactory.Element.__init__(self, data)

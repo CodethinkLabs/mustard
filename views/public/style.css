@@ -1,37 +1,63 @@
 html {
-  background: #0a4e7e;
+  background: #fff;
 }
 
 body {
+  background: url("/public/bg.gif") center top no-repeat;
+  padding: 0em;
+  margin: 0em;
+}
+
+#body {
   margin: 0em auto 0em auto;
-  max-width: 60em;
+  width: 879px;
   background: #fff;
-  border-right: 1px solid #333;
-  border-left: 1px solid #333;
+  border-right: 2px solid #64a800;
+  border-left: 2px solid #64a800;
   font-family: sans-serif;
-  font-size: 0.9em;
+  font-size: 1.1em;
   color: #333;
-  padding: 2em;
+  padding: 1em 2em 3em 2em;
+  box-shadow: 0px 0px 5px #999;
 }
 
 h1 {
-  background: #4a8ebe;
-  padding: 0.5em;
-  margin: 0em -1.75em 0em -1.75em;
+  background: #a7d239;
+  padding: 0.5em 2.5em 0.5em 2.5em;
+  margin: 1em -2.5em 0em -2.5em;
   font-size: 1.75em;
+  color: #fff;
+  border: 2px solid #64a800;
+  box-shadow: 0px 0px 5px #999;
 }
 
 h2 {
   font-size: 1.1em;
 }
 
+h2 span {
+  float: right;
+  text-align: right;
+  opacity: 0.5;
+}
+
+dt:hover {
+  text-decoration: underline;
+}
+
 h3 {
   font-size: 1em;
+}
+
+dl {
+  margin: 0em;
 }
 
 dd {
   margin-left: 1em;
   background: #f0f0f0;
+  border-top: medium solid #eaeaea;
+  border-bottom: medium solid #e6e6e6;
   padding: 1em;
 }
 
@@ -41,4 +67,21 @@ dd *:first-child {
 
 dd *:last-child {
   margin-bottom: 0em;
+}
+
+ul, ol {
+  padding-left: 2em;
+}
+
+ul {
+  list-style: circle;
+}
+
+a, a:link {
+  color: #0a4e7e;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }

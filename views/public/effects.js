@@ -3,6 +3,6 @@ $(document).ready(function() {
 
   $('dt').css('cursor', 'pointer');
   $('dt').click(function () {
-    $(this).next('dd').toggle();
+    $(this).next('dd').slideToggle(250);
   });
 });

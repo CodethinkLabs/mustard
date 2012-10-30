@@ -19,7 +19,7 @@ class Repository(object):
         self.load()
 
     def load(self):
-        # collect all objects from the project dir
+        # collect all elements from the project dir
         for root, dirs, files in os.walk(self.dirname):
             # do not recurse into hidden subdirectories
             dirs[:] = [x for x in dirs if not x.startswith('.')]
@@ -27,7 +27,7 @@ class Repository(object):
             # skip all non-YAML files
             files[:] = [x for x in files if x.endswith('.yaml')]
 
-            # load all YAML files into the object tree
+            # load all YAML files into the element tree
             self.load_files(root, files)
 
     def load_files(self, dirname, files):
@@ -35,9 +35,9 @@ class Repository(object):
             with open(filename) as f:
                 path = os.path.relpath(filename, self.dirname)[0:-len('.yaml')]
                 data = yaml.load(f)
-                self.load_objects(filename, path, data)
+                self.load_elements(filename, path, data)
 
-    def load_objects(self, filename, path, data):
+    def load_elements(self, filename, path, data):
         stack = collections.deque()
         stack.append((path, data))
         while stack:
@@ -46,7 +46,7 @@ class Repository(object):
             if isinstance(element, dict):
                 if 'kind' in element:
                     if not self.project.lookup(path):
-                        self.load_object(path, element)
+                        self.load_element(path, element)
                     else:
                         raise cliapp.AppException(
                                 'Duplicate element \"%s\" found in \"%s\"' %
@@ -59,9 +59,16 @@ class Repository(object):
                         'Invalid element \"%s\" found in file \"%s\"' %
                         (path, filename))
 
-    def load_object(self, path, element):
-        element = self.element_factory.create(element)
-        self.project.insert(path, element)
+    def load_element(self, path, element):
+        if path == 'project':
+            self.project.title = element['title']
+            self.project.description = markdown.markdown(
+                    element['description'])
+        else:
+            element = self.element_factory.create(element)
+            if not element.title:
+                element.title = os.path.basename(path)
+            self.project.insert(path, element)
 
     def process_tags(self, element):
         if 'tags' in element:
@@ -69,7 +76,13 @@ class Repository(object):
                 pass
 
     def requirements(self):
-        return self.project.requirements.iteritems()
+        return [(x,y) for x,y in self.project.find('requirement')]
 
     def tags(self):
-        return self.project.tags.iteritems()
+        return [(x,y) for x,y in self.project.find('tag')]
+
+    def architectures(self):
+        return [(x,y) for x,y in self.project.find('architecture')]
+
+    def components(self):
+        return [(x,y) for x,y in self.project.find('component')]

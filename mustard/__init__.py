@@ -4,10 +4,14 @@
 '''MUSTARD library.'''
 
 
-import elementfactory
 import elementtrie
+import elementfactory
+
+import architecture
+import component
 import project
-import renderer
-import repository
 import requirement
 import tag
+
+import repository
+import renderer

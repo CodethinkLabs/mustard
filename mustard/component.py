@@ -6,7 +6,9 @@ import markdown
 import mustard
 
 
-class Tag(mustard.elementfactory.Element):
+class Component(mustard.elementfactory.Element):
 
     def __init__(self, data):
         mustard.elementfactory.Element.__init__(self, data)
+
+        self.architecture = data.get('architecture', None)
