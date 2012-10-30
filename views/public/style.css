@@ -96,3 +96,9 @@ a, a:link {
 a:hover {
   text-decoration: underline;
 }
+
+img {
+  background: #fff;
+  padding: 1em;
+  border: thin solid #ccc;
+}

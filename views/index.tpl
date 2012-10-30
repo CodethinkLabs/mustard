@@ -10,7 +10,8 @@
       <h1>{{repository.project.title}}</h1>
       {{!repository.project.description}}
       % if repository.requirements():
-        <h1>Requirements <span>{{len(repository.requirements())}}</span></h1>
+        % satisfied_requirements = [y for x,y in repository.requirements() if y.satisfied_by]
+        <h1>Requirements <span>{{len(satisfied_requirements)}} of {{len(repository.requirements())}} satisfied</span></h1>
         <dl>
         % for path, requirement in repository.requirements():
           <dt><h2 id="{{path}}">{{path}}{{!'<span> %s</span>' % requirement.title if requirement.title else ''}}</h2></dt>
@@ -76,6 +77,14 @@
                 % archpath, architecture = component.architecture
                 <h3>Parent Architecture</h3>
                 <p><a href="#{{archpath}}">{{archpath}}</a></p>
+              % end
+              % if component.satisfies:
+                <h3>Requirements Satisfied <span>{{len(component.satisfies)}}</span></h3>
+                <ul>
+                  % for path, requirement in component.satisfies.iteritems():
+                    <li><a href="#{{path}}">{{path}}</a></li>
+                  % end
+               </ul>
               % end
             </dd>
           % end
