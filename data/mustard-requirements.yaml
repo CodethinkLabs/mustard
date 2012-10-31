@@ -9,26 +9,31 @@ requirements:
 
       describe-requirements:
         info: Requirements can be defined.
+        status: implemented
 
       subrequirements:
         info: Requirements may have subrequirements.
+        status: implemented
 
       requirements-of-objects:
         info: >
           Requirements may state that they are a requirement of another
           object in the system, e.g. of a component or of an
           architecture.
+        status: implemented
 
     # Requirements for defining architectures and components
 
       describe-architectures:
         info: Architectures can be defined.
+        status: implemented
 
       architecture-composition:
         info: An architecture is comprised of components and interfaces.
 
       components:
         info: Architecture components can be defined.
+        status: implemented
 
       interfaces:
         info: Interfaces can be defined.
@@ -37,20 +42,24 @@ requirements:
         info: >
           An architecture may state what it is an architecture of, e.g.
           of a component.
+        status: implemented
 
       satsify-requirements:
         info: >
           Architectures, components and interfaces may state that they
           satisfy requirements.
+        status: implemented
 
       descriptions:
         info: >
           Any object, including requirements, may include a description.
+        status: implemented
 
       uml-diagrams:
         info: >
           Descriptions may include any number of UML diagrams specified
           in a machine-readable notation (e.g. for rendering).
+        status: implemented
 
     # Requirements for traceability
 
@@ -59,6 +68,7 @@ requirements:
           The history of how the project mustard changed over time
           is preserved. This history includes, among other things, who
           changed or agreed to what when.
+        status: implemented
 
     # Requirements for access control
 
@@ -133,6 +143,7 @@ requirements:
         info: >
           There exists a way to verify which requirements are covered
           by components.
+        status: implemented
 
       requirements-verification:
         info: >
@@ -148,15 +159,18 @@ requirements:
 
     tags:
       info: Tags can be defined.
+      status: implemented
 
     tagging:
       info: >
         Any object may refer to zero or more tags. (This can be used to
         e.g. categorise requirements as functional or non-functional and
         generate reports based on this.)
+      status: implemented
 
     priorities:
       info: Requirements may be assigned priorities.
+      status: implemented
 
     # Requirements for visualisation
 
@@ -164,11 +178,13 @@ requirements:
       info: >
         It must be possible to render the full state or at least any
         existing reports as HTML.
+      status: implemented
 
     uml-rendering:
       info: >
         The UML diagrams included in object descriptions must be
         rendered in a form suitable for direct embedding in HTML.
+      status: implemented
 
     versioned-external-entities:
       info: >

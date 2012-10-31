@@ -28,6 +28,7 @@ class Trie(object):
                 raise cliapp.AppException('Element \"%s\" already exists' %
                                           path)
             else:
+                node.parent = self
                 self._children[segments[0]] = node
                 self._propagate_descendant(path, node)
         else:

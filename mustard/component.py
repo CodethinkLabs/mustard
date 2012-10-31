@@ -11,8 +11,9 @@ class Component(mustard.elementfactory.Element):
     def __init__(self, data):
         mustard.elementfactory.Element.__init__(self, data)
 
-        self.architecture = data.get('architecture', None)
+        self.parent_architecture = data.get('architecture', None)
+        self.architecture = None
         
-        self.satisfies = {}
-        for ref in data.get('satisfies', []):
-            self.satisfies[ref] = None
+        self.covers = {}
+        for ref in data.get('covers', []):
+            self.covers[ref] = None

@@ -39,6 +39,26 @@ class App(cliapp.Application):
             repository = mustard.repository.Repository(project)
             return bottle.template('index', repository=repository)
 
+        @app.get('/requirements')
+        def index():
+            repository = mustard.repository.Repository(project)
+            return bottle.template('requirements', repository=repository)
+
+        @app.get('/architectures')
+        def index():
+            repository = mustard.repository.Repository(project)
+            return bottle.template('architectures', repository=repository)
+
+        @app.get('/components')
+        def index():
+            repository = mustard.repository.Repository(project)
+            return bottle.template('components', repository=repository)
+
+        @app.get('/tags')
+        def index():
+            repository = mustard.repository.Repository(project)
+            return bottle.template('tags', repository=repository)
+
         @app.get('/public/<filename>')
         def stylesheet(filename):
             return bottle.static_file(filename, root='views/public')
