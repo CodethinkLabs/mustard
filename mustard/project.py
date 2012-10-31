@@ -99,7 +99,6 @@ class Project(mustard.elementfactory.Element):
                     element.covers[path] = requirement
                     requirement.covered_by[ref] = element
             if hasattr(element, 'parent_requirements'):
-                print path, element.parent_requirements
                 if path in element.parent_requirements:
                     element.parent_requirements[path] = requirement
                     requirement.sub_requirements[ref] = element
