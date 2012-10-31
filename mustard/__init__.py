@@ -12,6 +12,7 @@ import component
 import project
 import requirement
 import tag
+import workitem
 
 import repository
 import renderer

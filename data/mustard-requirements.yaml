@@ -47,7 +47,7 @@ requirements:
       satsify-requirements:
         info: >
           Architectures, components and interfaces may state that they
-          satisfy requirements.
+          cover requirements.
         status: implemented
 
       descriptions:
@@ -106,6 +106,7 @@ requirements:
 
       work-items:
         info: Work items can be defined.
+        status: implemented
 
       work-items-linking:
         info: Work items can be linked to any object in the tree, e.g.

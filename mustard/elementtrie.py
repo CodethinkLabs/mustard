@@ -49,6 +49,8 @@ class Trie(object):
             self._propagate_architecture(path, node)
         elif node.kind == 'component':
             self._propagate_component(path, node)
+        elif node.kind == 'work-item':
+            self._propagate_work_item(path, node)
         if self.parent:
             self.parent._propagate_descendant(path, node)
 
@@ -62,6 +64,9 @@ class Trie(object):
         pass
 
     def _propagate_component(self, path, component):
+        pass
+
+    def _propagate_work_item(self, path, item):
         pass
 
     def lookup(self, path):

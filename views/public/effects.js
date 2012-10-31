@@ -8,6 +8,10 @@ $(document).ready(function() {
   $('dd').hide();
   expand_element(window.location.hash);
 
+  if ($('dt').size() == 1) {
+    $('dt').next('dd').show();
+  }
+
   $('a').click(function(event) {
     expand_element(event.target.hash);
   });

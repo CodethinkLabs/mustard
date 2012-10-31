@@ -22,9 +22,10 @@ class Project(mustard.elementfactory.Element):
     def _propagate_tag(self, path, tag):
         self.elements[path] = tag
 
-        for element in self.elements.itervalues():
+        for ref, element in self.elements.iteritems():
             if path in element.tags:
                 element.tags[path] = tag
+                tag.tagged[ref] = element
 
     def _propagate_architecture(self, path, architecture):
         self.elements[path] = architecture
@@ -42,10 +43,16 @@ class Project(mustard.elementfactory.Element):
         self._resolve_architecture(path, component)
         self._resolve_covers(path, component)
 
+    def _propagate_work_item(self, path, item):
+        self.elements[path] = item
+
+        self._resolve_tags(path, item)
+
     def _resolve_tags(self, path, element):
         for ref in element.tags.iterkeys():
             if ref in self.elements:
                 element.tags[ref] = self.elements[ref]
+                self.elements[ref].tagged[path] = element
             else:
                 raise cliapp.AppException(
                     'Tag \"%s\" used by \"%s\" not found' % (ref, path))

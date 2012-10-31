@@ -76,13 +76,16 @@ class Repository(object):
                 pass
 
     def requirements(self):
-        return [(x,y) for x,y in self.project.find('requirement')]
+        return sorted([(x,y) for x,y in self.project.find('requirement')])
 
     def tags(self):
-        return [(x,y) for x,y in self.project.find('tag')]
+        return sorted([(x,y) for x,y in self.project.find('tag')])
 
     def architectures(self):
-        return [(x,y) for x,y in self.project.find('architecture')]
+        return sorted([(x,y) for x,y in self.project.find('architecture')])
 
     def components(self):
-        return [(x,y) for x,y in self.project.find('component')]
+        return sorted([(x,y) for x,y in self.project.find('component')])
+
+    def work_items(self):
+        return sorted([(x,y) for x,y in self.project.find('work-item')])

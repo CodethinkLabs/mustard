@@ -59,6 +59,11 @@ class App(cliapp.Application):
             repository = mustard.repository.Repository(project)
             return bottle.template('tags', repository=repository)
 
+        @app.get('/work-items')
+        def index():
+            repository = mustard.repository.Repository(project)
+            return bottle.template('work-items', repository=repository)
+
         @app.get('/public/<filename>')
         def stylesheet(filename):
             return bottle.static_file(filename, root='views/public')

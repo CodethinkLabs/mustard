@@ -59,5 +59,7 @@ class ElementFactory(object):
             return mustard.architecture.Architecture(data)
         elif data['kind'] == 'component':
             return mustard.component.Component(data)
+        elif data['kind'] == 'work-item':
+            return mustard.workitem.WorkItem(data)
         else:
             raise cliapp.AppException('Unknown element: %s' % data)
