@@ -92,7 +92,7 @@ h2:before {
 h2 span {
   float: right;
   text-align: right;
-  opacity: 0.5;
+  opacity: 0.3;
 }
 
 h3 {
@@ -170,5 +170,13 @@ img {
 
 a span {
   float: right;
-  opacity: 0.5;
+  opacity: 0.3;
+}
+
+a:hover span {
+  opacity: 0.6;
+}
+
+.error {
+  color: #ff0000;
 }

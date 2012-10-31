@@ -9,7 +9,8 @@ import mustard
 class Project(mustard.elementfactory.Element):
 
     def __init__(self):
-        mustard.elementfactory.Element.__init__(self, {})
+        mustard.elementfactory.Element.__init__(self, {
+            'uml-service': None})
         self.kind = 'project'
         self.elements = {}
 

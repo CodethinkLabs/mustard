@@ -9,7 +9,8 @@ import mustard
 
 
 defaults = {
-    'port': 8080
+    'port': 8080,
+    'plantuml-service': 'http://www.plantuml.com/plantuml/start/',
 }
 
 
@@ -23,6 +24,10 @@ class App(cliapp.Application):
         self.settings.string(['project', 'p'],
                              'Location of the input project',
                              metavar='DIR')
+        self.settings.string(['plantuml-service', 'u'],
+                             'URL of the PlantUML service',
+                             metavar='URL',
+                             default=defaults['plantuml-service'])
 
     def process_args(self, args):
         if not self.settings['project']:
@@ -36,32 +41,32 @@ class App(cliapp.Application):
 
         @app.get('/')
         def index():
-            repository = mustard.repository.Repository(project)
+            repository = mustard.repository.Repository(project, self.settings)
             return bottle.template('index', repository=repository)
 
         @app.get('/requirements')
         def index():
-            repository = mustard.repository.Repository(project)
+            repository = mustard.repository.Repository(project, self.settings)
             return bottle.template('requirements', repository=repository)
 
         @app.get('/architectures')
         def index():
-            repository = mustard.repository.Repository(project)
+            repository = mustard.repository.Repository(project, self.settings)
             return bottle.template('architectures', repository=repository)
 
         @app.get('/components')
         def index():
-            repository = mustard.repository.Repository(project)
+            repository = mustard.repository.Repository(project, self.settings)
             return bottle.template('components', repository=repository)
 
         @app.get('/tags')
         def index():
-            repository = mustard.repository.Repository(project)
+            repository = mustard.repository.Repository(project, self.settings)
             return bottle.template('tags', repository=repository)
 
         @app.get('/work-items')
         def index():
-            repository = mustard.repository.Repository(project)
+            repository = mustard.repository.Repository(project, self.settings)
             return bottle.template('work-items', repository=repository)
 
         @app.get('/public/<filename>')

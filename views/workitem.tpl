@@ -1,7 +1,7 @@
 % if detail == 'list':
-  <a href="/work-items#{{path}}">{{path}} <span>{{work_item.title}}</span></a>
+  <a href="/work-items#{{path}}">{{item.title}} <span>{{path}}</span></a>
 % elif detail == 'full':
-  <dt><h2 id="{{path}}">{{path}} <span>{{item.title}}</span></h2></dt>
+  <dt><h2 id="{{path}}">{{item.title}} <span>{{path}}</span></h2></dt>
   <dd>
     <table cellspacing="0" cellpadding="0">
       <tr>
