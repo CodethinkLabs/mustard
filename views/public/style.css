@@ -83,6 +83,10 @@ h2 {
   font-size: 1.1em;
 }
 
+h2:before {
+  content: '\25B8  ';
+}
+
 h2 span {
   float: right;
   text-align: right;
