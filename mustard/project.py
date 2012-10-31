@@ -19,6 +19,9 @@ class Project(mustard.elementfactory.Element):
 
         self._resolve_tags(path, requirement)
         self._resolve_requirement(path, requirement)
+        
+        self._resolve_links(path, requirement)
+        self._resolve_backlinks(path, requirement)
 
     def _propagate_tag(self, path, tag):
         self.elements[path] = tag
@@ -27,6 +30,9 @@ class Project(mustard.elementfactory.Element):
             if path in element.tags:
                 element.tags[path] = tag
                 tag.tagged[ref] = element
+        
+        self._resolve_links(path, tag)
+        self._resolve_backlinks(path, tag)
 
     def _propagate_architecture(self, path, architecture):
         self.elements[path] = architecture
@@ -35,6 +41,9 @@ class Project(mustard.elementfactory.Element):
         self._resolve_components(path, architecture)
         self._resolve_component(path, architecture)
         self._resolve_covers(path, architecture)
+        
+        self._resolve_links(path, architecture)
+        self._resolve_backlinks(path, architecture)
 
     def _propagate_component(self, path, component):
         self.elements[path] = component
@@ -43,11 +52,17 @@ class Project(mustard.elementfactory.Element):
         self._resolve_parent_architecture(path, component)
         self._resolve_architecture(path, component)
         self._resolve_covers(path, component)
+        
+        self._resolve_links(path, component)
+        self._resolve_backlinks(path, component)
 
     def _propagate_work_item(self, path, item):
         self.elements[path] = item
 
         self._resolve_tags(path, item)
+        
+        self._resolve_links(path, item)
+        self._resolve_backlinks(path, item)
 
     def _resolve_tags(self, path, element):
         for ref in element.tags.iterkeys():
@@ -107,6 +122,18 @@ class Project(mustard.elementfactory.Element):
             if ref in self.elements:
                 requirement.parent_requirements[ref] = self.elements[ref]
                 self.elements[ref].sub_requirements[path] = requirement
+
+    def _resolve_links(self, path, element):
+        for ref in element.links.iterkeys():
+            if ref in self.elements:
+                element.links[ref] = self.elements[ref]
+                self.elements[ref].backlinks[path] = element
+
+    def _resolve_backlinks(self, path, element):
+        for ref, other in self.elements.iteritems():
+            if path in other.links:
+                other.links[path] = element
+                element.backlinks[ref] = other
 
     def find(self, kind):
         for path, element in self.elements.iteritems():

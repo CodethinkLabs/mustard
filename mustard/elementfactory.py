@@ -26,6 +26,12 @@ class Element(mustard.elementtrie.Trie):
         for tagref in data.get('tags', []):
             self.tags[tagref] = None
 
+        self.links = {}
+        if 'links' in data:
+            for ref in data['links']:
+                self.links[ref] = None
+        self.backlinks = {}
+
     def _resolve_uml(self, text):
         inside_uml = False
         uml_content = []

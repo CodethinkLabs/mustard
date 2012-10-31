@@ -4,7 +4,8 @@ function expand_element(hash) {
 }
 
 $(document).ready(function() {
-  $('#content').hide().fadeIn(250);
+  $('body').hide().fadeIn(250);
+
   $('dd').hide();
   expand_element(window.location.hash);
 
@@ -29,5 +30,5 @@ $(document).ready(function() {
 });
 
 $(document).unload(function() {
-  $('#content').fadeOut(250);
+  $('body').fadeOut(250);
 });

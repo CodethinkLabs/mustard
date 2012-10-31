@@ -57,25 +57,14 @@
             <ul>
               % for path, element in requirement.covered_by.iteritems():
                 <li>
-                  % if element.kind == 'architecture':
-                    % include architecture path=path, architecture=element, detail='list'
-                  % elif element.kind == 'work-item':
-                    % include workitem path=path, item=element, detail='list'
-                  % elif element.kind == 'component':
-                    % include component path=path, component=element, detail='list'
-                  % elif element.kind == 'requirement':
-                    % include requirement path=path, requirement=element, detail='list'
-                  % elif element.kind == 'tag':
-                    % include tag path=path, tag=element, detail='list'
-                  % else:
-                    <p class="error">CANNOT RENDER ELEMENT KIND "{{element.kind}}".</p>
-                  % end
+                  % include element path=path, element=element, detail='list'
                 </li>
               % end
             </ul>
           </td>
         </tr>
       % end
+      % include links element=requirement
     </table>
   </dd>
 % end

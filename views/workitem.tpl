@@ -4,10 +4,12 @@
   <dt><h2 id="{{path}}">{{item.title}} <span>{{path}}</span></h2></dt>
   <dd>
     <table cellspacing="0" cellpadding="0">
-      <tr>
-        <th>Description</th>
-        <td>{{!item.description}}</td>
-      </tr>
+      % if item.description:
+        <tr>
+          <th>Description</th>
+          <td>{{!item.description}}</td>
+        </tr>
+      % end
       % if item.tags:
         <tr>
           <th>Tags</th>
@@ -22,6 +24,7 @@
           </td>
         </tr>
       % end
+      % include links element=item
     </table>
   </dd>
 % end

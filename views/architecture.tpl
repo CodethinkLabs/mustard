@@ -61,6 +61,7 @@
           </td>
         </tr>
       % end
+      % include links element=architecture
     </table>
   </dd>
 % end

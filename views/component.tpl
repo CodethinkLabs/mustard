@@ -58,6 +58,7 @@
           </td>
         </tr>
       % end
+      % include links element=component
     </table>
   </dd>
 % end
