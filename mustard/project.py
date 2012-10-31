@@ -69,7 +69,7 @@ class Project(mustard.elementfactory.Element):
             element.for_component = (
                     element.for_component,
                     self.elements[element.for_component])
-            element.for_component[1].architecture[path] = (path, element)
+            element.for_component[1].architecture = (path, element)
 
     def _resolve_parent_architecture(self, path, element):
         if element.parent_architecture in self.elements:
