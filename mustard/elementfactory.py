@@ -29,7 +29,6 @@ class Element(mustard.elementtrie.Trie):
         uml_content = []
         resolved_text = []
         for line in text.splitlines():
-            print line
             if inside_uml:
                 if line.strip() == '@enduml':
                     url = self._generate_uml_image(uml_content)
@@ -45,7 +44,6 @@ class Element(mustard.elementtrie.Trie):
         return '\n'.join(resolved_text)
 
     def _generate_uml_image(self, uml):
-        print '@'.join(uml)
         url = 'http://www.plantuml.com/plantuml/start/%s' % \
                 urllib.quote('@'.join(uml))
         return '![UML diagram](%s)' % url
