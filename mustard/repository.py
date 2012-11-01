@@ -15,8 +15,7 @@ class Repository(object):
     def __init__(self, dirname, settings):
         self.dirname = dirname
         self.project = mustard.project.Project()
-        self.element_factory = mustard.elementfactory.ElementFactory(
-                settings['plantuml-service'])
+        self.element_factory = mustard.elementfactory.ElementFactory()
         self.load()
 
     def load(self):

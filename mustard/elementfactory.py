@@ -4,6 +4,7 @@
 import cliapp
 import markdown
 import urllib
+import base64
 
 import mustard
 
@@ -13,8 +14,6 @@ class Element(mustard.elementtrie.Trie):
     def __init__(self, data):
         mustard.elementtrie.Trie.__init__(self)
         
-        self.uml_service = data['uml-service']
-
         self.kind = data.get('kind', None)
         self.title = data.get('title', None)
         self.description = data.get('description', None)
@@ -52,17 +51,12 @@ class Element(mustard.elementtrie.Trie):
         return '\n'.join(resolved_text)
 
     def _generate_uml_image(self, uml):
-        url = '%s/%s' % (self.uml_service, urllib.quote('@'.join(uml)))
+        url = '/plantuml/%s' % base64.b64encode("\n".join(uml))
         return '![UML diagram](%s)' % url
 
 class ElementFactory(object):
 
-    def __init__(self, uml_service):
-        self.uml_service = uml_service
-    
     def create(self, data):
-        data['uml-service'] = self.uml_service
-
         if data['kind'] == 'requirement':
             return mustard.requirement.Requirement(data)
         elif data['kind'] == 'tag':
