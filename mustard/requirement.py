@@ -11,7 +11,7 @@ class Requirement(mustard.elementfactory.Element):
     def __init__(self, data):
         mustard.elementfactory.Element.__init__(self, data)
 
-        self.covered_by = {}
+        self.mapped_to = {}
 
         self.parent_requirements = {}
         if 'parent-requirements' in data:

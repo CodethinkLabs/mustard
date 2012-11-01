@@ -14,6 +14,6 @@ class Component(mustard.elementfactory.Element):
         self.parent_architecture = data.get('architecture', None)
         self.architecture = None
         
-        self.covers = {}
-        for ref in data.get('covers', []):
-            self.covers[ref] = None
+        self.mapped_here = {}
+        for ref in data.get('mapped-here', []):
+            self.mapped_here[ref] = None

@@ -47,12 +47,12 @@
           </td>
         </tr>
       % end
-      % if architecture.covers:
+      % if architecture.mapped_here:
         <tr>
-          <th>Requirements Covered</th>
+          <th>Requirements Mapped Here</th>
           <td>
             <ul>
-              % for path, requirement in architecture.covers.iteritems():
+              % for path, requirement in architecture.mapped_here.iteritems():
                 <li>
                   % include requirement path=path, requirement=requirement, detail='list'
                 </li>

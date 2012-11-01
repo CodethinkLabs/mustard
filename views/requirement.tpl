@@ -50,12 +50,12 @@
           </td>
         </tr>
       % end
-      % if requirement.covered_by:
+      % if requirement.mapped_to:
         <tr>
-          <th>Covered By</th>
+          <th>Mapped To</th>
           <td>
             <ul>
-              % for path, element in requirement.covered_by.iteritems():
+              % for path, element in requirement.mapped_to.iteritems():
                 <li>
                   % include element path=path, element=element, detail='list'
                 </li>

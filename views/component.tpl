@@ -44,12 +44,12 @@
           </td>
         </tr>
       % end
-      % if component.covers:
+      % if component.mapped_here:
         <tr> 
-          <th>Requirements Covered</th>
+          <th>Requirements Mapped Here</th>
           <td>
             <ul>
-              % for path, requirement in component.covers.iteritems():
+              % for path, requirement in component.mapped_here.iteritems():
                 <li>
                   % print path, requirement
                   % include requirement path=path, requirement=requirement, detail='list'

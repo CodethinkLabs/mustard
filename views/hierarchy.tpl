@@ -20,9 +20,9 @@
         % end
       </ul>
     % end
-    % if arch.covers:
+    % if arch.mapped_here:
       <ul>
-        % for path, req in arch.covers.iteritems():
+        % for path, req in arch.mapped_here.iteritems():
           <li>
             [R]
             % include requirement path=path, requirement=req, detail='list'
@@ -57,9 +57,9 @@
         % end
       </ul>
     % end
-    % if component.covers:
+    % if component.mapped_here:
       <ul>
-        % for path, req in component.covers.iteritems():
+        % for path, req in component.mapped_here.iteritems():
           <li>
             [R]
             % include requirement path=path, requirement=req, detail='list'
