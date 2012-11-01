@@ -1,5 +1,5 @@
 html {
-  background: #efffdf;
+  background: #fff;
 }
 
 body {
@@ -9,9 +9,9 @@ body {
 }
 
 #nav {
-    background: #a7d239;
+    background: #f6d76a;
     box-shadow: 0px 0px 1px #999;
-    border: 1px solid #97c229;
+    border: 1px solid #d6b74a;
     border-radius: 5px;
     margin: 0em auto 0em auto;
     text-align: center;
@@ -33,25 +33,25 @@ body {
 #nav li a, #nav li a:link {
     display: inline-block;
     padding: 0.5em 1em 0.5em 1em;
-    color: #fff;
-    border-right: 1px solid #a7d239;
-    border-left: 1px solid #a7d239;
+    color: #000;
+    border-right: 1px solid #f6d76a;
+    border-left: 1px solid #f6d76a;
 }
 
 #nav li a:hover {
-    background: #b7e249;
+    background: #ffe77a;
     text-decoration: none;
-    border-right: 1px solid #97c229;
-    border-left: 1px solid #97c229;
+    border-right: 1px solid #f6d76a;
+    border-left: 1px solid #f6d76a;
 }
 
 #body {
   margin: 0em auto 0em auto;
   width: 879px;
   background: #fff;
-  border-right: 2px solid #64a800;
-  border-left: 2px solid #64a800;
-  border-bottom: 2px solid #64a800;
+  border-right: 2px solid #866700;
+  border-left: 2px solid #866700;
+  border-bottom: 2px solid #866700;
   font-family: sans-serif;
   color: #333;
   padding: 1.5em 2em 3em 2em;
@@ -60,12 +60,12 @@ body {
 }
 
 h1 {
-  background: #a7d239;
+  background: #f6d76a;
   padding: 0.5em 2.5em 0.5em 2.5em;
   margin: 1em -2.5em 0em -2.5em;
   font-size: 1.75em;
-  color: #fff;
-  border: 2px solid #64a800;
+  color: #333;
+  border: 2px solid #866700;
   box-shadow: 0px 0px 5px #999;
 }
 
@@ -90,7 +90,12 @@ h2:before {
 h2 span {
   float: right;
   text-align: right;
-  opacity: 0.3;
+  opacity: 0.2;
+  font-size: 0.7em;
+}
+
+h2:hover span {
+  opacity: 0.5;
 }
 
 h3 {
