@@ -179,3 +179,8 @@ a:hover span {
 .error {
   color: #ff0000;
 }
+
+.hierarchy, .hierarchy ul {
+  list-style: none;
+  padding-left: 1em;
+}

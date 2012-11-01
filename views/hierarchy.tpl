@@ -72,7 +72,7 @@
 
 <h1>Architecture Hierarchy</h1>
 % toparchs = [(x,y) for x,y in repository.architectures() if not y.for_component]
-<ul>
+<ul class="hierarchy">
   % for path, arch in toparchs:
     % render_arch(path, arch)
   % end
