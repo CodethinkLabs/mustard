@@ -182,7 +182,6 @@ a:hover span {
 
 .hierarchy, .hierarchy ul {
   list-style: none;
-  padding-left: 1em;
 }
 
 a.architecture:before { content: 'a  '; opacity: 0.5; }
