@@ -51,6 +51,7 @@
             <ul>
               % for path, requirement in component.covers.iteritems():
                 <li>
+                  % print path, requirement
                   % include requirement path=path, requirement=requirement, detail='list'
                 </li>
               % end

@@ -16,6 +16,7 @@
           <li><a href="/components">Components</a></li>
           <li><a href="/work-items">Work Items</a></li>
           <li><a href="/tags">Tags</a></li>
+          <li><a href="/hierarchy">Hierarchy</a></li>
         </ul>
       </div>
       <div id="content">

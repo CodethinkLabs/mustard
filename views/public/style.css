@@ -13,7 +13,6 @@ body {
     box-shadow: 0px 0px 1px #999;
     border: 1px solid #97c229;
     border-radius: 5px;
-    width: 80%;
     margin: 0em auto 0em auto;
     text-align: center;
     height: 2.15em;
@@ -54,7 +53,6 @@ body {
   border-left: 2px solid #64a800;
   border-bottom: 2px solid #64a800;
   font-family: sans-serif;
-  font-size: 1.1em;
   color: #333;
   padding: 1.5em 2em 3em 2em;
   box-shadow: 0px 0px 5px #999;
@@ -171,6 +169,7 @@ img {
 a span {
   float: right;
   opacity: 0.3;
+  font-size: 0.7em;
 }
 
 a:hover span {
