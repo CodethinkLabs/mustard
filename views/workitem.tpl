@@ -1,5 +1,5 @@
 % if detail == 'list':
-  <a href="/work-items#{{path}}">{{item.title}} <span>{{path}}</span></a>
+  <a class="workitem" href="/work-items#{{path}}">{{item.title}} <span>{{path}}</span></a>
 % elif detail == 'full':
   <dt><h2 id="{{path}}">{{item.title}} <span>{{path}}</span></h2></dt>
   <dd>

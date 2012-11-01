@@ -1,5 +1,5 @@
 % if detail == 'list':
-    <a href="/components#{{path}}">{{component.title}} <span>{{path}}</span></a>
+  <a class="component" href="/components#{{path}}">{{component.title}} <span>{{path}}</span></a>
 % elif detail == 'full':
   <dt><h2 id="{{path}}">{{component.title}} <span>{{path}}</span></h2></dt>
   <dd>

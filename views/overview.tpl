@@ -1,6 +1,5 @@
 % def render_arch(path, arch):
   <li>
-    [A]
     % include architecture path=path, architecture=arch, detail='list'
     % if arch.components:
       <ul>
@@ -14,7 +13,7 @@
         % for path, source in arch.backlinks.iteritems():
           % if source.kind == 'work-item':
             <li>
-              [WI] % include workitem path=path, item=source, detail='list'
+              % include workitem path=path, item=source, detail='list'
             </li>
           % end
         % end
@@ -24,7 +23,6 @@
       <ul>
         % for path, req in arch.mapped_here.iteritems():
           <li>
-            [R]
             % include requirement path=path, requirement=req, detail='list'
           </li>
         % end
@@ -35,7 +33,6 @@
 
 % def render_component(path, component):
   <li>
-    [C]
     % include component path=path, component=component, detail='list'
     % if component.architecture:
       <ul>
@@ -50,7 +47,6 @@
         % for path, source in component.backlinks.iteritems():
           % if source.kind == 'work-item':
             <li>
-              [WI]
               % include workitem path=path, item=source, detail='list'
             </li>
           % end
@@ -61,7 +57,6 @@
       <ul>
         % for path, req in component.mapped_here.iteritems():
           <li>
-            [R]
             % include requirement path=path, requirement=req, detail='list'
           </li>
         % end
@@ -70,7 +65,7 @@
   </li>
 % end
 
-<h1>Architecture Hierarchy</h1>
+<h1>Overview</h1>
 % toparchs = [(x,y) for x,y in repository.architectures() if not y.for_component]
 <ul class="hierarchy">
   % for path, arch in toparchs:

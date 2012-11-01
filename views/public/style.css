@@ -184,3 +184,11 @@ a:hover span {
   list-style: none;
   padding-left: 1em;
 }
+
+a.architecture:before { content: 'a  '; opacity: 0.5; }
+a.component:before    { content: 'c  '; opacity: 0.5; }
+a.workitem:before     { content: 'w  '; opacity: 0.5; }
+a.requirement:before  { content: 'r  '; opacity: 0.5; }
+a.interface:before    { content: 'i  '; opacity: 0.5; }
+a.tag:before          { content: 't  '; opacity: 0.5; }
+

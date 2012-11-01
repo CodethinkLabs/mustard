@@ -11,12 +11,12 @@
       {{!repository.project.description}}
       <div id="nav">
         <ul>
+          <li><a href="/">Overview</a></li>
           <li><a href="/requirements">Requirements</a></li>
           <li><a href="/architectures">Architectures</a></li>
           <li><a href="/components">Components</a></li>
           <li><a href="/work-items">Work Items</a></li>
           <li><a href="/tags">Tags</a></li>
-          <li><a href="/hierarchy">Hierarchy</a></li>
         </ul>
       </div>
       <div id="content">

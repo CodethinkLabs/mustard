@@ -44,7 +44,7 @@ class App(cliapp.Application):
         @app.get('/')
         def index():
             repository = mustard.repository.Repository(project, self.settings)
-            return bottle.template('index', repository=repository)
+            return bottle.template('overview', repository=repository)
 
         @app.get('/requirements')
         def index():
@@ -88,5 +88,6 @@ class App(cliapp.Application):
             bottle.response.content_type = 'image/png'
             return image
         
+        bottle.debug(True)
         bottle.run(app, host='0.0.0.0', port=self.settings['port'],
                    reloader=True)
