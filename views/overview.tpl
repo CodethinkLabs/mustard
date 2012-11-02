@@ -70,13 +70,6 @@
   </li>
 % end
 
-<h1>Project Description</h1>
-% if repository.project.description:
-  {{!repository.project.description}}
-% else:
-  <p>Please create a <tt>project.yaml</tt> file to add a title and description.</p>
-% end
-
 <h1>Overview</h1>
 % toparchs = [(x,y) for x,y in repository.architectures() if not y.parent]
 <ul class="hierarchy">

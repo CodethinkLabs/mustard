@@ -44,6 +44,11 @@ class App(cliapp.Application):
         @app.get('/')
         def index():
             repository = mustard.repository.Repository(project, self.settings)
+            return bottle.template('index', repository=repository)
+
+        @app.get('/overview')
+        def index():
+            repository = mustard.repository.Repository(project, self.settings)
             return bottle.template('overview', repository=repository)
 
         @app.get('/requirements')
