@@ -16,10 +16,7 @@ class Element(mustard.elementtrie.Trie):
         
         self.kind = data.get('kind', None)
         self.title = data.get('title', None)
-        self.description = data.get('description', None)
-        if self.description:
-            self.description = self._resolve_uml(self.description) 
-            self.description = markdown.markdown(self.description)
+        self.set_description(data.get('description', None))
         
         self.parent = data.get('parent', None)
         self.work_items = {}
@@ -27,6 +24,12 @@ class Element(mustard.elementtrie.Trie):
         self.tags = {}
         for tagref in data.get('tags', []):
             self.tags[tagref] = None
+
+    def set_description(self, text):
+        self.description = text
+        if self.description:
+            self.description = self._resolve_uml(self.description) 
+            self.description = markdown.markdown(self.description)
 
     def _resolve_uml(self, text):
         inside_uml = False

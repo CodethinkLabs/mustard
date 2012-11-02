@@ -7,8 +7,7 @@
   </head>
   <body>
     <div id="body">
-      <h1>{{repository.project.title}}</h1>
-      {{!repository.project.description}}
+      <h1>{{repository.project.title or 'Unnamed MUSTARD Project'}}</h1>
       <div id="nav">
         <ul>
           <li><a href="/">Overview</a></li>

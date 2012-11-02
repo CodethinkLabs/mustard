@@ -62,8 +62,7 @@ class Repository(object):
     def load_element(self, path, element):
         if path == 'project':
             self.project.title = element['title']
-            self.project.description = markdown.markdown(
-                    element['description'])
+            self.project.set_description(element['description'])
         else:
             element = self.element_factory.create(element)
             if not element.title:
