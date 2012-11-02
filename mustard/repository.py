@@ -5,6 +5,7 @@ import cliapp
 import collections
 import markdown
 import os
+import StringIO
 import yaml
 
 import mustard
@@ -12,30 +13,22 @@ import mustard
 
 class Repository(object):
     
-    def __init__(self, dirname, settings):
-        self.dirname = dirname
+    def __init__(self, state, settings):
+        self.state = state
         self.project = mustard.project.Project()
+        self.project.repository = self
         self.element_factory = mustard.elementfactory.ElementFactory()
         self.load()
 
     def load(self):
-        # collect all elements from the project dir
-        for root, dirs, files in os.walk(self.dirname):
-            # do not recurse into hidden subdirectories
-            dirs[:] = [x for x in dirs if not x.startswith('.')]
-
-            # skip all non-YAML files
-            files[:] = [x for x in files if x.endswith('.yaml')]
-
-            # load all YAML files into the element tree
-            self.load_files(root, files)
-
-    def load_files(self, dirname, files):
-        for filename in [os.path.join(dirname, x) for x in files]:
-            with open(filename) as f:
-                path = os.path.relpath(filename, self.dirname)[0:-len('.yaml')]
-                data = yaml.load(f)
-                self.load_elements(filename, path, data)
+        # load all YAML files into the element tree
+        for filename in self.state.list_tree():
+            print 'filename: %s' % filename
+            path = filename[0:-len('.yaml')]
+            io = StringIO.StringIO(self.state.read(filename))
+            data = yaml.load(io)
+            print '  %s, %s' % (filename, path)
+            self.load_elements(filename, path, data)
 
     def load_elements(self, filename, path, data):
         stack = collections.deque()
@@ -65,6 +58,7 @@ class Repository(object):
             self.project.set_description(element['description'])
         else:
             element = self.element_factory.create(element)
+            element.repository = self
             if not element.title:
                 element.title = os.path.basename(path)
             self.project.insert(path, element)

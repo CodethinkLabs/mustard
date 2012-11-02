@@ -1,6 +1,6 @@
 % if detail == 'list':
   % if requirement:
-    <a class="requirement" href="/requirements#{{path}}">{{requirement.title}} <span>{{path}}</span></a>
+    <a class="requirement" href="/{{requirement.repository.state.identifier}}/requirements#{{path}}">{{requirement.title}} <span>{{path}}</span></a>
   % else:
     % include pathnotfound path=path, detail=detail
   % end

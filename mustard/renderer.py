@@ -40,45 +40,58 @@ class App(cliapp.Application):
             raise cliapp.AppException('Input project directory does not exist')
 
         app = bottle.Bottle()
+        state = mustard.state.State(self, project, 'HEAD')
 
         @app.get('/')
         def index():
-            repository = mustard.repository.Repository(project, self.settings)
+            return bottle.redirect('/HEAD')
+
+        @app.get('/<stateid>')
+        def state_index(stateid):
+            state = mustard.state.State(self, project, stateid)
+            repository = mustard.repository.Repository(state, self.settings)
             return bottle.template('index', repository=repository)
 
-        @app.get('/overview')
-        def index():
-            repository = mustard.repository.Repository(project, self.settings)
+        @app.get('/<stateid>/overview')
+        def overview(stateid):
+            state = mustard.state.State(self, project, stateid)
+            repository = mustard.repository.Repository(state, self.settings)
             return bottle.template('overview', repository=repository)
 
-        @app.get('/requirements')
-        def index():
-            repository = mustard.repository.Repository(project, self.settings)
+        @app.get('/<stateid>/requirements')
+        def requirements(stateid):
+            state = mustard.state.State(self, project, stateid)
+            repository = mustard.repository.Repository(state, self.settings)
             return bottle.template('requirements', repository=repository)
 
-        @app.get('/architectures')
-        def index():
-            repository = mustard.repository.Repository(project, self.settings)
+        @app.get('/<stateid>/architectures')
+        def architectures(stateid):
+            state = mustard.state.State(self, project, stateid)
+            repository = mustard.repository.Repository(state, self.settings)
             return bottle.template('architectures', repository=repository)
 
-        @app.get('/components')
-        def index():
-            repository = mustard.repository.Repository(project, self.settings)
+        @app.get('/<stateid>/components')
+        def components(stateid):
+            state = mustard.state.State(self, project, stateid)
+            repository = mustard.repository.Repository(state, self.settings)
             return bottle.template('components', repository=repository)
 
-        @app.get('/tags')
-        def index():
-            repository = mustard.repository.Repository(project, self.settings)
+        @app.get('/<stateid>/tags')
+        def tags(stateid):
+            state = mustard.state.State(self, project, stateid)
+            repository = mustard.repository.Repository(state, self.settings)
             return bottle.template('tags', repository=repository)
 
-        @app.get('/work-items')
-        def index():
-            repository = mustard.repository.Repository(project, self.settings)
+        @app.get('/<stateid>/work-items')
+        def work_items(stateid):
+            state = mustard.state.State(self, project, stateid)
+            repository = mustard.repository.Repository(state, self.settings)
             return bottle.template('work-items', repository=repository)
 
-        @app.get('/interfaces')
-        def index():
-            repository = mustard.repository.Repository(project, self.settings)
+        @app.get('/<stateid>/interfaces')
+        def interfaces(stateid):
+            state = mustard.state.State(self, project, stateid)
+            repository = mustard.repository.Repository(state, self.settings)
             return bottle.template('interfaces', repository=repository)
 
         @app.get('/public/<filename>')

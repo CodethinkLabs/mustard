@@ -1,6 +1,6 @@
 % if detail == 'list':
   % if component:
-    <a class="component" href="/components#{{path}}">{{component.title}} <span>{{path}}</span></a>
+    <a class="component" href="/{{component.repository.state.identifier}}/components#{{path}}">{{component.title}} <span>{{path}}</span></a>
   % else:
     % include pathnotfound path=path, detail=detail
   % end

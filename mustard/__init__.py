@@ -15,5 +15,6 @@ import requirement
 import tag
 import workitem
 
+import state
 import repository
 import renderer

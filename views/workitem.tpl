@@ -1,6 +1,6 @@
 % if detail == 'list':
   % if item:
-    <a class="workitem" href="/work-items#{{path}}">{{item.title}} <span>{{path}}</span></a>
+    <a class="workitem" href="/{{item.repository.state.identifier}}/work-items#{{path}}">{{item.title}} <span>{{path}}</span></a>
   % else:
     % include pathnotfound path=path, detail=detail
   % end
