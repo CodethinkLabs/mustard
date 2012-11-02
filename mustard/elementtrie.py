@@ -10,7 +10,7 @@ import mustard
 class Trie(object):
     
     def __init__(self):
-        self.parent = None
+        self._parent = None
         self._children = {}
 
     def split(self, path):
@@ -28,7 +28,7 @@ class Trie(object):
                 raise cliapp.AppException('Element \"%s\" already exists' %
                                           path)
             else:
-                node.parent = self
+                node._parent = self
                 self._children[segments[0]] = node
                 self._propagate_descendant(path, node)
         else:
@@ -36,7 +36,7 @@ class Trie(object):
                 child = self._children[segments[0]]
             else:
                 child = Trie()
-                child.parent = self
+                child._parent = self
                 self._children[segments[0]] = child
             child._insert(path, segments[1:], node)
 
@@ -51,8 +51,10 @@ class Trie(object):
             self._propagate_component(path, node)
         elif node.kind == 'work-item':
             self._propagate_work_item(path, node)
-        if self.parent:
-            self.parent._propagate_descendant(path, node)
+        elif node.kind == 'interface':
+            self._propagate_interface(path, node)
+        if self._parent:
+            self._parent._propagate_descendant(path, node)
 
     def _propagate_requirement(self, path, requirement):
         pass
@@ -67,6 +69,9 @@ class Trie(object):
         pass
 
     def _propagate_work_item(self, path, item):
+        pass
+
+    def _propagate_interface(self, path, interface):
         pass
 
     def lookup(self, path):

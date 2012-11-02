@@ -184,6 +184,10 @@ a:hover span {
   list-style: none;
 }
 
+.hierarchy {
+  padding-left: 0em;
+}
+
 a.architecture:after { content: '  [a]'; opacity: 0.5; }
 a.component:after    { content: '  [c]'; opacity: 0.5; }
 a.workitem:after     { content: '  [w]'; opacity: 0.5; }

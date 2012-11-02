@@ -1,6 +1,11 @@
 % if detail == 'list':
-  <a class="tag" href="/tags#{{path}}">{{tag.title}} <span>{{path}}</span></a>
+  % if tag:
+    <a class="tag" href="/tags#{{path}}">{{tag.title}} <span>{{path}}</span></a>
+  % else:
+    % include pathnotfound path=path, detail=detail
+  % end
 % elif detail == 'full':
+  % if tag:
     <dt><h2 id="{{path}}">{{tag.title}} <span>{{path}}</span></h2></dt>
     <dd>
       <table cellspacing="0" cellpadding="0">
@@ -22,7 +27,9 @@
             </td>
           </tr>
         % end
-      % include links element=tag
       </table>
     </dd>
+  % else:
+    % include pathnotfound path=path, detail=detail
+  % end
 % end

@@ -8,14 +8,12 @@
         % end
       </ul>
     % end
-    % if arch.backlinks:
+    % if arch.work_items:
       <ul>
-        % for path, source in arch.backlinks.iteritems():
-          % if source.kind == 'work-item':
-            <li>
-              % include workitem path=path, item=source, detail='list'
-            </li>
-          % end
+        % for path, item in arch.work_items.iteritems():
+          <li>
+            % include workitem path=path, item=item, detail='list'
+          </li>
         % end
       </ul>
     % end
@@ -42,14 +40,21 @@
         % end
       </ul>
     % end
-    % if component.backlinks:
+    % if component.interfaces:
       <ul>
-        % for path, source in component.backlinks.iteritems():
-          % if source.kind == 'work-item':
-            <li>
-              % include workitem path=path, item=source, detail='list'
-            </li>
-          % end
+        % for path, interface in component.interfaces.iteritems():
+          <li>
+            % include interface path=path, interface=interface, detail='list'
+          </li>
+        % end
+      </ul>
+    % end
+    % if component.work_items:
+      <ul>
+        % for path, item in component.work_items.iteritems():
+          <li>
+            % include workitem path=path, item=item, detail='list'
+          </li>
         % end
       </ul>
     % end
@@ -66,7 +71,7 @@
 % end
 
 <h1>Overview</h1>
-% toparchs = [(x,y) for x,y in repository.architectures() if not y.for_component]
+% toparchs = [(x,y) for x,y in repository.architectures() if not y.parent]
 <ul class="hierarchy">
   % for path, arch in toparchs:
     % render_arch(path, arch)

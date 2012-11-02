@@ -9,6 +9,7 @@ import elementfactory
 
 import architecture
 import component
+import interface
 import project
 import requirement
 import tag

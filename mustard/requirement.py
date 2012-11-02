@@ -13,9 +13,4 @@ class Requirement(mustard.elementfactory.Element):
 
         self.mapped_to = {}
 
-        self.parent_requirements = {}
-        if 'parent-requirements' in data:
-            for parent in data['parent-requirements']:
-                self.parent_requirements[parent] = None
-
-        self.sub_requirements = {}
+        self.subrequirements = {}

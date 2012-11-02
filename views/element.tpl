@@ -1,4 +1,6 @@
-% if element.kind == 'architecture':
+% if not element:
+  % include pathnotfound path=path, detail='list'
+% elif element.kind == 'architecture':
   % include architecture path=path, architecture=element, detail='list'
 % elif element.kind == 'work-item':
   % include workitem path=path, item=element, detail='list'
@@ -9,6 +11,6 @@
 % elif element.kind == 'tag':
   % include tag path=path, tag=element, detail='list'
 % else:
-  <p class="error">CANNOT RENDER ELEMENT KIND "{{element.kind}}".</p>
+  <span class="error">[[ Cannot render element: {{element.kind}} ]]</span>
 % end
 

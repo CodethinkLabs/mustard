@@ -71,10 +71,10 @@ class App(cliapp.Application):
             repository = mustard.repository.Repository(project, self.settings)
             return bottle.template('work-items', repository=repository)
 
-        @app.get('/hierarchy')
+        @app.get('/interfaces')
         def index():
             repository = mustard.repository.Repository(project, self.settings)
-            return bottle.template('hierarchy', repository=repository)
+            return bottle.template('interfaces', repository=repository)
 
         @app.get('/public/<filename>')
         def stylesheet(filename):

@@ -20,16 +20,13 @@ class Element(mustard.elementtrie.Trie):
         if self.description:
             self.description = self._resolve_uml(self.description) 
             self.description = markdown.markdown(self.description)
+        
+        self.parent = data.get('parent', None)
+        self.work_items = {}
 
         self.tags = {}
         for tagref in data.get('tags', []):
             self.tags[tagref] = None
-
-        self.links = {}
-        if 'links' in data:
-            for ref in data['links']:
-                self.links[ref] = None
-        self.backlinks = {}
 
     def _resolve_uml(self, text):
         inside_uml = False
@@ -67,5 +64,7 @@ class ElementFactory(object):
             return mustard.component.Component(data)
         elif data['kind'] == 'work-item':
             return mustard.workitem.WorkItem(data)
+        elif data['kind'] == 'interface':
+            return mustard.interface.Interface(data)
         else:
             raise cliapp.AppException('Unknown element: %s' % data)

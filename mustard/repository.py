@@ -89,3 +89,6 @@ class Repository(object):
 
     def work_items(self):
         return sorted([(x,y) for x,y in self.project.find('work-item')])
+
+    def interfaces(self):
+        return sorted([(x,y) for x,y in self.project.find('interface')])
