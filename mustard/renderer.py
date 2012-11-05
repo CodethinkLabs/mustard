@@ -13,6 +13,7 @@ import mustard
 defaults = {
     'port': 8080,
     'plantuml-jar': '/usr/local/share/plantuml.jar',
+    'run-bottle': False,
 }
 
 
@@ -30,6 +31,9 @@ class App(cliapp.Application):
                              'Path to the PlantUML JAR file',
                              metavar='JARPATH',
                              default=defaults['plantuml-jar'])
+        self.settings.boolean(['run-bottle', 'b'],
+                              'Run the bottle web application',
+                              default=defaults['run-bottle'])
 
     def process_args(self, args):
         if not self.settings['project']:
@@ -45,6 +49,10 @@ class App(cliapp.Application):
         @app.get('/')
         def index():
             return bottle.redirect('/HEAD')
+
+        @app.get('/favicon.ico')
+        def favicon():
+            return None
 
         @app.get('/<stateid>')
         def state_index(stateid):
@@ -107,5 +115,7 @@ class App(cliapp.Application):
             return image
         
         bottle.debug(True)
-        bottle.run(app, host='0.0.0.0', port=self.settings['port'],
-                   reloader=True)
+
+        if self.settings['run-bottle']:
+            bottle.run(app, host='0.0.0.0', port=self.settings['port'],
+                       reloader=True)

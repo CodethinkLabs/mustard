@@ -23,11 +23,9 @@ class Repository(object):
     def load(self):
         # load all YAML files into the element tree
         for filename in self.state.list_tree():
-            print 'filename: %s' % filename
             path = filename[0:-len('.yaml')]
             io = StringIO.StringIO(self.state.read(filename))
             data = yaml.load(io)
-            print '  %s, %s' % (filename, path)
             self.load_elements(filename, path, data)
 
     def load_elements(self, filename, path, data):

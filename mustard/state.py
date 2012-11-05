@@ -26,8 +26,6 @@ class State(object):
     def _list_uncommitted_tree(self):
         # collect all elements from the project dir
         for root, dirs, files in os.walk(self.dirname):
-            print 'root: %s' % root
-
             # do not recurse into hidden subdirectories
             dirs[:] = [x for x in dirs if not x.startswith('.')]
 

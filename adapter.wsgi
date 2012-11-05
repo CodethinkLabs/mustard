@@ -12,4 +12,5 @@ os.chdir(os.path.dirname(__file__))
 
 import mustard.renderer
 
+mustard.renderer.App().run()
 application = bottle.default_app()
