@@ -14,8 +14,11 @@ def application(environ, start_response):
     server_path = environ['MUSTARD_SERVER_PATH']
     project_path = environ['MUSTARD_PROJECT_PATH']
 
-    sys.path = [server_path] + sys.path
+    sys.path.append(server_path)
     os.chdir(os.path.dirname(__file__))
+
+    print server_path
+    print os.path.dirname(__file__)
 
     app = mustard.renderer.App().run(['-p', project_path])
 
