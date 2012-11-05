@@ -33,6 +33,6 @@
         %include
       </div>
     </div>
-    <p class="center">Mustard &copy; 2012 Codethink Ltd {{!'&#8212; Content &copy; %s' % repository.project.copyright if repository.project.copyright else ''}}</p>
+    <p class="center">Mustard &copy; 2012 Codethink Ltd{{!' &#8212; Content &copy; %s' % repository.project.copyright if repository.project.copyright else ''}}</p>
   </body>
 </html>
