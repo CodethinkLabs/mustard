@@ -18,6 +18,6 @@ def application(environ, start_response):
     print os.path.dirname(__file__)
 
     import mustard
-    app = mustard.renderer.App().run(['-p', project_path])
+    mustard.renderer.App().run(['-p', project_path])
 
     return bottle.default_app()(environ, start_response)

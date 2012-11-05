@@ -9,6 +9,8 @@ import base64
 
 import mustard
 
+from bottle import get
+
 
 defaults = {
     'port': 8080,
@@ -43,70 +45,69 @@ class App(cliapp.Application):
         if not os.path.isdir(project):
             raise cliapp.AppException('Input project directory does not exist')
 
-        app = bottle.Bottle()
         state = mustard.state.State(self, project, 'HEAD')
 
-        @app.get('/')
+        @get('/')
         def index():
             return bottle.redirect('/HEAD')
 
-        @app.get('/favicon.ico')
+        @get('/favicon.ico')
         def favicon():
             return None
 
-        @app.get('/<stateid>')
+        @get('/<stateid>')
         def state_index(stateid):
             state = mustard.state.State(self, project, stateid)
             repository = mustard.repository.Repository(state, self.settings)
             return bottle.template('index', repository=repository)
 
-        @app.get('/<stateid>/overview')
+        @get('/<stateid>/overview')
         def overview(stateid):
             state = mustard.state.State(self, project, stateid)
             repository = mustard.repository.Repository(state, self.settings)
             return bottle.template('overview', repository=repository)
 
-        @app.get('/<stateid>/requirements')
+        @get('/<stateid>/requirements')
         def requirements(stateid):
             state = mustard.state.State(self, project, stateid)
             repository = mustard.repository.Repository(state, self.settings)
             return bottle.template('requirements', repository=repository)
 
-        @app.get('/<stateid>/architectures')
+        @get('/<stateid>/architectures')
         def architectures(stateid):
             state = mustard.state.State(self, project, stateid)
             repository = mustard.repository.Repository(state, self.settings)
             return bottle.template('architectures', repository=repository)
 
-        @app.get('/<stateid>/components')
+        @get('/<stateid>/components')
         def components(stateid):
             state = mustard.state.State(self, project, stateid)
             repository = mustard.repository.Repository(state, self.settings)
             return bottle.template('components', repository=repository)
 
-        @app.get('/<stateid>/tags')
+        @get('/<stateid>/tags')
         def tags(stateid):
             state = mustard.state.State(self, project, stateid)
             repository = mustard.repository.Repository(state, self.settings)
             return bottle.template('tags', repository=repository)
 
-        @app.get('/<stateid>/work-items')
+        @get('/<stateid>/work-items')
         def work_items(stateid):
             state = mustard.state.State(self, project, stateid)
             repository = mustard.repository.Repository(state, self.settings)
             return bottle.template('work-items', repository=repository)
 
-        @app.get('/<stateid>/interfaces')
+        @get('/<stateid>/interfaces')
         def interfaces(stateid):
             state = mustard.state.State(self, project, stateid)
             repository = mustard.repository.Repository(state, self.settings)
             return bottle.template('interfaces', repository=repository)
 
-        @app.get('/public/<filename>')
+        @get('/public/<filename>')
         def stylesheet(filename):
             return bottle.static_file(filename, root='views/public')
 
-        @app.get('/plantuml/<content:re:.*>')
+        @get('/plantuml/<content:re:.*>')
         def plantuml(content):
             uml = base64.b64decode(urllib.unquote(content))
             image = self.runcmd(["java", "-jar", self.settings['plantuml-jar'],
@@ -117,5 +118,5 @@ class App(cliapp.Application):
         bottle.debug(True)
 
         if self.settings['run-bottle']:
-            bottle.run(app, host='0.0.0.0', port=self.settings['port'],
+            bottle.run(host='0.0.0.0', port=self.settings['port'],
                        reloader=True)
