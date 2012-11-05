@@ -20,6 +20,13 @@
           <li><a href="/{{repository.state.identifier}}/tags">Tags</a></li>
         </ul>
       </div>
+      <div id="filterbar">
+        <form>
+          <p>
+            <label for="filter">Filter:</label> <input type="text" id="filter" name="filter" placeholder="Search text" autocomplete="off" style="width: 30%;" />
+          </p>
+        </form>
+      </div>
       <div id="content">
         %include
       </div>

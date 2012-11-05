@@ -193,6 +193,10 @@ a:hover span {
   filter: alpha(opacity=60);
 }
 
+.center {
+  text-align: center;
+}
+
 .error {
   color: #ff0000;
 }
@@ -211,4 +215,14 @@ a.workitem:after     { content: '  [w]'; opacity: 0.5; filter: alpha(opacity=50)
 a.requirement:after  { content: '  [r]'; opacity: 0.5; filter: alpha(opacity=50); }
 a.interface:after    { content: '  [i]'; opacity: 0.5; filter: alpha(opacity=50); }
 a.tag:after          { content: '  [t]'; opacity: 0.5; filter: alpha(opacity=50); }
+
+label {
+  margin-right: 6px;
+}
+
+input {
+  border: thin solid #eee;
+  box-shadow: 0px 0px 2px #999;
+  padding: 0.25em;
+}
 
