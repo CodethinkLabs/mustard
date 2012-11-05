@@ -52,8 +52,9 @@ class Repository(object):
 
     def load_element(self, path, element):
         if path == 'project':
-            self.project.title = element['title']
-            self.project.set_description(element['description'])
+            self.project.title = element.get('title', None)
+            self.project.set_description(element.get('description', None))
+            self.project.copyright = element.get('copyright', None)
         else:
             element = self.element_factory.create(element)
             element.repository = self

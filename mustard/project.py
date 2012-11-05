@@ -11,6 +11,7 @@ class Project(mustard.elementfactory.Element):
     def __init__(self):
         mustard.elementfactory.Element.__init__(self, {})
         self.kind = 'project'
+        self.copyright = None
         self.elements = {}
 
     def _propagate_requirement(self, path, requirement):
