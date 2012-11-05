@@ -20,7 +20,7 @@
           <li><a href="/{{repository.state.identifier}}/tags">Tags</a></li>
         </ul>
       </div>
-      <div id="filterbar">
+      <div id="filterbar" class="center">
         <form onsubmit="return false;">
           <p>
             <label for="filter">Filter:</label>
