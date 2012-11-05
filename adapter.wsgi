@@ -10,11 +10,15 @@ import bottle
 def application(environ, start_response):
     server_path = environ['MUSTARD_SERVER_PATH']
     project_path = environ['MUSTARD_PROJECT_PATH']
+    plantuml_jar = environ['MUSTARD_PLANTUML_JAR']
 
     sys.path.append(server_path)
     os.chdir(os.path.dirname(__file__))
 
     import mustard
-    mustard.renderer.App().run(['-p', project_path])
+    mustard.renderer.App().run([
+        '-p', project_path,
+        '-j', plantuml_jar
+        ])
 
     return bottle.default_app()(environ, start_response)
