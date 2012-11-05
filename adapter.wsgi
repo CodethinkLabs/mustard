@@ -7,7 +7,7 @@ import os
 import sys
 import bottle
 
-import mustard.renderer
+import mustard
 
 
 def application(environ, start_response):
