@@ -7,9 +7,6 @@ import os
 import sys
 import bottle
 
-import mustard
-
-
 def application(environ, start_response):
     server_path = environ['MUSTARD_SERVER_PATH']
     project_path = environ['MUSTARD_PROJECT_PATH']
@@ -20,6 +17,7 @@ def application(environ, start_response):
     print server_path
     print os.path.dirname(__file__)
 
+    import mustard
     app = mustard.renderer.App().run(['-p', project_path])
 
     return bottle.default_app().wsgi(environent, start_response)
