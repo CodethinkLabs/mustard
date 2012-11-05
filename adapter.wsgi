@@ -14,9 +14,6 @@ def application(environ, start_response):
     sys.path.append(server_path)
     os.chdir(os.path.dirname(__file__))
 
-    print server_path
-    print os.path.dirname(__file__)
-
     import mustard
     mustard.renderer.App().run(['-p', project_path])
 
