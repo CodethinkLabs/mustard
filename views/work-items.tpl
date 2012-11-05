@@ -1,7 +1,9 @@
 % if repository.work_items():
-  <h1>Work Items <span>{{len(repository.work_items())}}</span></h1>
+  % items = repository.work_items()
+  % completed_items = [(x,y) for x,y in items if 'tags/completed' in y.tags]
+  <h1>Work Items <span>{{len(completed_items)}} of {{len(items)}} completed</span></h1>
   <dl>
-    % for path, item in repository.work_items():
+    % for path, item in items:
       % include workitem path=path, item=item, detail='full'
     % end
   </dl>
