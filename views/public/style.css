@@ -31,7 +31,6 @@ body {
     display: inline-block;
     margin: 0em;
     padding: 0em;
-    float: left;
 }
 
 #nav li a, #nav li a:link {
