@@ -7,10 +7,13 @@ import os
 import sys
 import bottle
 
-sys.path = ['/srv/genivi.baserock.com/'] + sys.path
+server_path = os.environ['MUSTARD_SERVER_PATH']
+project_path = os.environ['MUSTARD_PROJECT_PATH']
+
+sys.path = [server_path] + sys.path
 os.chdir(os.path.dirname(__file__))
 
 import mustard.renderer
 
-mustard.renderer.App().run()
+app = mustard.renderer.App().run(['-p', project_path])
 application = bottle.default_app()
