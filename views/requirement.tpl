@@ -29,7 +29,7 @@
         % end
         % if requirement.parent:
           <tr>
-            <th>Parent Requirement</th>
+            <th>Parent</th>
             <td>
               <p>
                 % path, parent = requirement.parent

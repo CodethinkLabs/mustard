@@ -30,7 +30,7 @@
         % if component.parent:
           <tr> 
             % path, architecture = component.parent
-            <th>Parent Architecture</th>
+            <th>Parent</th>
             <td>
               <p>
                 % include architecture path=path, architecture=architecture, detail='list'

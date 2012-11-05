@@ -30,7 +30,7 @@
         % if interface.parent:
           % path, component = interface.parent
           <tr>
-            <th>Parent Component</th>
+            <th>Parent</th>
             <td>
               <p>
                 % include component path=path, component=component, detail='list'
