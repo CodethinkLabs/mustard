@@ -21,9 +21,11 @@
         </ul>
       </div>
       <div id="filterbar">
-        <form>
+        <form onsubmit="return false;">
           <p>
-            <label for="filter">Filter:</label> <input type="text" id="filter" name="filter" placeholder="Search text" autocomplete="off" style="width: 30%;" />
+            <label for="filter">Filter:</label>
+            <input type="text" id="filter" name="filter" placeholder="Search text" autocomplete="off" style="width: 30%;" />
+            <input type="button" id="reset-filter" name="reset-filter" value="Reset" />
           </p>
         </form>
       </div>

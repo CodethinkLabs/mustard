@@ -57,6 +57,10 @@ $(document).ready(function() {
       }
     });
   });
+
+  $('#reset-filter').click(function() {
+    $('#filter').val('').keyup();
+  });
 });
 
 $(document).unload(function() {
