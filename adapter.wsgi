@@ -7,6 +7,8 @@ import os
 import sys
 import bottle
 
+print os.environ
+
 server_path = os.environ['MUSTARD_SERVER_PATH']
 project_path = os.environ['MUSTARD_PROJECT_PATH']
 
