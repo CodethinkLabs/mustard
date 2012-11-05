@@ -65,7 +65,7 @@
         % end
         % if component.mapped_here:
           <tr> 
-            <th>Requirements Mapped Here</th>
+            <th>Mapped Here</th>
             <td>
               <ul>
                 % for path, requirement in component.mapped_here.iteritems():

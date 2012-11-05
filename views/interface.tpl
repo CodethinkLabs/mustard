@@ -40,7 +40,7 @@
         % end
         % if interface.mapped_here:
           <tr>
-            <th>Requirements Mapped Here</th>
+            <th>Mapped Here</th>
             <td>
               <ul>
                 % for path, requirement in interface.mapped_here.iteritems():
