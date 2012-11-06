@@ -247,4 +247,5 @@ h2 span.error, a span.error {
   float: none;
   opacity: 1.0;
   filter: alpha(opacity=100);
+  font-size: inherit;
 }
