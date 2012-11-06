@@ -55,6 +55,8 @@ class Repository(object):
             self.project.title = element.get('title', None)
             self.project.set_description(element.get('description', None))
             self.project.copyright = element.get('copyright', None)
+            self.project.predefined_filters = element.get(
+                    'predefined-filters', [])
         else:
             element = self.element_factory.create(element)
             element.repository = self

@@ -13,6 +13,7 @@ class Project(mustard.elementfactory.Element):
         self.kind = 'project'
         self.copyright = None
         self.elements = {}
+        self.predefined_filters = []
 
     def _propagate_requirement(self, path, requirement):
         self.elements[path] = requirement

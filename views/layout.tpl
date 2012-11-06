@@ -26,6 +26,14 @@
             <label for="filter">Filter:</label>
             <input type="text" id="filter" name="filter" placeholder="Search text" autocomplete="off" style="width: 30%;" />
             <input type="button" id="reset-filter" name="reset-filter" value="Reset" />
+            % if repository.project.predefined_filters:
+            <select id="predefined-filters" name="predefined-filters">
+              <option value="">-- Predefined Filters --</option>
+              % for filter in repository.project.predefined_filters:
+                <option value="{{filter}}">{{filter}}</option>
+              % end
+            </select>
+            % end
             <input type="button" id="unhappy-filter" name="unhappy-filter" value="☐" />
           </p>
         </form>

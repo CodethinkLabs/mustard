@@ -236,6 +236,12 @@ $(document).ready(function() {
       update_filter();
     }
   );
+
+  $('#predefined-filters').change(function() {
+      $('#filter').val($(this).val());
+      update_filter();
+      $(this).val('');
+  });
 });
 
 
