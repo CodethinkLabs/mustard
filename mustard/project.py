@@ -42,6 +42,7 @@ class Project(mustard.elementfactory.Element):
         self._resolve_tags(path, component)
         self._resolve_parent_architecture(path, component)
         self._resolve_architecture(path, component)
+        self._resolve_interfaces(path, component)
         self._resolve_mapped_here(path, component)
         self._resolve_work_items(path, component)
 
@@ -99,6 +100,13 @@ class Project(mustard.elementfactory.Element):
                 if element.parent == path:
                     element.parent = (path, component)
                     component.architecture = (ref, element)
+
+    def _resolve_interfaces(self, path, component):
+        for ref, element in self.elements.iteritems():
+            if element.kind == 'interface':
+                if element.parent == path:
+                    element.parent = (path, component)
+                    component.interfaces[ref] = element
 
     def _resolve_mapped_to(self, path, requirement):
         for ref, element in self.elements.iteritems():
