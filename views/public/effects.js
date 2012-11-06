@@ -5,18 +5,30 @@
 
 function show(element, fade) {
   if (fade) {
-    element.slideDown();
+    element.slideDown('fast', function() {
+      if (element.hasClass('expanded')) {
+        expand(element, fade);
+      }
+    });
   } else {
-    element.show();
+    element.show(0, function() {
+      if (element.hasClass('expanded')) {
+        expand(element, fade);
+      }
+    });
   }
 }
 
 
 function hide(element, fade) {
   if (fade) {
-    element.slideUp();
+    element.parent().next('dd').slideUp('fast', function() {
+      element.slideUp('fast');
+    });
   } else {
-    element.hide();
+    element.hide(0, function() {
+      element.parent().next('dd').hide();
+    });
   }
 }
 
@@ -27,6 +39,7 @@ function hide(element, fade) {
 
 
 function expand(element, smooth) {
+  element.addClass('expanded');
   if (smooth) {
     element.parent().next('dd').slideDown(250);
   } else {
@@ -36,6 +49,7 @@ function expand(element, smooth) {
 
 
 function collapse(element, smooth) {
+  element.removeClass('expanded');
   if (smooth) {
     element.parent().next('dd').slideUp(250);
   } else {
@@ -50,6 +64,7 @@ function toggle_expanded(element, smooth) {
   } else {
     element.parent().next('dd').toggle();
   }
+  element.toggleClass('expanded');
 }
 
 
@@ -161,13 +176,6 @@ $(document).ready(function() {
   // scroll to the first hash
   scroll_to_first_hash_element(window.location.hash);
 
-  // expand items if there are at most 2 of them
-  if ($('h2').size() <= 2) {
-    $('h2').each(function() {
-      expand($(this));
-    });
-  }
-  
   // tweaks for links 
   $('a').click(function(event) {
     var element = event.target;
