@@ -1,14 +1,14 @@
 % if detail == 'list':
   % if requirement:
     <a class="requirement" href="/{{requirement.repository.state.identifier}}/requirements#{{path}}">
-      {{requirement.title}}{{!' <span class="error">☹</span>' if not [x for x in requirement.mapped_to.itervalues() if x.kind == 'component'] else ''}} <span>{{path}}</span>
+      {{!'<span class="error">☐</span>' if not [x for x in requirement.mapped_to.itervalues() if x.kind == 'component'] else '☑'}} {{requirement.title}} <span>{{path}}</span>
     </a>
   % else:
     % include pathnotfound path=path, detail=detail
   % end
 % elif detail == 'full':
   % if requirement:
-    <dt><h2 id="{{path}}">{{requirement.title}}{{!' <span class="error">☹</span>' if not [x for x in requirement.mapped_to.itervalues() if x.kind == 'component'] else ''}} <span>{{path}}</span></h2></dt>
+    <dt><h2 id="{{path}}">{{!'<span class="error">☐</span>' if not [x for x in requirement.mapped_to.itervalues() if x.kind == 'component'] else '☑'}} {{requirement.title}} <span>{{path}}</span></h2></dt>
     <dd>
       <table cellspacing="0" cellpadding="0">
         <tr>

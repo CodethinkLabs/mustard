@@ -1,12 +1,12 @@
 % if detail == 'list':
   % if component:
-    <a class="component" href="/{{component.repository.state.identifier}}/components#{{path}}">{{component.title}}{{!' <span class="error">☹</span>' if not component.work_items else ''}} <span>{{path}}</span></a>
+    <a class="component" href="/{{component.repository.state.identifier}}/components#{{path}}">{{!'<span class="error">☐</span>' if not component.work_items else '☑'}} {{component.title}} <span>{{path}}</span></a>
   % else:
     % include pathnotfound path=path, detail=detail
   % end
 % elif detail == 'full':
   % if component:
-    <dt><h2 id="{{path}}">{{component.title}}{{!' <span class="error">☹</span>' if not component.work_items else ''}} <span>{{path}}</span></h2></dt>
+    <dt><h2 id="{{path}}">{{!'<span class="error">☐</span>' if not component.work_items else '☑'}} {{component.title}} <span>{{path}}</span></h2></dt>
     <dd>
       <table cellspacing="0" cellpadding="0">
         <tr>

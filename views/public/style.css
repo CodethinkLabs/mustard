@@ -238,6 +238,10 @@ input[type="button"]:hover, input[type="button"].pressed {
   border-color: #ccc;
 }
 
+#unhappy-filter {
+  color: #ff0000;
+}
+
 h2 span.error, a span.error {
   color: #ff0000;
   float: none;
