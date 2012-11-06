@@ -26,6 +26,7 @@
             <label for="filter">Filter:</label>
             <input type="text" id="filter" name="filter" placeholder="Search text" autocomplete="off" style="width: 30%;" />
             <input type="button" id="reset-filter" name="reset-filter" value="Reset" />
+            <input type="button" id="unhappy-filter" name="unhappy-filter" value="☹" />
           </p>
         </form>
       </div>

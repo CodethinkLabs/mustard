@@ -233,7 +233,14 @@ input[type="button"] {
   cursor: pointer;
 }
 
-input[type="button"]:hover {
-  background: #eaeaea;
+input[type="button"]:hover, input[type="button"].pressed {
+  background: #ddd;
+  border-color: #ccc;
 }
 
+h2 span.error, a span.error {
+  color: #ff0000;
+  float: none;
+  opacity: 1.0;
+  filter: alpha(opacity=100);
+}

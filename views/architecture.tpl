@@ -1,12 +1,12 @@
 % if detail == 'list':
   % if architecture:
-    <a class="architecture" href="/{{architecture.repository.state.identifier}}/architectures#{{path}}">{{architecture.title}} <span>{{path}}</span></a>
+    <a class="architecture" href="/{{architecture.repository.state.identifier}}/architectures#{{path}}">{{architecture.title}}{{!' <span class="error">☹</span>' if not architecture.components else ''}} <span>{{path}}</span></a>
   % else:
     % include pathnotfound path=path, detail=detail
   % end
 % elif detail == 'full':
   % if architecture:
-    <dt><h2 id="{{path}}">{{architecture.title}} <span>{{path}}</span></h2></dt>
+    <dt><h2 id="{{path}}">{{architecture.title}}{{!' <span class="error">☹</span>' if not architecture.components else ''}} <span>{{path}}</span></h2></dt>
     <dd>
       <table cellspacing="0" cellpadding="0">
         <tr>
