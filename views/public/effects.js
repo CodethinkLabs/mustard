@@ -118,6 +118,15 @@ function element_matches_filter(element) {
   }
 }
 
+function element_is_unhappy(element) {
+  var has = element.has('> .error');
+  if (has.length > 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 function update_filter() {
   $('dt > h2').each(function () {
     if (element_matches_filter($(this))) {
@@ -199,8 +208,7 @@ $(document).ready(function() {
     function() {
       $(this).addClass('pressed');
       $('h2').each(function() {
-        var has = $(this).has('.error');
-        if (element_matches_filter($(this)) && has.length > 0) {
+        if (element_is_unhappy($(this)) && element_matches_filter($(this))) {
           show($(this), true);
         } else {
           hide($(this), true);
