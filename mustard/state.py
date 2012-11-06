@@ -29,8 +29,9 @@ class State(object):
             # do not recurse into hidden subdirectories
             dirs[:] = [x for x in dirs if not x.startswith('.')]
 
-            # skip all non-YAML files
-            files[:] = [x for x in files if x.endswith('.yaml')]
+            # skip all non-YAML and hidden files
+            files[:] = [x for x in files
+                        if x.endswith('.yaml') and not x.startswith('.')]
 
             # load all YAML files into the element tree
             for filename in files:
@@ -45,7 +46,7 @@ class State(object):
                                cwd=self.dirname)
         for line in tree.splitlines():
             filename = line.split()[3]
-            if filename.endswith('.yaml'):
+            if filename.endswith('.yaml') and not filename.startswith('.'):
                 yield filename
 
     def _read_commit_file(self, filename):
