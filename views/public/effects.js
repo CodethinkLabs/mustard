@@ -129,7 +129,15 @@ function element_is_unhappy(element) {
 
 function update_filter() {
   $('dt > h2').each(function () {
-    if (element_matches_filter($(this))) {
+    var matches_unhappy = true;
+    if ($('#unhappy-filter').hasClass('pressed')) {
+      if (element_is_unhappy($(this))) {
+        matches_unhappy = true;
+      } else {
+        matches_unhappy = false;
+      }
+    }
+    if (matches_unhappy && element_matches_filter($(this))) {
       show($(this), true);
     } else {
       hide($(this), true);
