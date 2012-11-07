@@ -17,6 +17,7 @@ defaults = {
     'plantuml-jar': '/usr/local/share/plantuml.jar',
     'run-bottle': False,
     'server': 'wsgiref',
+    'reload': False,
 }
 
 
@@ -40,6 +41,9 @@ class App(cliapp.Application):
         self.settings.string(['server', 's'],
                              'Run bottle in a specific server (e.g. cherrypy)',
                              default=defaults['server'])
+        self.settings.boolean(['reload', 'r'],
+                              'Reload whenever the mustard code changes',
+                              default=defaults['reload'])
 
     def resolve_state(self, project, stateid):
         if stateid != 'UNCOMMITTED':
@@ -175,4 +179,4 @@ class App(cliapp.Application):
             bottle.run(host='0.0.0.0',
                        port=self.settings['port'],
                        server=self.settings['server'],
-                       reloader=True)
+                       reloader=self.settings['reload'])
