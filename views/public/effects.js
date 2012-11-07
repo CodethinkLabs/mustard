@@ -213,7 +213,7 @@ $(document).ready(function() {
 
   // allow elements to be expanded/collapsed
   $('h2').css('cursor', 'pointer');
-  $('h2').click(function() {
+  $('h2').mouseup(function() {
     toggle_expanded($(this), true);
   });
 
