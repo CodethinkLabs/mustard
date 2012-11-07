@@ -67,7 +67,6 @@ class App(cliapp.Application):
         content_id = (commit, view)
 
         if not content_id in self.content:
-            print 'rendering %s, %s' % content_id
             if not commit in self.states:
                 project_state = mustard.state.State(
                         self, self.settings['project'], state)
@@ -77,8 +76,6 @@ class App(cliapp.Application):
             else:
                 repo = self.states[commit]
             self.content[content_id] = bottle.template(view, repository=repo)
-        else:
-            print 'using cached %s, %s' % content_id
 
         return self.content[content_id]
 
