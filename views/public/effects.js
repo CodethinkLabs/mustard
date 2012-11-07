@@ -167,6 +167,7 @@ function set_document_title() {
   if (path.length > 1) {
     var page = path[path.length-1];
     page = page.charAt(0).toUpperCase() + page.slice(1);
+    page = page.replace('-', ' ');
     document.title =  page + ' - ' + document.title;
   }
 }
