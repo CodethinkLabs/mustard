@@ -102,7 +102,7 @@ class App(cliapp.Application):
 
         @route('/<stateid>')
         def state_index(stateid):
-            self.render_repository(stateid, 'index')
+            return self.render_repository(stateid, 'index')
 
         @route('/<stateid>/overview')
         def overview(stateid):
