@@ -70,19 +70,25 @@ class Repository(object):
                 pass
 
     def requirements(self):
-        return sorted([(x,y) for x,y in self.project.find('requirement')])
+        return sorted([(x,y) for x,y in self.project.find('requirement')],
+                      key=lambda pair: pair[1].title)
 
     def tags(self):
-        return sorted([(x,y) for x,y in self.project.find('tag')])
+        return sorted([(x,y) for x,y in self.project.find('tag')],
+                      key=lambda pair: pair[1].title)
 
     def architectures(self):
-        return sorted([(x,y) for x,y in self.project.find('architecture')])
+        return sorted([(x,y) for x,y in self.project.find('architecture')],
+                      key=lambda pair: pair[1].title)
 
     def components(self):
-        return sorted([(x,y) for x,y in self.project.find('component')])
+        return sorted([(x,y) for x,y in self.project.find('component')],
+                      key=lambda pair: pair[1].title)
 
     def work_items(self):
-        return sorted([(x,y) for x,y in self.project.find('work-item')])
+        return sorted([(x,y) for x,y in self.project.find('work-item')],
+                      key=lambda pair: pair[1].title)
 
     def interfaces(self):
-        return sorted([(x,y) for x,y in self.project.find('interface')])
+        return sorted([(x,y) for x,y in self.project.find('interface')],
+                      key=lambda pair: pair[1].title)
