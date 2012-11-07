@@ -90,11 +90,13 @@ function merge_hashes(hash1, hash2) {
   }
 
   for (var index in hash2_paths) {
+    var path = hash2_paths[index];
     hash_map[path] = true;
   }
 
   var merged_paths = [hash1_paths[0]];
   for (var path in hash_map) {
+    console.log(path);
     if (path != hash1_paths[0]) {
       merged_paths.push(path);
     }
