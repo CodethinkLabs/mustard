@@ -105,7 +105,9 @@ class App(cliapp.Application):
 
         @route('/public/<filename>')
         def stylesheet(filename):
-            return bottle.static_file(filename, root='views/public')
+            public_dir = os.path.join(os.path.dirname(__file__),
+                                      '..', 'views', 'public')
+            return bottle.static_file(filename, root=public_dir)
 
         @route('/plantuml/<content:re:.*>')
         def plantuml(content):
