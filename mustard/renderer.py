@@ -23,6 +23,13 @@ defaults = {
 
 class App(cliapp.Application):
 
+    def __init__(self):
+        cliapp.Application.__init__(self)
+
+        self.states = {}
+        self.content = {}
+        self.uml = {}
+
     def add_settings(self):
         self.settings.integer(['port'],
                               'Port to listen on',
@@ -45,25 +52,45 @@ class App(cliapp.Application):
                               'Reload whenever the mustard code changes',
                               default=defaults['reload'])
 
-    def resolve_state(self, project, stateid):
+    def resolve_state(self, stateid):
         if stateid != 'UNCOMMITTED':
             try:
                 stateid = self.runcmd(['git', 'rev-list', '-n1', stateid],
-                                      cwd=project)
+                                      cwd=self.settings['project'])
                 stateid = stateid.split()[0]
             except:
                 pass
         return stateid
 
+    def render_repository(self, state, view):
+        commit = self.resolve_state(state)
+        content_id = (commit, view)
+
+        if not content_id in self.content:
+            print 'rendering %s, %s' % content_id
+            if not commit in self.states:
+                project_state = mustard.state.State(
+                        self, self.settings['project'], state)
+                repo = mustard.repository.Repository(
+                        project_state, self.settings)
+                self.states[commit] = repo
+            else:
+                repo = self.states[commit]
+            self.content[content_id] = bottle.template(view, repository=repo)
+        else:
+            print 'using cached %s, %s' % content_id
+
+        return self.content[content_id]
+
     def process_args(self, args):
         if not self.settings['project']:
             raise cliapp.AppException('Input project directory not defined')
         
-        project = self.settings['project']
-        if not os.path.isdir(project):
+        if not os.path.isdir(self.settings['project']):
             raise cliapp.AppException('Input project directory does not exist')
 
         states = {}
+        cached_content = {}
 
         @route('/')
         def index():
@@ -75,91 +102,35 @@ class App(cliapp.Application):
 
         @route('/<stateid>')
         def state_index(stateid):
-            commit = self.resolve_state(project, stateid)
-            if not commit in states:
-                state = mustard.state.State(self, project, stateid)
-                repository = mustard.repository.Repository(state, self.settings)
-                states[commit] = repository
-            else:
-                repository = states[commit]
-            return bottle.template('index', repository=repository)
+            self.render_repository(stateid, 'index')
 
         @route('/<stateid>/overview')
         def overview(stateid):
-            commit = self.resolve_state(project, stateid)
-            if not commit in states:
-                state = mustard.state.State(self, project, stateid)
-                repository = mustard.repository.Repository(state, self.settings)
-                states[commit] = repository
-            else:
-                repository = states[commit]
-            return bottle.template('overview', repository=repository)
+            return self.render_repository(stateid, 'overview')
 
         @route('/<stateid>/requirements')
         def requirements(stateid):
-            commit = self.resolve_state(project, stateid)
-            if not commit in states:
-                state = mustard.state.State(self, project, stateid)
-                repository = mustard.repository.Repository(state, self.settings)
-                states[commit] = repository
-            else:
-                repository = states[commit]
-            return bottle.template('requirements', repository=repository)
+            return self.render_repository(stateid, 'requirements')
 
         @route('/<stateid>/architectures')
         def architectures(stateid):
-            commit = self.resolve_state(project, stateid)
-            if not commit in states:
-                state = mustard.state.State(self, project, stateid)
-                repository = mustard.repository.Repository(state, self.settings)
-                states[commit] = repository
-            else:
-                repository = states[commit]
-            return bottle.template('architectures', repository=repository)
+            return self.render_repository(stateid, 'architectures')
 
         @route('/<stateid>/components')
         def components(stateid):
-            commit = self.resolve_state(project, stateid)
-            if not commit in states:
-                state = mustard.state.State(self, project, stateid)
-                repository = mustard.repository.Repository(state, self.settings)
-                states[commit] = repository
-            else:
-                repository = states[commit]
-            return bottle.template('components', repository=repository)
+            return self.render_repository(stateid, 'components')
 
         @route('/<stateid>/tags')
         def tags(stateid):
-            commit = self.resolve_state(project, stateid)
-            if not commit in states:
-                state = mustard.state.State(self, project, stateid)
-                repository = mustard.repository.Repository(state, self.settings)
-                states[commit] = repository
-            else:
-                repository = states[commit]
-            return bottle.template('tags', repository=repository)
+            return self.render_repository(stateid, 'tags')
 
         @route('/<stateid>/work-items')
         def work_items(stateid):
-            commit = self.resolve_state(project, stateid)
-            if not commit in states:
-                state = mustard.state.State(self, project, stateid)
-                repository = mustard.repository.Repository(state, self.settings)
-                states[commit] = repository
-            else:
-                repository = states[commit]
-            return bottle.template('work-items', repository=repository)
+            return self.render_repository(stateid, 'work-items')
 
         @route('/<stateid>/interfaces')
         def interfaces(stateid):
-            commit = self.resolve_state(project, stateid)
-            if not commit in states:
-                state = mustard.state.State(self, project, stateid)
-                repository = mustard.repository.Repository(state, self.settings)
-                states[commit] = repository
-            else:
-                repository = states[commit]
-            return bottle.template('interfaces', repository=repository)
+            return self.render_repository(stateid, 'interfaces')
 
         @route('/public/<filename>')
         def stylesheet(filename):
@@ -169,11 +140,14 @@ class App(cliapp.Application):
 
         @route('/plantuml/<content:re:.*>')
         def plantuml(content):
-            uml = base64.b64decode(urllib.unquote(content))
-            image = self.runcmd(["java", "-jar", self.settings['plantuml-jar'],
-                                 "-tpng", "-p"], feed_stdin=uml)
+            if not content in self.uml:
+                uml = base64.b64decode(urllib.unquote(content))
+                self.uml[content] = self.runcmd(
+                        ["java", "-jar", self.settings['plantuml-jar'],
+                         "-tpng", "-p"],
+                        feed_stdin=uml)
             bottle.response.content_type = 'image/png'
-            return image
+            return self.uml[content]
         
         if self.settings['run-bottle']:
             bottle.run(host='0.0.0.0',
