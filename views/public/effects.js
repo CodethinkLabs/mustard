@@ -161,9 +161,22 @@ function update_filter() {
 }
 
 
+function set_document_title() {
+  var path = window.location.pathname.split('/');
+
+  if (path.length > 1) {
+    var page = path[path.length-1];
+    page = page.charAt(0).toUpperCase() + page.slice(1);
+    document.title =  page + ' - ' + document.title;
+  }
+}
+
+
 $(document).ready(function() {
   // fade the body in nicely
   $('body').hide().fadeIn(250);
+
+  set_document_title();
 
   // collapse all items by default
   $('h2').each(function() {
