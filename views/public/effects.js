@@ -70,11 +70,12 @@ function toggle_expanded(element, smooth) {
 
 function expand_hash_elements(hash) {
   var hash_paths = hash.replace('#', '').split(',');
-  hash_paths.forEach(function(path) {
+  for (var index in hash_paths) {
+    var path = hash_paths[index];
     $('#' + path.replace(/\//g, '\\/')).each(function() {
       expand($(this));
     });
-  });
+  }
 }
 
 
@@ -83,17 +84,19 @@ function merge_hashes(hash1, hash2) {
   var hash2_paths = hash2.replace('#', '').split(',');
   var hash_map = new Array();
 
-  hash1_paths.forEach(function (path) {
+  for (var index in hash1_paths) {
+    var path = hash1_paths[index];
     if (path != hash1_paths[0]) {
       hash_map[path] = true;
     }
-  });
+  }
 
-  hash2_paths.forEach(function (path) {
+  for (var index in hash2_paths) {
+    var path = hash2_paths[index];
     if (path != hash1_paths[0]) {
       hash_map[path] = true;
     }
-  });
+  }
 
   var merged_paths = [hash1_paths[0]];
   for (var path in hash_map) {
