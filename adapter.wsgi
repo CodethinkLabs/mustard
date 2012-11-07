@@ -10,7 +10,7 @@ import bottle
 app = None
 
 def application(environ, start_response):
-    if not app:
+    if not self.app:
         server_path = environ['MUSTARD_SERVER_PATH']
         project_path = environ['MUSTARD_PROJECT_PATH']
         plantuml_jar = environ['MUSTARD_PLANTUML_JAR']
@@ -25,6 +25,6 @@ def application(environ, start_response):
             '-s', 'cherrypy',
             ])
 
-        app = bottle.default_app()
+        self.app = bottle.default_app()
 
-    return app(environ, start_response)
+    return self.app(environ, start_response)
