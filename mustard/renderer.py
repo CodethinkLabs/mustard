@@ -16,6 +16,7 @@ defaults = {
     'port': 8080,
     'plantuml-jar': '/usr/local/share/plantuml.jar',
     'run-bottle': False,
+    'server': 'wsgiref',
 }
 
 
@@ -36,6 +37,9 @@ class App(cliapp.Application):
         self.settings.boolean(['run-bottle', 'b'],
                               'Run the bottle web application',
                               default=defaults['run-bottle'])
+        self.settings.string(['server', 's'],
+                             'Run bottle in a specific server (e.g. cherrypy)',
+                             default=defaults['server'])
 
     def resolve_state(self, project, stateid):
         if stateid != 'UNCOMMITTED':
@@ -67,90 +71,90 @@ class App(cliapp.Application):
 
         @route('/<stateid>')
         def state_index(stateid):
-            stateid = self.resolve_state(project, stateid)
-            if not stateid in states:
+            commit = self.resolve_state(project, stateid)
+            if not commit in states:
                 state = mustard.state.State(self, project, stateid)
                 repository = mustard.repository.Repository(state, self.settings)
-                states[stateid] = repository
+                states[commit] = repository
             else:
-                repository = states[stateid]
+                repository = states[commit]
             return bottle.template('index', repository=repository)
 
         @route('/<stateid>/overview')
         def overview(stateid):
-            stateid = self.resolve_state(project, stateid)
-            if not stateid in states:
+            commit = self.resolve_state(project, stateid)
+            if not commit in states:
                 state = mustard.state.State(self, project, stateid)
                 repository = mustard.repository.Repository(state, self.settings)
-                states[stateid] = repository
+                states[commit] = repository
             else:
-                repository = states[stateid]
+                repository = states[commit]
             return bottle.template('overview', repository=repository)
 
         @route('/<stateid>/requirements')
         def requirements(stateid):
-            stateid = self.resolve_state(project, stateid)
-            if not stateid in states:
+            commit = self.resolve_state(project, stateid)
+            if not commit in states:
                 state = mustard.state.State(self, project, stateid)
                 repository = mustard.repository.Repository(state, self.settings)
-                states[stateid] = repository
+                states[commit] = repository
             else:
-                repository = states[stateid]
+                repository = states[commit]
             return bottle.template('requirements', repository=repository)
 
         @route('/<stateid>/architectures')
         def architectures(stateid):
-            stateid = self.resolve_state(project, stateid)
-            if not stateid in states:
+            commit = self.resolve_state(project, stateid)
+            if not commit in states:
                 state = mustard.state.State(self, project, stateid)
                 repository = mustard.repository.Repository(state, self.settings)
-                states[stateid] = repository
+                states[commit] = repository
             else:
-                repository = states[stateid]
+                repository = states[commit]
             return bottle.template('architectures', repository=repository)
 
         @route('/<stateid>/components')
         def components(stateid):
-            stateid = self.resolve_state(project, stateid)
-            if not stateid in states:
+            commit = self.resolve_state(project, stateid)
+            if not commit in states:
                 state = mustard.state.State(self, project, stateid)
                 repository = mustard.repository.Repository(state, self.settings)
-                states[stateid] = repository
+                states[commit] = repository
             else:
-                repository = states[stateid]
+                repository = states[commit]
             return bottle.template('components', repository=repository)
 
         @route('/<stateid>/tags')
         def tags(stateid):
-            stateid = self.resolve_state(project, stateid)
-            if not stateid in states:
+            commit = self.resolve_state(project, stateid)
+            if not commit in states:
                 state = mustard.state.State(self, project, stateid)
                 repository = mustard.repository.Repository(state, self.settings)
-                states[stateid] = repository
+                states[commit] = repository
             else:
-                repository = states[stateid]
+                repository = states[commit]
             return bottle.template('tags', repository=repository)
 
         @route('/<stateid>/work-items')
         def work_items(stateid):
-            stateid = self.resolve_state(project, stateid)
-            if not stateid in states:
+            commit = self.resolve_state(project, stateid)
+            if not commit in states:
                 state = mustard.state.State(self, project, stateid)
                 repository = mustard.repository.Repository(state, self.settings)
-                states[stateid] = repository
+                states[commit] = repository
             else:
-                repository = states[stateid]
+                repository = states[commit]
             return bottle.template('work-items', repository=repository)
 
         @route('/<stateid>/interfaces')
         def interfaces(stateid):
-            stateid = self.resolve_state(project, stateid)
-            if not stateid in states:
+            commit = self.resolve_state(project, stateid)
+            if not commit in states:
                 state = mustard.state.State(self, project, stateid)
                 repository = mustard.repository.Repository(state, self.settings)
-                states[stateid] = repository
+                states[commit] = repository
             else:
-                repository = states[stateid]
+                repository = states[commit]
             return bottle.template('interfaces', repository=repository)
 
         @route('/public/<filename>')
@@ -168,5 +172,7 @@ class App(cliapp.Application):
             return image
         
         if self.settings['run-bottle']:
-            bottle.run(host='0.0.0.0', port=self.settings['port'],
+            bottle.run(host='0.0.0.0',
+                       port=self.settings['port'],
+                       server=self.settings['server'],
                        reloader=True)

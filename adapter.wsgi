@@ -18,7 +18,8 @@ def application(environ, start_response):
     import mustard
     mustard.renderer.App().run([
         '-p', project_path,
-        '-j', plantuml_jar
+        '-j', plantuml_jar,
+        '-s', 'cherrypy',
         ])
 
     return bottle.default_app()(environ, start_response)
