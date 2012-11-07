@@ -7,19 +7,24 @@ import os
 import sys
 import bottle
 
+app = None
+
 def application(environ, start_response):
-    server_path = environ['MUSTARD_SERVER_PATH']
-    project_path = environ['MUSTARD_PROJECT_PATH']
-    plantuml_jar = environ['MUSTARD_PLANTUML_JAR']
+    if not app:
+        server_path = environ['MUSTARD_SERVER_PATH']
+        project_path = environ['MUSTARD_PROJECT_PATH']
+        plantuml_jar = environ['MUSTARD_PLANTUML_JAR']
 
-    sys.path.append(server_path)
-    os.chdir(os.path.dirname(__file__))
+        sys.path.append(server_path)
+        os.chdir(os.path.dirname(__file__))
 
-    import mustard
-    mustard.renderer.App().run([
-        '-p', project_path,
-        '-j', plantuml_jar,
-        '-s', 'cherrypy',
-        ])
+        import mustard
+        mustard.renderer.App().run([
+            '-p', project_path,
+            '-j', plantuml_jar,
+            '-s', 'cherrypy',
+            ])
 
-    return bottle.default_app()(environ, start_response)
+        app = bottle.default_app()
+
+    return app(environ, start_response)
