@@ -28,8 +28,9 @@ requirements:
         info: Architectures can be defined.
         status: implemented
 
-      architecture-composition:
-        info: An architecture is comprised of components and interfaces.
+      architecture-components:
+        info: An architecture is comprised of components.
+        status: implemented
 
       components:
         info: Architecture components can be defined.
@@ -37,6 +38,11 @@ requirements:
 
       interfaces:
         info: Interfaces can be defined.
+        status: implemented
+
+      component-interfaces:
+        info: A component may have interfaces.
+        status: implemented
 
       architecture-nesting:
         info: >
@@ -111,6 +117,7 @@ requirements:
       work-items-linking:
         info: Work items can be linked to any object in the tree, e.g.
           components, requirements, tests or integration strategies.
+        status: implemented
 
     # Requirements for integration into external software
 
@@ -119,12 +126,14 @@ requirements:
           External tools can refer to a specific state of the project
           mustard, that is, to a specific point in the history of
           the architecture.
+        status: implemented
 
       deep-linking:
         info: >
           External tools can refer to a specific object in a given
           snapshot. (E.g. linking to a specific requirement from an
           issue tracker.)
+        status: implemented
 
     # Requirements for reports
 
@@ -132,6 +141,10 @@ requirements:
         info: >
           A range of useful reports about the state, history and
           progress of the project mustard can be generated.
+
+      pdf-reports:
+        info: >
+          The system can generate PDF reports.
 
       dangling-objects:
         info: >
@@ -191,3 +204,21 @@ requirements:
       info: >
         Any object may refer to any number of specific versions of
         external entities such as PowerPoint presentations.
+
+    # Requirements for the data format
+
+    glob-patterns:
+      info: >
+        Glob patterns like "requirements/system/*" are supported to
+        reference multiple other elements at once.
+
+    implicit-parent:
+      info: >
+        If no "parent" is specified for an object, the system can derive
+        the parent automatically via some means.
+
+    # Requirements for command line tools
+
+    command-line-tools:
+      info: >
+        There are command line utilities to manipulate MUSTARD projects.
