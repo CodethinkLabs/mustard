@@ -37,6 +37,16 @@ class App(cliapp.Application):
                               'Run the bottle web application',
                               default=defaults['run-bottle'])
 
+    def resolve_state(self, project, stateid):
+        if stateid != 'UNCOMMITTED':
+            try:
+                stateid = self.runcmd(['git', 'rev-list', '-n1', stateid],
+                                      cwd=project)
+                stateid = stateid.split()[0]
+            except:
+                pass
+        return stateid
+
     def process_args(self, args):
         if not self.settings['project']:
             raise cliapp.AppException('Input project directory not defined')
@@ -57,66 +67,90 @@ class App(cliapp.Application):
 
         @route('/<stateid>')
         def state_index(stateid):
+            stateid = self.resolve_state(project, stateid)
             if not stateid in states:
-                states[stateid] = mustard.state.State(self, project, stateid)
-            state = states[stateid]
-            repository = mustard.repository.Repository(state, self.settings)
+                state = mustard.state.State(self, project, stateid)
+                repository = mustard.repository.Repository(state, self.settings)
+                states[stateid] = repository
+            else:
+                repository = states[stateid]
             return bottle.template('index', repository=repository)
 
         @route('/<stateid>/overview')
         def overview(stateid):
+            stateid = self.resolve_state(project, stateid)
             if not stateid in states:
-                states[stateid] = mustard.state.State(self, project, stateid)
-            state = states[stateid]
-            repository = mustard.repository.Repository(state, self.settings)
+                state = mustard.state.State(self, project, stateid)
+                repository = mustard.repository.Repository(state, self.settings)
+                states[stateid] = repository
+            else:
+                repository = states[stateid]
             return bottle.template('overview', repository=repository)
 
         @route('/<stateid>/requirements')
         def requirements(stateid):
+            stateid = self.resolve_state(project, stateid)
             if not stateid in states:
-                states[stateid] = mustard.state.State(self, project, stateid)
-            state = states[stateid]
-            repository = mustard.repository.Repository(state, self.settings)
+                state = mustard.state.State(self, project, stateid)
+                repository = mustard.repository.Repository(state, self.settings)
+                states[stateid] = repository
+            else:
+                repository = states[stateid]
             return bottle.template('requirements', repository=repository)
 
         @route('/<stateid>/architectures')
         def architectures(stateid):
+            stateid = self.resolve_state(project, stateid)
             if not stateid in states:
-                states[stateid] = mustard.state.State(self, project, stateid)
-            state = states[stateid]
-            repository = mustard.repository.Repository(state, self.settings)
+                state = mustard.state.State(self, project, stateid)
+                repository = mustard.repository.Repository(state, self.settings)
+                states[stateid] = repository
+            else:
+                repository = states[stateid]
             return bottle.template('architectures', repository=repository)
 
         @route('/<stateid>/components')
         def components(stateid):
+            stateid = self.resolve_state(project, stateid)
             if not stateid in states:
-                states[stateid] = mustard.state.State(self, project, stateid)
-            state = states[stateid]
-            repository = mustard.repository.Repository(state, self.settings)
+                state = mustard.state.State(self, project, stateid)
+                repository = mustard.repository.Repository(state, self.settings)
+                states[stateid] = repository
+            else:
+                repository = states[stateid]
             return bottle.template('components', repository=repository)
 
         @route('/<stateid>/tags')
         def tags(stateid):
+            stateid = self.resolve_state(project, stateid)
             if not stateid in states:
-                states[stateid] = mustard.state.State(self, project, stateid)
-            state = states[stateid]
-            repository = mustard.repository.Repository(state, self.settings)
+                state = mustard.state.State(self, project, stateid)
+                repository = mustard.repository.Repository(state, self.settings)
+                states[stateid] = repository
+            else:
+                repository = states[stateid]
             return bottle.template('tags', repository=repository)
 
         @route('/<stateid>/work-items')
         def work_items(stateid):
+            stateid = self.resolve_state(project, stateid)
             if not stateid in states:
-                states[stateid] = mustard.state.State(self, project, stateid)
-            state = states[stateid]
-            repository = mustard.repository.Repository(state, self.settings)
+                state = mustard.state.State(self, project, stateid)
+                repository = mustard.repository.Repository(state, self.settings)
+                states[stateid] = repository
+            else:
+                repository = states[stateid]
             return bottle.template('work-items', repository=repository)
 
         @route('/<stateid>/interfaces')
         def interfaces(stateid):
+            stateid = self.resolve_state(project, stateid)
             if not stateid in states:
-                states[stateid] = mustard.state.State(self, project, stateid)
-            state = states[stateid]
-            repository = mustard.repository.Repository(state, self.settings)
+                state = mustard.state.State(self, project, stateid)
+                repository = mustard.repository.Repository(state, self.settings)
+                states[stateid] = repository
+            else:
+                repository = states[stateid]
             return bottle.template('interfaces', repository=repository)
 
         @route('/public/<filename>')
@@ -133,8 +167,6 @@ class App(cliapp.Application):
             bottle.response.content_type = 'image/png'
             return image
         
-        bottle.debug(True)
-
         if self.settings['run-bottle']:
             bottle.run(host='0.0.0.0', port=self.settings['port'],
                        reloader=True)
