@@ -179,6 +179,7 @@ img {
   background: #fff;
   padding: 1em;
   border: thin solid #ccc;
+  max-width: 90%;
 }
 
 a span {
