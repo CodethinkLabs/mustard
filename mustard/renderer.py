@@ -45,7 +45,7 @@ class App(cliapp.Application):
         if not os.path.isdir(project):
             raise cliapp.AppException('Input project directory does not exist')
 
-        state = mustard.state.State(self, project, 'HEAD')
+        states = {}
 
         @route('/')
         def index():
@@ -57,49 +57,65 @@ class App(cliapp.Application):
 
         @route('/<stateid>')
         def state_index(stateid):
-            state = mustard.state.State(self, project, stateid)
+            if not stateid in states:
+                states[stateid] = mustard.state.State(self, project, stateid)
+            state = states[stateid]
             repository = mustard.repository.Repository(state, self.settings)
             return bottle.template('index', repository=repository)
 
         @route('/<stateid>/overview')
         def overview(stateid):
-            state = mustard.state.State(self, project, stateid)
+            if not stateid in states:
+                states[stateid] = mustard.state.State(self, project, stateid)
+            state = states[stateid]
             repository = mustard.repository.Repository(state, self.settings)
             return bottle.template('overview', repository=repository)
 
         @route('/<stateid>/requirements')
         def requirements(stateid):
-            state = mustard.state.State(self, project, stateid)
+            if not stateid in states:
+                states[stateid] = mustard.state.State(self, project, stateid)
+            state = states[stateid]
             repository = mustard.repository.Repository(state, self.settings)
             return bottle.template('requirements', repository=repository)
 
         @route('/<stateid>/architectures')
         def architectures(stateid):
-            state = mustard.state.State(self, project, stateid)
+            if not stateid in states:
+                states[stateid] = mustard.state.State(self, project, stateid)
+            state = states[stateid]
             repository = mustard.repository.Repository(state, self.settings)
             return bottle.template('architectures', repository=repository)
 
         @route('/<stateid>/components')
         def components(stateid):
-            state = mustard.state.State(self, project, stateid)
+            if not stateid in states:
+                states[stateid] = mustard.state.State(self, project, stateid)
+            state = states[stateid]
             repository = mustard.repository.Repository(state, self.settings)
             return bottle.template('components', repository=repository)
 
         @route('/<stateid>/tags')
         def tags(stateid):
-            state = mustard.state.State(self, project, stateid)
+            if not stateid in states:
+                states[stateid] = mustard.state.State(self, project, stateid)
+            state = states[stateid]
             repository = mustard.repository.Repository(state, self.settings)
             return bottle.template('tags', repository=repository)
 
         @route('/<stateid>/work-items')
         def work_items(stateid):
-            state = mustard.state.State(self, project, stateid)
+            if not stateid in states:
+                states[stateid] = mustard.state.State(self, project, stateid)
+            state = states[stateid]
             repository = mustard.repository.Repository(state, self.settings)
             return bottle.template('work-items', repository=repository)
 
         @route('/<stateid>/interfaces')
         def interfaces(stateid):
-            state = mustard.state.State(self, project, stateid)
+            if not stateid in states:
+                states[stateid] = mustard.state.State(self, project, stateid)
+            state = states[stateid]
             repository = mustard.repository.Repository(state, self.settings)
             return bottle.template('interfaces', repository=repository)
 

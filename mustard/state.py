@@ -10,18 +10,24 @@ class State(object):
         self.app = app
         self.dirname = dirname
         self.identifier = identifier
+        self.cached_tree = None
+        self.cached_files = {}
 
     def list_tree(self):
         if self.identifier == 'UNCOMMITTED':
             return self._list_uncommitted_tree()
         else:
-            return self._list_commit_tree()
+            if not self.cached_tree:
+                self.cached_tree = list(self._list_commit_tree())
+            return self.cached_tree
 
     def read(self, filename):
         if self.identifier == 'UNCOMMITTED':
             return self._read_uncommitted_file(filename)
         else:
-            return self._read_commit_file(filename)
+            if not filename in self.cached_files:
+                self.cached_files[filename] = self._read_commit_file(filename)
+            return self.cached_files[filename]
 
     def _list_uncommitted_tree(self):
         # collect all elements from the project dir
