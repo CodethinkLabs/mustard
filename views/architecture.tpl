@@ -55,7 +55,7 @@
         % end
         % if architecture.mapped_here:
           <tr>
-            <th>Mapped Here</th>
+            <th>Requirements</th>
             <td>
               <ul>
                 % for path, requirement in architecture.mapped_here.iteritems():
