@@ -86,21 +86,18 @@ function merge_hashes(hash1, hash2) {
 
   for (var index in hash1_paths) {
     var path = hash1_paths[index];
-    if (path != hash1_paths[0]) {
-      hash_map[path] = true;
-    }
+    hash_map[path] = true;
   }
 
   for (var index in hash2_paths) {
-    var path = hash2_paths[index];
-    if (path != hash1_paths[0]) {
-      hash_map[path] = true;
-    }
+    hash_map[path] = true;
   }
 
   var merged_paths = [hash1_paths[0]];
   for (var path in hash_map) {
-    merged_paths.push(path);
+    if (path != hash1_paths[0]) {
+      merged_paths.push(path);
+    }
   }
   return merged_paths;
 }
