@@ -177,8 +177,8 @@ function set_document_title() {
 
 
 $(document).ready(function() {
-  // fade the body in nicely
-  $('body').hide().fadeIn(250);
+  //// fade the body in nicely
+  //$('body').hide().fadeIn(250);
 
   set_document_title();
 
@@ -267,6 +267,6 @@ $(document).ready(function() {
 });
 
 
-$(document).unload(function() {
-  $('body').fadeOut(250);
-});
+//$(document).unload(function() {
+//  $('body').fadeOut(250);
+//});
