@@ -202,14 +202,19 @@ $(document).ready(function() {
       element = $(event.target).parent();
     }
 
-    var url_segments = element.attr('href').split('#');
-    if (url_segments.length > 0) {
-      expand_hash_elements(url_segments[1]);
-      var target_path = url_segments[0];
-      var current_path = window.location.pathname;
-      if (target_path == current_path) {
-        event.target.hash = merge_hashes(event.target.hash, window.location.hash);
-        scroll_to_first_hash_element(event.target.hash);
+    var href = element.attr('href');
+
+    if (href) {
+      var url_segments = href.split('#');
+      if (url_segments.length > 0) {
+        expand_hash_elements(url_segments[1]);
+        var target_path = url_segments[0];
+        var current_path = window.location.pathname;
+        if (target_path == current_path) {
+          event.target.hash = merge_hashes(event.target.hash,
+                                           window.location.hash);
+          scroll_to_first_hash_element(event.target.hash);
+        }
       }
     }
   });
