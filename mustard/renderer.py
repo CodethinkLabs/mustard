@@ -61,27 +61,30 @@ class App(cliapp.Application):
             return stateid
 
     def render_repository(self, state, view):
-        if state == 'UNCOMMITTED':
-            project_state = mustard.state.State(
-                    self, self.settings['project'], state)
-            repo = mustard.repository.Repository(project_state, self.settings)
-            return bottle.template(view, repository=repo)
-        else:
-            commit = self.resolve_state(state)
-            content_id = (commit, view)
+        try:
+            if state == 'UNCOMMITTED':
+                project_state = mustard.state.State(
+                        self, self.settings['project'], state)
+                repo = mustard.repository.Repository(project_state, self.settings)
+                return bottle.template(view, repository=repo)
+            else:
+                commit = self.resolve_state(state)
+                content_id = (commit, view)
 
-            if not content_id in self.content:
-                if not commit in self.states:
-                    project_state = mustard.state.State(
-                            self, self.settings['project'], state)
-                    repo = mustard.repository.Repository(
-                            project_state, self.settings)
-                    self.states[commit] = repo
-                else:
-                    repo = self.states[commit]
-                self.content[content_id] = bottle.template(view, repository=repo)
+                if not content_id in self.content:
+                    if not commit in self.states:
+                        project_state = mustard.state.State(
+                                self, self.settings['project'], state)
+                        repo = mustard.repository.Repository(
+                                project_state, self.settings)
+                        self.states[commit] = repo
+                    else:
+                        repo = self.states[commit]
+                    self.content[content_id] = bottle.template(view, repository=repo)
 
-            return self.content[content_id]
+                return self.content[content_id]
+        except cliapp.AppException, err:
+            return bottle.template('error', error=err)
 
     def process_args(self, args):
         if not self.settings['project']:
