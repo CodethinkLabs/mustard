@@ -45,6 +45,7 @@ class Element(mustard.elementtrie.Trie):
                     uml_content.append(line.strip())
             else:
                 if line.strip() == '@startuml':
+                    uml_content = []
                     inside_uml = True
                 else:
                     resolved_text.append(line)

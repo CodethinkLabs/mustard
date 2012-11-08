@@ -30,7 +30,7 @@ class Project(mustard.elementfactory.Element):
 
     def _propagate_architecture(self, path, architecture):
         self.elements[path] = architecture
-        
+
         self._resolve_tags(path, architecture)
         self._resolve_mapped_here(path, architecture)
         self._resolve_parent_component(path, architecture)
@@ -72,7 +72,7 @@ class Project(mustard.elementfactory.Element):
             if path in element.tags:
                 element.tags[path] = tag
                 tag.tagged[ref] = element
-        
+
     def _resolve_parent_component(self, path, element):
         if element.parent in self.elements:
             self.elements[element.parent].architecture = (path, element)
