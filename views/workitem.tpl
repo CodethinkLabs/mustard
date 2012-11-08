@@ -31,10 +31,10 @@
             </td>
           </tr>
         % end
-        % if item.parents:
-          <tr>
-            <th>Parents</th>
-            <td>
+        <tr>
+          <th>Parents</th>
+          <td>
+            % if item.parents:
               <ul>
                 % for path, element in item.parents.iteritems():
                   <li>
@@ -42,9 +42,11 @@
                   </li>
                 % end
               </ul>
-            </td>
-          </tr>
-        % end
+            % else:
+              <p class="error">No parents specified</p>
+            % end
+          </td>
+        </tr>
       </table>
     </dd>
   % else:
