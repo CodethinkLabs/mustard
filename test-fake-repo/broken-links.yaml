@@ -1,0 +1,74 @@
+component-with-no-parent:
+  kind: component
+
+component-with-empty-parent:
+  kind: component
+  parent:
+
+component-with-nonexistent-parent:
+  kind: component
+  parent: nonexistent
+
+architecture-with-no-parent:
+  kind: architecture
+
+architecture-with-empty-parent:
+  kind: architecture
+  parent:
+
+architecture-with-nonexistent-parent:
+  kind: architecture
+  parent: nonexistent
+
+interface-with-no-parent:
+  kind: interface
+
+interface-with-empty-parent:
+  kind: interface
+  parent:
+
+interface-with-nonexistent-parent:
+  kind: interface
+  parent: nonexistent
+
+requirement-with-nonexistent-parent:
+  kind: requirement
+  parent: nonexistent
+
+requirement-with-empty-parent:
+  kind: requirement
+  parent:
+
+work-item-with-no-parents:
+  kind: work-item
+
+work-item-with-empty-parent:
+  kind: work-item
+  parent:
+
+work-item-with-empty-parents-list:
+  kind: work-item
+  parents:
+
+work-item-with-empty-parents:
+  kind: work-item
+  parents:
+    -
+    -
+
+work-item-with-nonexistent-parent:
+  kind: work-item
+  parent: nonexistent
+
+work-item-with-nonexistent-parents:
+  kind: work-item
+  parents:
+    - nonexistent1
+    - nonexistent2
+
+work-item-with-mixed-parents:
+  kind: work-item
+  parents:
+    - nonexistent
+    -
+    -
