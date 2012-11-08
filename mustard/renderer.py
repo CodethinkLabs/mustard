@@ -53,36 +53,40 @@ class App(cliapp.Application):
                               default=defaults['reload'])
 
     def resolve_state(self, stateid):
-        if stateid != 'UNCOMMITTED':
-            try:
-                stateid = self.runcmd(['git', 'rev-list', '-n1', stateid],
-                                      cwd=self.settings['project'])
-                stateid = stateid.split()[0]
-            except:
-                pass
-        return stateid
+        try:
+            stateid = self.runcmd(['git', 'rev-list', '-n1', stateid],
+                                  cwd=self.settings['project'])
+            return stateid.split()[0]
+        except:
+            return stateid
 
     def render_repository(self, state, view):
-        commit = self.resolve_state(state)
-        content_id = (commit, view)
+        if state == 'UNCOMMITTED':
+            project_state = mustard.state.State(
+                    self, self.settings['project'], state)
+            repo = mustard.repository.Repository(project_state, self.settings)
+            return bottle.template(view, repository=repo)
+        else:
+            commit = self.resolve_state(state)
+            content_id = (commit, view)
 
-        if not content_id in self.content:
-            if not commit in self.states:
-                project_state = mustard.state.State(
-                        self, self.settings['project'], state)
-                repo = mustard.repository.Repository(
-                        project_state, self.settings)
-                self.states[commit] = repo
-            else:
-                repo = self.states[commit]
-            self.content[content_id] = bottle.template(view, repository=repo)
+            if not content_id in self.content:
+                if not commit in self.states:
+                    project_state = mustard.state.State(
+                            self, self.settings['project'], state)
+                    repo = mustard.repository.Repository(
+                            project_state, self.settings)
+                    self.states[commit] = repo
+                else:
+                    repo = self.states[commit]
+                self.content[content_id] = bottle.template(view, repository=repo)
 
-        return self.content[content_id]
+            return self.content[content_id]
 
     def process_args(self, args):
         if not self.settings['project']:
             raise cliapp.AppException('Input project directory not defined')
-        
+
         if not os.path.isdir(self.settings['project']):
             raise cliapp.AppException('Input project directory does not exist')
 
@@ -145,7 +149,7 @@ class App(cliapp.Application):
                         feed_stdin=uml)
             bottle.response.content_type = 'image/png'
             return self.uml[content]
-        
+
         if self.settings['run-bottle']:
             bottle.run(host='0.0.0.0',
                        port=self.settings['port'],
