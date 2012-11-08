@@ -12,6 +12,6 @@ class WorkItem(mustard.elementfactory.Element):
         mustard.elementfactory.Element.__init__(self, data)
 
         self.parents = {}
-        if 'parents' in data:
-            for ref in data['parents']:
+        for ref in data.get('parents', None) or []:
+            if ref:
                 self.parents[ref] = None

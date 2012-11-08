@@ -35,7 +35,11 @@
             <th>Parent</th>
             <td>
               <p>
-                % include architecture path=path, architecture=architecture, detail='list'
+                % if path or architecture:
+                  % include architecture path=path, architecture=architecture, detail='list'
+                % else:
+                  <span class="error">No parent specified</span>
+                % end
               </p>
             </td>
           </tr>

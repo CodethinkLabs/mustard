@@ -18,7 +18,7 @@ class Element(mustard.elementtrie.Trie):
         self.title = data.get('title', None)
         self.set_description(data.get('description', None))
         
-        self.parent = data.get('parent', None)
+        self.parent = (data.get('parent', None), None)
         self.work_items = {}
 
         self.tags = {}

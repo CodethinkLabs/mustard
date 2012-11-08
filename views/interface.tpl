@@ -33,7 +33,11 @@
             <th>Parent</th>
             <td>
               <p>
-                % include component path=path, component=component, detail='list'
+                % if path:
+                  % include component path=path, component=component, detail='list'
+                % else:
+                  <span class="error">No parent specified</span>
+                % end
               </p>
             </td>
           </tr>
