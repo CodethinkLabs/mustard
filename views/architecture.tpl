@@ -41,10 +41,10 @@
             </p>
           </td>
         </tr>
-        % if architecture.components:
-          <tr>
-            <th>Components</th>
-            <td>
+        <tr>
+          <th>Components</th>
+          <td>
+            % if architecture.components:
               <ul>
                 % for path, component in architecture.components.iteritems():
                   <li>
@@ -52,9 +52,22 @@
                   </li>
                 % end
               </ul>
-            </td>
-          </tr>
-        % end
+            % else:
+              <p class="error">No components specified yet.</p>
+            % end
+          </td>
+        </tr>
+        <tr>
+          <th>Integration Strategy</th>
+          <td>
+            % path, strategy = architecture.integration_strategy
+            % if path:
+              % include integration-strategy path=path, strategy=strategy, detail='list'
+            % else:
+              <span class="error">No integration strategy specified</span>
+            % end
+          </td>
+        </tr>
         % if architecture.mapped_here:
           <tr>
             <th>Requirements</th>

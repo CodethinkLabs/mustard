@@ -54,10 +54,10 @@
             </td>
           </tr>
         % end
-        % if requirement.mapped_to:
-          <tr>
-            <th>Mapped To</th>
-            <td>
+        <tr>
+          <th>Mapped To</th>
+          <td>
+            % if requirement.mapped_to:
               <ul>
                 % for path, element in requirement.mapped_to.iteritems():
                   <li>
@@ -65,9 +65,12 @@
                   </li>
                 % end
               </ul>
-            </td>
-          </tr>
-        % end
+            % end
+            % if not [x for x in requirement.mapped_to.itervalues() if x.kind == 'component']:
+              <p class="error">Not mapped to any components yet.</p>
+            % end
+          </td>
+        </tr>
         % if requirement.work_items:
           <tr>
             <th>Work Items</th>

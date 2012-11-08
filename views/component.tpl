@@ -67,24 +67,28 @@
             </td>
           </tr>
         % end
-        % if component.mapped_here:
+        % if component.mapped_here or not component.architecture:
           <tr> 
             <th>Requirements</th>
             <td>
-              <ul>
-                % for path, requirement in component.mapped_here.iteritems():
-                  <li>
-                    % include requirement path=path, requirement=requirement, detail='list'
-                  </li>
-                % end
-              </ul>
+              % if component.mapped_here:
+                <ul>
+                  % for path, requirement in component.mapped_here.iteritems():
+                    <li>
+                      % include requirement path=path, requirement=requirement, detail='list'
+                    </li>
+                  % end
+                </ul>
+              % else:
+                <p class="error">This component either needs an architecture or have requirements mapped to it.</p>
+              % end
             </td>
           </tr>
         % end
-        % if component.work_items:
-          <tr>
-            <th>Work Items</th>
-            <td>
+        <tr>
+          <th>Work Items</th>
+          <td>
+            % if component.work_items:
               <ul>
                 % for path, item in component.work_items.iteritems():
                   <li>
@@ -92,9 +96,11 @@
                   </li>
                 % end
               </ul>
-            </td>
-          </tr>
-        % end
+            % else:
+              <p class="error">No work items specified yet.</p>
+            % end
+          </td>
+        </tr>
       </table>
     </dd>
   % else:

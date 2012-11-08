@@ -92,3 +92,8 @@ class Repository(object):
     def interfaces(self):
         return sorted([(x,y) for x,y in self.project.find('interface')],
                       key=lambda pair: pair[1].title)
+
+    def integration_strategies(self):
+        return sorted(
+                [(x,y) for x,y in self.project.find('integration-strategy')],
+                key=lambda pair: pair[1].title)

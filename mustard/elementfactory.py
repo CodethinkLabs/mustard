@@ -70,5 +70,7 @@ class ElementFactory(object):
             return mustard.workitem.WorkItem(data)
         elif data['kind'] == 'interface':
             return mustard.interface.Interface(data)
+        elif data['kind'] == 'integration-strategy':
+            return mustard.integration.IntegrationStrategy(data)
         else:
             raise cliapp.AppException('Unknown element: %s' % data)

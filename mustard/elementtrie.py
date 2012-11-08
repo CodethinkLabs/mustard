@@ -53,6 +53,8 @@ class Trie(object):
             self._propagate_work_item(path, node)
         elif node.kind == 'interface':
             self._propagate_interface(path, node)
+        elif node.kind == 'integration-strategy':
+            self._propagate_integration_strategy(path, node)
         if self._parent:
             self._parent._propagate_descendant(path, node)
 
@@ -72,6 +74,9 @@ class Trie(object):
         pass
 
     def _propagate_interface(self, path, interface):
+        pass
+
+    def _propagate_integration_strategy(self, path, strategy):
         pass
 
     def lookup(self, path):

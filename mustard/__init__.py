@@ -9,6 +9,7 @@ import elementfactory
 
 import architecture
 import component
+import integration
 import interface
 import project
 import requirement

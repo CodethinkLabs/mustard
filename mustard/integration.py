@@ -6,13 +6,12 @@ import markdown
 import mustard
 
 
-class Architecture(mustard.elementfactory.Element):
+class IntegrationStrategy(mustard.elementfactory.Element):
 
     def __init__(self, data):
         mustard.elementfactory.Element.__init__(self, data)
 
-        self.components = {}
-        self.integration_strategy = (None, None)
+        self.tests = {}
 
         self.mapped_here = {}
         for ref in data.get('mapped-here', []):

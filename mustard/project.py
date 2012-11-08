@@ -35,6 +35,7 @@ class Project(mustard.elementfactory.Element):
         self._resolve_mapped_here(path, architecture)
         self._resolve_parent_component(path, architecture)
         self._resolve_components(path, architecture)
+        self._resolve_integration_strategy(path, architecture)
         self._resolve_work_items(path, architecture)
 
     def _propagate_component(self, path, component):
@@ -60,6 +61,14 @@ class Project(mustard.elementfactory.Element):
         self._resolve_interface_component(path, interface)
         self._resolve_mapped_here(path, interface)
         self._resolve_work_items(path, interface)
+
+    def _propagate_integration_strategy(self, path, strategy):
+        self.elements[path] = strategy
+
+        self._resolve_tags(path, strategy)
+        self._resolve_strategy_architecture(path, strategy)
+        self._resolve_mapped_here(path, strategy)
+        self._resolve_work_items(path, strategy)
 
     def _resolve_tags(self, path, element):
         for ref in element.tags.iterkeys():
@@ -146,6 +155,19 @@ class Project(mustard.elementfactory.Element):
             if ref in self.elements:
                 self.elements[ref].work_items[path] = element
                 element.parents[ref] = self.elements[ref]
+
+    def _resolve_integration_strategy(self, path, arch):
+        for ref, element in self.elements.iteritems():
+            if element.kind == 'integration-strategy':
+                if path == element.parent[0]:
+                    element.parent = (path, arch)
+                    self.integration_strategy = (ref, element)
+
+    def _resolve_strategy_architecture(self, path, strategy):
+        ref = strategy.parent[0]
+        if ref in self.elements:
+            strategy.parent = (ref, self.elements[ref])
+            self.elements[ref].integration_strategy = (path, strategy)
 
     def find(self, kind):
         for path, element in self.elements.iteritems():

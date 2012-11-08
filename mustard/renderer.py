@@ -136,6 +136,10 @@ class App(cliapp.Application):
         def interfaces(stateid):
             return self.render_repository(stateid, 'interfaces')
 
+        @route('/<stateid>/integration-strategies')
+        def integration_strategies(stateid):
+            return self.render_repository(stateid, 'integration-strategies')
+
         @route('/public/<filename>')
         def stylesheet(filename):
             public_dir = os.path.join(os.path.dirname(__file__),
