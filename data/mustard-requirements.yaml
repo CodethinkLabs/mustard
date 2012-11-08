@@ -87,19 +87,24 @@ requirements:
 
       tests:
         info: Tests can be defined.
+        status: implemented
 
       integration-strategies:
         info: >
           Integration strategies can be defined.
+        status: implemented
 
       integration-stratagies-for-architecture:
+        info: >
           An integration strategy must state which architecture it is
           a strategy for integration.
+        status: implemented
 
       integration-strategy-description:
           The description of an integration strategy states how the
           components of the indicated architecture are integrated in
           order to verify the corresponding architecture requirements.
+        status: implemented
 
       tests-for-requirements:
         info: >
@@ -107,6 +112,7 @@ requirements:
           integration strategies. Tests for the latter exist, among
           other things, to verify that the components of an architecture
           meet their interface specifications.
+        status: implemented
 
     # Requirements for work items
 

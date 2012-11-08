@@ -97,3 +97,7 @@ class Repository(object):
         return sorted(
                 [(x,y) for x,y in self.project.find('integration-strategy')],
                 key=lambda pair: pair[1].title)
+    
+    def tests(self):
+        return sorted([(x,y) for x,y in self.project.find('test')],
+                      key=lambda pair: pair[1].title)

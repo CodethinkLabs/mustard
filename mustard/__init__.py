@@ -14,6 +14,7 @@ import interface
 import project
 import requirement
 import tag
+import test
 import workitem
 
 import state

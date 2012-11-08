@@ -22,6 +22,7 @@ class Project(mustard.elementfactory.Element):
         self._resolve_mapped_to(path, requirement)
         self._resolve_parent_requirement(path, requirement)
         self._resolve_work_items(path, requirement)
+        self._resolve_tests(path, requirement)
 
     def _propagate_tag(self, path, tag):
         self.elements[path] = tag
@@ -47,6 +48,7 @@ class Project(mustard.elementfactory.Element):
         self._resolve_interfaces(path, component)
         self._resolve_mapped_here(path, component)
         self._resolve_work_items(path, component)
+        self._resolve_tests(path, component)
 
     def _propagate_work_item(self, path, item):
         self.elements[path] = item
@@ -61,6 +63,7 @@ class Project(mustard.elementfactory.Element):
         self._resolve_interface_component(path, interface)
         self._resolve_mapped_here(path, interface)
         self._resolve_work_items(path, interface)
+        self._resolve_tests(path, interface)
 
     def _propagate_integration_strategy(self, path, strategy):
         self.elements[path] = strategy
@@ -69,6 +72,15 @@ class Project(mustard.elementfactory.Element):
         self._resolve_strategy_architecture(path, strategy)
         self._resolve_mapped_here(path, strategy)
         self._resolve_work_items(path, strategy)
+        self._resolve_tests(path, strategy)
+
+    def _propagate_test(self, path, test):
+        self.elements[path] = test
+
+        self._resolve_tags(path, test)
+        self._resolve_mapped_here(path, test)
+        self._resolve_work_items(path, test)
+        self._resolve_test_parents(path, test)
 
     def _resolve_tags(self, path, element):
         for ref in element.tags.iterkeys():
@@ -168,6 +180,19 @@ class Project(mustard.elementfactory.Element):
         if ref in self.elements:
             strategy.parent = (ref, self.elements[ref])
             self.elements[ref].integration_strategy = (path, strategy)
+
+    def _resolve_test_parents(self, path, test):
+        for ref in test.parents.iterkeys():
+            if ref in self.elements:
+                self.elements[ref].tests[path] = test
+                test.parents[ref] = self.elements[ref]
+
+    def _resolve_tests(self, path, element):
+        for ref, other in self.elements.iteritems():
+            if other.kind == 'test':
+                if path in other.parents:
+                    other.parents[path] = element
+                    element.tests[ref] = other
 
     def find(self, kind):
         for path, element in self.elements.iteritems():

@@ -13,6 +13,7 @@ class Component(mustard.elementfactory.Element):
 
         self.architecture = None
         self.interfaces = {}
+        self.tests = {}
         
         self.mapped_here = {}
         for ref in data.get('mapped-here', []):

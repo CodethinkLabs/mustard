@@ -8,6 +8,7 @@ body {
   overflow-y: scroll;
   font-family: sans-serif;
   font-size: 0.85em;
+  min-height: 600px;
 }
 
 #nav {
@@ -217,6 +218,8 @@ a.workitem:after     { content: '  [w]'; opacity: 0.5; filter: alpha(opacity=50)
 a.requirement:after  { content: '  [r]'; opacity: 0.5; filter: alpha(opacity=50); }
 a.interface:after    { content: '  [i]'; opacity: 0.5; filter: alpha(opacity=50); }
 a.tag:after          { content: '  [t]'; opacity: 0.5; filter: alpha(opacity=50); }
+a.strategy:after     { content: '  [s]'; opacity: 0.5; filter: alpha(opacity=50); }
+a.test:after         { content: '  [v]'; opacity: 0.5; filter: alpha(opacity=50); }
 
 label {
   margin-right: 6px;

@@ -85,6 +85,20 @@
             </td>
           </tr>
         % end
+        % if requirement.tests:
+          <tr>
+            <th>Tests</th>
+            <td>
+              <ul>
+                % for path, test in requirement.tests.iteritems():
+                  <li>
+                    % include test path=path, test=test, detail='list'
+                  </li>
+                % end
+              </ul>
+            </td>
+          </tr>
+        % end
       </table>
     </dd>
   % else:

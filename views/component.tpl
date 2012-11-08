@@ -101,6 +101,20 @@
             % end
           </td>
         </tr>
+        % if component.tests:
+          <tr>
+            <th>Tests</th>
+            <td>
+              <ul>
+                % for path, test in component.tests.iteritems():
+                  <li>
+                    % include test path=path, test=test, detail='list'
+                  </li>
+                % end
+              </ul>
+            </td>
+          </tr>
+        % end
       </table>
     </dd>
   % else:

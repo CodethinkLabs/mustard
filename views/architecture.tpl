@@ -96,6 +96,20 @@
             </td>
           </tr>
         % end
+        % if architecture.tests:
+          <tr>
+            <th>Tests</th>
+            <td>
+              <ul>
+                % for path, test in architecture.tests.iteritems():
+                  <li>
+                    % include test path=path, test=test, detail='list'
+                  </li>
+                % end
+              </ul>
+            </td>
+          </tr>
+        % end
       </table>
     </dd>
   % else:

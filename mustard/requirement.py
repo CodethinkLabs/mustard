@@ -12,5 +12,5 @@ class Requirement(mustard.elementfactory.Element):
         mustard.elementfactory.Element.__init__(self, data)
 
         self.mapped_to = {}
-
         self.subrequirements = {}
+        self.tests = {}

@@ -10,6 +10,10 @@
   % include requirement path=path, requirement=element, detail='list'
 % elif element.kind == 'tag':
   % include tag path=path, tag=element, detail='list'
+% elif element.kind == 'test':
+  % include test path=path, test=element, detail='list'
+% elif element.kind == 'integration-strategy':
+  % include integration-strategy path=path, strategy=element, detail='list'
 % else:
   <span class="error">[[ Cannot render element: {{element.kind}} ]]</span>
 % end

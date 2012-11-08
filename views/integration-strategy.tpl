@@ -61,9 +61,9 @@
           <td>
             % if strategy.tests:
               <ul>
-                % for path, item in strategy.work_items.iteritems():
+                % for path, test in strategy.tests.iteritems():
                   <li>
-                    % include workitem path=path, item=item, detail='list'
+                    % include test path=path, test=test, detail='list'
                   </li>
                 % end
               </ul>
