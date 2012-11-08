@@ -29,21 +29,19 @@
             </td>
           </tr>
         % end
-        % if component.parent:
-          <tr> 
-            % path, architecture = component.parent
-            <th>Parent</th>
-            <td>
-              <p>
-                % if path or architecture:
-                  % include architecture path=path, architecture=architecture, detail='list'
-                % else:
-                  <span class="error">No parent specified</span>
-                % end
-              </p>
-            </td>
-          </tr>
-        % end
+        <tr> 
+          <th>Parent</th>
+          <td>
+            <p>
+              % path, architecture = component.parent
+              % if path:
+                % include architecture path=path, architecture=architecture, detail='list'
+              % else:
+                <span class="error">No parent specified</span>
+              % end
+            </p>
+          </td>
+        </tr>
         % if component.architecture:
           <tr> 
             % path, architecture = component.architecture

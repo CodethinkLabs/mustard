@@ -71,7 +71,7 @@
 % end
 
 <h1>Overview</h1>
-% toparchs = [(x,y) for x,y in repository.architectures() if not y.parent]
+% toparchs = [(x,y) for x,y in repository.architectures() if not y.parent[0]]
 <ul class="hierarchy">
   % for path, arch in toparchs:
     % render_arch(path, arch)

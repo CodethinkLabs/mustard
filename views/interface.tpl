@@ -27,21 +27,19 @@
             </td>
           </tr>
         % end
-        % if interface.parent:
-          % path, component = interface.parent
-          <tr>
-            <th>Parent</th>
-            <td>
-              <p>
-                % if path:
-                  % include component path=path, component=component, detail='list'
-                % else:
-                  <span class="error">No parent specified</span>
-                % end
-              </p>
-            </td>
-          </tr>
-        % end
+        <tr>
+          <th>Parent</th>
+          <td>
+            <p>
+              % path, component = interface.parent
+              % if path:
+                % include component path=path, component=component, detail='list'
+              % else:
+                <span class="error">No parent specified</span>
+              % end
+            </p>
+          </td>
+        </tr>
         % if interface.mapped_here:
           <tr>
             <th>Requirements</th>

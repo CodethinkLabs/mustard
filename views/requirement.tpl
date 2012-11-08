@@ -29,7 +29,7 @@
             </td>
           </tr>
         % end
-        % if requirement.parent:
+        % if requirement.parent[0]:
           <tr>
             <th>Parent</th>
             <td>

@@ -74,38 +74,41 @@ class Project(mustard.elementfactory.Element):
                 tag.tagged[ref] = element
 
     def _resolve_parent_component(self, path, element):
-        if element.parent in self.elements:
-            self.elements[element.parent].architecture = (path, element)
-            element.parent = (element.parent, self.elements[element.parent])
+        ref = element.parent[0]
+        if ref in self.elements:
+            self.elements[ref].architecture = (path, element)
+            element.parent = (ref, self.elements[ref])
 
     def _resolve_interface_component(self, path, element):
-        if element.parent in self.elements:
-            self.elements[element.parent].interfaces[path] = element
-            element.parent = (element.parent, self.elements[element.parent])
+        ref = element.parent[0]
+        if ref in self.elements:
+            self.elements[ref].interfaces[path] = element
+            element.parent = (ref, self.elements[ref])
 
     def _resolve_components(self, path, architecture):
         for ref, element in self.elements.iteritems():
             if element.kind == 'component':
-                if element.parent == path:
+                if element.parent[0] == path:
                     element.parent = (path, architecture)
                     architecture.components[ref] = element
 
     def _resolve_parent_architecture(self, path, element):
-        if element.parent in self.elements:
-            self.elements[element.parent].components[path] = element
-            element.parent = (element.parent, self.elements[element.parent])
+        ref = element.parent[0]
+        if ref in self.elements:
+            self.elements[ref].components[path] = element
+            element.parent = (ref, self.elements[ref])
 
     def _resolve_architecture(self, path, component):
         for ref, element in self.elements.iteritems():
             if element.kind == 'architecture':
-                if element.parent == path:
+                if element.parent[0] == path:
                     element.parent = (path, component)
                     component.architecture = (ref, element)
 
     def _resolve_interfaces(self, path, component):
         for ref, element in self.elements.iteritems():
             if element.kind == 'interface':
-                if element.parent == path:
+                if element.parent[0] == path:
                     element.parent = (path, component)
                     component.interfaces[ref] = element
 
@@ -115,7 +118,7 @@ class Project(mustard.elementfactory.Element):
                 if path in element.mapped_here:
                     element.mapped_here[path] = requirement
                     requirement.mapped_to[ref] = element
-            if path == element.parent:
+            if path == element.parent[0]:
                 element.parent = (path, requirement)
                 requirement.subrequirements[ref] = element
 
@@ -126,8 +129,8 @@ class Project(mustard.elementfactory.Element):
                 self.elements[ref].mapped_to[path] = element
 
     def _resolve_parent_requirement(self, path, requirement):
-        if requirement.parent in self.elements:
-            ref = requirement.parent
+        ref = requirement.parent[0]
+        if ref in self.elements:
             requirement.parent = (ref, self.elements[ref])
             self.elements[ref].subrequirements[path] = requirement
 
