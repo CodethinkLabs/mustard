@@ -263,6 +263,18 @@ $(document).ready(function() {
       update_filter();
       $(this).val('');
   });
+
+  $('#nav-more').hover(
+    function() {
+      $('#nav-more ul').fadeIn();
+    },
+    function() {
+      $('#nav-more ul').fadeOut();
+    }
+  );
+  $('#nav-more a').mouseup(function() {
+    $('#nav-more ul').fadeToggle();
+  });
 });
 
 

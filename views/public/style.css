@@ -18,7 +18,7 @@ body {
     border-radius: 0px 0px 5px 5px;
     margin: -2px auto 0em auto;
     text-align: center;
-    height: 2.15em;
+    height: 2.2em;
     position: relative;
     z-index: 1;
 }
@@ -71,7 +71,6 @@ h1 {
   color: #fff;
   border: 2px solid #64a800;
   box-shadow: 0px 0px 5px #999;
-  z-index: 2;
   position: relative;
 }
 
@@ -253,4 +252,39 @@ h2 span.error, a span.error {
   opacity: 1.0;
   filter: alpha(opacity=100);
   font-size: inherit;
+}
+
+#nav-more a {
+  width: 8em;
+  text-align: left;
+}
+
+#nav-more ul {
+  background: #ff0000;
+  display: none;
+  position: absolute;
+  left: inherit;
+  width: 10em;
+  background: #a7d239;
+  z-index: 10;
+  border: 1px solid #64a800;
+  text-align: left;
+  border-top: 0em;
+  padding: 0em;
+  margin-top: 1px;
+  box-shadow: 0px 1px 1px #999;
+}
+
+#nav-more ul li {
+  display: block;
+  float: clear;
+}
+
+#nav-more ul a, #nav-more ul a:link {
+  display: block;
+  border: 0em;
+}
+
+#nav-more a:hover {
+  border: 0em;
 }
