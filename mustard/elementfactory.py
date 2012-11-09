@@ -74,5 +74,8 @@ class ElementFactory(object):
             return mustard.integration.IntegrationStrategy(data)
         elif data['kind'] == 'test':
             return mustard.test.Test(data)
+        elif data['kind'] == 'project':
+            # TODO pass data to parse all the project fields
+            return mustard.project.Project()
         else:
             raise cliapp.AppException('Unknown element: %s' % data)
