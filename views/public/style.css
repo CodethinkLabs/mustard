@@ -294,3 +294,10 @@ h2 span.error, a span.error {
 #nav-more a:hover {
   border: 0em;
 }
+
+blockquote {
+  border-left: 2px solid #ccc;
+  margin-left: 0em;
+  padding-left: 1em;
+  color: #666;
+}
