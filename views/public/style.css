@@ -159,6 +159,11 @@ dd table ul {
   padding: 0em;
 }
 
+dd table td.description ul, dd table td.description ol  {
+  list-style: disc;
+  padding-left: 1.5em;
+}
+
 ul, ol {
   padding-left: 2em;
 }

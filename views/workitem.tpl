@@ -14,7 +14,7 @@
         % if item.description:
           <tr>
             <th>Description</th>
-            <td>{{!item.description}}</td>
+            <td class="description">{{!item.description}}</td>
           </tr>
         % end
         % if item.tags:

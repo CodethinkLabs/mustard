@@ -13,7 +13,7 @@
       <table cellspacing="0" cellpadding="0">
         <tr>
           <th>Description</th>
-          <td>{{!strategy.description}}</td>
+          <td class="description">{{!strategy.description}}</td>
         </tr>
         % if strategy.tags:
           <tr>

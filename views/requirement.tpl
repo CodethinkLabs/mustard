@@ -13,7 +13,7 @@
       <table cellspacing="0" cellpadding="0">
         <tr>
           <th>Description</th>
-          <td>{{!requirement.description}}</td>
+          <td class="description">{{!requirement.description}}</td>
         </tr>
         % if requirement.tags:
           <tr>

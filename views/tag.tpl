@@ -11,7 +11,7 @@
       <table cellspacing="0" cellpadding="0">
         <tr>
           <th>Description</th>
-          <td>{{!tag.description}}</td>
+          <td class="description">{{!tag.description}}</td>
         </tr>
         % if tag.tagged:
           <tr>

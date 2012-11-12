@@ -12,7 +12,7 @@
       <table cellspacing="0" cellpadding="0">
         <tr>
           <th>Description</th>
-          <td>{{!architecture.description}}</td>
+          <td class="description">{{!architecture.description}}</td>
         </tr>
         % if architecture.tags:
           <tr>

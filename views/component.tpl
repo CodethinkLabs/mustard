@@ -13,7 +13,7 @@
       <table cellspacing="0" cellpadding="0">
         <tr>
           <th>Description</th>
-          <td>{{!component.description}}</td>
+          <td class="description">{{!component.description}}</td>
         </tr>
         % if component.tags:
           <tr>
