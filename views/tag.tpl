@@ -1,6 +1,6 @@
 % if detail == 'list':
   % if tag:
-    <a class="tag" href="/{{tag.repository.state.identifier}}/tags#{{path}}">{{tag.title}} <span>{{path}}</span></a>
+    <a class="tag" href="/{{tag.tree.state.identifier}}/tags#{{path}}">{{tag.title}} <span>{{path}}</span></a>
   % else:
     % include pathnotfound path=path, detail=detail
   % end

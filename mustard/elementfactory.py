@@ -9,11 +9,9 @@ import base64
 import mustard
 
 
-class Element(mustard.elementtrie.Trie):
+class Element(object):
 
     def __init__(self, data):
-        mustard.elementtrie.Trie.__init__(self)
-        
         self.kind = data.get('kind', None)
         self.title = data.get('title', None)
         self.set_description(data.get('description', None))
@@ -75,7 +73,6 @@ class ElementFactory(object):
         elif data['kind'] == 'test':
             return mustard.test.Test(data)
         elif data['kind'] == 'project':
-            # TODO pass data to parse all the project fields
-            return mustard.project.Project()
+            return mustard.project.Project(data)
         else:
             raise cliapp.AppException('Unknown element: %s' % data)

@@ -1,10 +1,11 @@
-% if repository.interfaces():
-  <h1>Interfaces <span>{{len(repository.interfaces())}}</span></h1>
+% interfaces = tree.find_all(kind='interface', sort_by='title')
+% if interfaces:
+  <h1>Interfaces <span>{{len(interfaces)}}</span></h1>
   <dl>
-    % for path, interface in repository.interfaces():
+    % for path, interface in interfaces:
       % include interface path=path, interface=interface, detail='full'
     % end
   </dl>
 % end
 
-% rebase layout repository=repository
+% rebase layout tree=tree

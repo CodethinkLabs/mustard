@@ -1,6 +1,6 @@
 % if detail == 'list':
   % if item:
-    <a class="workitem" href="/{{item.repository.state.identifier}}/work-items#{{path}}">
+    <a class="workitem" href="/{{item.tree.state.identifier}}/work-items#{{path}}">
       {{!'<span class="error">☐</span>' if not 'tags/completed' in item.tags else '☑'}} {{item.title}} <span>{{path}}</span>
     </a>
   % else:

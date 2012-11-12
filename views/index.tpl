@@ -1,6 +1,6 @@
 <h1>Project Description</h1>
-% if repository.project.description:
-  {{!repository.project.description}}
+% if tree.project.description:
+  {{!tree.project.description}}
 % else:
   <p>Welcome to your new MUSTARD project. MUSTARD stands for</p>
   <ul>
@@ -16,4 +16,4 @@
   <p>Please create a <tt>project.yaml</tt> file to add a title and description.</p>
 % end
 
-% rebase layout repository=repository
+% rebase layout tree=tree

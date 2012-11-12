@@ -1,5 +1,5 @@
-% if repository.tests():
-  % tests = repository.tests()
+% tests = tree.find_all(kind='test', sort_by='title')
+% if tests:
   <h1>Tests</h1>
   <dl>
     % for path, test in tests:
@@ -8,4 +8,4 @@
   </dl>
 % end
 
-% rebase layout repository=repository
+% rebase layout tree=tree

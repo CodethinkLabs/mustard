@@ -1,6 +1,6 @@
 % if detail == 'list':
   % if test:
-    <a class="test" href="/{{test.repository.state.identifier}}/tests#{{path}}">{{test.title}} <span>{{path}}</span></a>
+    <a class="test" href="/{{test.tree.state.identifier}}/tests#{{path}}">{{test.title}} <span>{{path}}</span></a>
   % else:
     % include pathnotfound path=path, detail=detail
   % end

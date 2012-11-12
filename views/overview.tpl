@@ -121,11 +121,11 @@
 % end
 
 <h1>Overview</h1>
-% toparchs = [(x,y) for x,y in repository.architectures() if not y.parent[0]]
+% toparchs = [(x,y) for x,y in tree.find_all(kind='architecture', sort_by='title') if not y.parent[0]]
 <ul class="hierarchy">
   % for path, arch in toparchs:
     % render_arch(path, arch)
   % end
 </ul>
 
-% rebase layout repository=repository
+% rebase layout tree=tree

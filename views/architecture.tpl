@@ -1,6 +1,6 @@
 % if detail == 'list':
   % if architecture:
-    <a class="architecture" href="/{{architecture.repository.state.identifier}}/architectures#{{path}}">
+    <a class="architecture" href="/{{architecture.tree.state.identifier}}/architectures#{{path}}">
       {{!'<span class="error">☐</span>' if not architecture.components else '☑'}} {{architecture.title}} <span>{{path}}</span></a>
   % else:
     % include pathnotfound path=path, detail=detail

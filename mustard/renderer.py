@@ -26,7 +26,11 @@ class App(cliapp.Application):
     def __init__(self):
         cliapp.Application.__init__(self)
 
-        self.states = {}
+        self.repository = None
+        self.state_cache = None
+        raw_tree_cache = mustard.rawtree.Cache()
+        self.element_tree_cache = mustard.elementtree.Cache(raw_tree_cache)
+
         self.content = {}
         self.uml = {}
 
@@ -52,36 +56,20 @@ class App(cliapp.Application):
                               'Reload whenever the mustard code changes',
                               default=defaults['reload'])
 
-    def resolve_state(self, stateid):
-        try:
-            stateid = self.runcmd(['git', 'rev-list', '-n1', stateid],
-                                  cwd=self.settings['project'])
-            return stateid.split()[0]
-        except:
-            return stateid
+    def render_repository(self, state_id, view):
+        state = self.state_cache.get(state_id)
 
-    def render_repository(self, state, view):
         try:
-            if state == 'UNCOMMITTED':
-                project_state = mustard.state.State(
-                        self, self.settings['project'], state)
-                repo = mustard.repository.Repository(project_state, self.settings)
-                return bottle.template(view, repository=repo)
+            if state_id == 'UNCOMMITTED':
+                raw_tree = mustard.rawtree.Tree(state)
+                element_tree = mustard.elementtree.Tree(raw_tree)
+                return bottle.template(view, tree=element_tree)
             else:
-                commit = self.resolve_state(state)
-                content_id = (commit, view)
-
+                content_id = (state, view)
                 if not content_id in self.content:
-                    if not commit in self.states:
-                        project_state = mustard.state.State(
-                                self, self.settings['project'], state)
-                        repo = mustard.repository.Repository(
-                                project_state, self.settings)
-                        self.states[commit] = repo
-                    else:
-                        repo = self.states[commit]
-                    self.content[content_id] = bottle.template(view, repository=repo)
-
+                    element_tree = self.element_tree_cache.get(state)
+                    self.content[content_id] = bottle.template(
+                            view, tree=element_tree)
                 return self.content[content_id]
         except cliapp.AppException, err:
             return bottle.template('error', error=err)
@@ -93,8 +81,9 @@ class App(cliapp.Application):
         if not os.path.isdir(self.settings['project']):
             raise cliapp.AppException('Input project directory does not exist')
 
-        states = {}
-        cached_content = {}
+        self.repository = mustard.repository.Repository(
+                self.settings['project'])
+        self.state_cache = mustard.state.Cache(self, self.repository)
 
         @route('/')
         def index():

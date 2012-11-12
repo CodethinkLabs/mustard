@@ -1,5 +1,5 @@
-% if repository.integration_strategies():
-  % strategies = repository.integration_strategies()
+% strategies = tree.find_all(kind='integration-strategy', sort_by='title')
+% if strategies:
   % with_tests = [(x,y) for x,y in strategies if y.tests]
   <h1>Integration Strategies <span>{{len(with_tests)}} of {{len(strategies)}} with tests</span></h1>
   <dl>
@@ -9,4 +9,4 @@
   </dl>
 % end
 
-% rebase layout repository=repository
+% rebase layout tree=tree

@@ -1,5 +1,5 @@
-% if repository.work_items():
-  % items = repository.work_items()
+% items = tree.find_all(kind='work-item', sort_by='title')
+% if items:
   % completed_items = [(x,y) for x,y in items if 'tags/completed' in y.tags]
   <h1>Work Items <span>{{len(completed_items)}} of {{len(items)}} completed ({{round(100 * len(completed_items)/float(len(items)), 1)}}%)</span></h1>
   <dl>
@@ -9,4 +9,4 @@
   </dl>
 % end
 
-% rebase layout repository=repository
+% rebase layout tree=tree

@@ -1,6 +1,6 @@
 % if detail == 'list':
   % if component:
-    <a class="component" href="/{{component.repository.state.identifier}}/components#{{path}}">
+    <a class="component" href="/{{component.tree.state.identifier}}/components#{{path}}">
       {{!'<span class="error">☐</span>' if not component.work_items and not component.architecture else '☑'}} {{component.title}} <span>{{path}}</span>
     </a>
   % else:
