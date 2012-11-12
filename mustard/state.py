@@ -18,11 +18,15 @@ class State(object):
         self.app = app
         self.repository = repository
 
+    def history(self):
+        raise NotImplementedError
 
-class UncommittedState(object):
 
-    def __init__(self, repository):
-        self.repository = repository
+class UncommittedState(State):
+
+    def __init__(self, app, repository):
+        State.__init__(self, app, repository)
+
         self.identifier = 'UNCOMMITTED'
 
     def filenames(self):
@@ -46,12 +50,18 @@ class UncommittedState(object):
     def read(self, filename):
         return open(os.path.join(self.repository.dirname, filename)).read()
 
+    def history(self):
+        sha1s = self.app.runcmd(
+                ['git', 'log', '--first-parent', '--format=%H %P'],
+                cwd=self.repository.dirname)
+        return [x.split()[0] for x in sha1s.splitlines()]
 
-class CommittedState(object):
+
+class CommittedState(State):
 
     def __init__(self, app, repository, ref, sha1):
-        self.app = app
-        self.repository = repository
+        State.__init__(self, app, repository)
+
         self.identifier = ref
         self.sha1 = sha1
         self._cached_filenames = []
@@ -74,6 +84,13 @@ class CommittedState(object):
         return self.app.runcmd(['git', 'cat-file', 'blob', blob],
                                cwd=self.repository.dirname)
 
+    def history(self):
+        sha1s = self.app.runcmd(
+                ['git', 'log', '--first-parent', '--format=%H %P',
+                 self.sha1],
+                cwd=self.repository.dirname)
+        return [x.split()[0] for x in sha1s.splitlines()]
+
 
 class Cache(object):
 
@@ -85,7 +102,7 @@ class Cache(object):
     def get(self, ref):
         if ref == 'UNCOMMITTED':
             if not ref in self.states:
-                self.states[ref] = UncommittedState(self.repository)
+                self.states[ref] = UncommittedState(self.app, self.repository)
             return self.states[ref]
         else:
             try:

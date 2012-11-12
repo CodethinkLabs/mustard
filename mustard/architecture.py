@@ -13,6 +13,7 @@ class Architecture(mustard.elementfactory.Element):
 
         self.components = {}
         self.integration_strategy = (None, None)
+        self.toplevel = data.get('toplevel', False)
 
         self.mapped_here = {}
         for ref in data.get('mapped-here', []):

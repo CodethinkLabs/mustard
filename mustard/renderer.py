@@ -133,6 +133,10 @@ class App(cliapp.Application):
         def tests(stateid):
             return self.render_repository(stateid, 'tests')
 
+        @route('/<stateid>/history')
+        def history(stateid):
+            return self.render_repository(stateid, 'history')
+
         @route('/public/<filename>')
         def stylesheet(filename):
             public_dir = os.path.join(os.path.dirname(__file__),
