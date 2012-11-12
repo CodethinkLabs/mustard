@@ -8,7 +8,15 @@
   </head>
   <body>
     <div id="body">
-      <h1><a href="/{{tree.state.identifier}}">{{tree.project.title or 'Unnamed MUSTARD Project'}}</a></h1>
+      <h1>
+        <a href="/{{tree.state.identifier}}">{{tree.project.title or 'Unnamed MUSTARD Project'}}</a>
+        <span class="links">
+          <a href="/HEAD">HEAD</a>
+          % if tree.state.repository.checked_out:
+            <a href="/UNCOMMITTED">UNCOMMITTED</a>
+          % end
+        </span>
+      </h1>
       <div id="nav">
         <ul>
           <li><a href="/{{tree.state.identifier}}/requirements">Requirements</a></li>
@@ -23,6 +31,7 @@
               <li><a href="/{{tree.state.identifier}}/overview">Overview</a></li>
               <li><a href="/{{tree.state.identifier}}/integration-strategies">Integration Strategies</a></li>
               <li><a href="/{{tree.state.identifier}}/tests">Tests</a></li>
+              <li><a href="/{{tree.state.identifier}}/history">History</a></li>
             </ul>
           </li>
         </ul>

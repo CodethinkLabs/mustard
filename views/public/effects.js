@@ -145,7 +145,7 @@ function element_is_unhappy(element) {
 }
 
 function update_filter() {
-  $('dt > h2').each(function () {
+  $('h2').each(function () {
     var matches_unhappy = true;
     if ($('#unhappy-filter').hasClass('pressed')) {
       if (element_is_unhappy($(this))) {
@@ -175,6 +175,75 @@ function set_document_title() {
 }
 
 
+/**
+ * Select table rows for diffs in history.
+ */
+
+var selected_rows = [];
+
+
+function update_selected_rows(row) {
+  if (row.hasClass('selected')) {
+    var index = -1;
+    for (var i in selected_rows) {
+      if (selected_rows[i].attr('id') == row.attr('id')) {
+        index = i;
+        break;
+      }
+    }
+    if (index >= 0) {
+      selected_rows[index].removeClass('selected');
+      selected_rows.splice(index, 1);
+    }
+  } else {
+    row.addClass('selected');
+    selected_rows.unshift(row);
+    if (selected_rows.length > 2) {
+      row = selected_rows.pop();
+      row.removeClass('selected');
+    }
+  }
+
+  if (selected_rows.length < 2) {
+    $('#history-hint').show();
+    $('#history-actions').hide();
+  } else {
+    $('#history-hint').hide();
+    $('#history-actions').show();
+  }
+}
+
+
+function diff_selected_rows() {
+  if (selected_rows.length < 2) {
+    alert('Need two changes to show the difference between');
+  } else {
+    var row1 = selected_rows[0];
+    var row2 = selected_rows[1];
+
+    var index1 = $('#history tr.selected').index(row1);
+    var index2 = $('#history tr.selected').index(row2);
+
+    var new_state = null;
+    var old_state = null;
+
+    if (index1 < index2) {
+      new_state = row1.attr('id');
+      old_state = row2.attr('id');
+    } else {
+      new_state = row2.attr('id');
+      old_state = row1.attr('id');
+    }
+
+    var url = '/' + new_state + '/diff/' + old_state;
+
+    console.log(url);
+
+    window.location.href = url;
+  }
+}
+
+
 $(document).ready(function() {
   //// fade the body in nicely
   //$('body').hide().fadeIn(250);
@@ -183,7 +252,9 @@ $(document).ready(function() {
 
   // collapse all items by default
   $('h2').each(function() {
-    collapse($(this));
+    if (!$(this).hasClass('expanded')) {
+      collapse($(this));
+    }
   });
 
   // expand all items in the # part of the URL
@@ -274,6 +345,14 @@ $(document).ready(function() {
   );
   $('#nav-more a').mouseup(function() {
     $('#nav-more ul').fadeToggle();
+  });
+
+  $('#history tr.row').mouseup(function () {
+    update_selected_rows($(this));
+  });
+
+  $('#diff-selected').mouseup(function() {
+    diff_selected_rows();
   });
 });
 

@@ -74,6 +74,35 @@ class App(cliapp.Application):
         except cliapp.AppException, err:
             return bottle.template('error', error=err)
 
+    def render_diff(self, state1, state2, view):
+        state1 = self.state_cache.get(state1)
+        state2 = self.state_cache.get(state2)
+
+        try:
+            if state1 == state2:
+                raise cliapp.AppException('Need two different states')
+
+            if state1.identifier == 'UNCOMMITTED':
+                raw_tree1 = mustard.rawtree.Tree(state)
+                element_tree1 = mustard.elementtree.Tree(raw_tree)
+                element_tree2 = self.element_tree_cache.get(state2)
+
+                return bottle.template(
+                        'diff', tree=element_tree1, other_tree=element_tree2)
+            else:
+                content_id = (state1, state2, view)
+                if not content_id in self.content:
+                    tree1 = self.element_tree_cache.get(state1)
+                    tree2 = self.element_tree_cache.get(state2)
+
+                    self.content[content_id] = bottle.template(
+                            'diff', tree=tree1, other_tree=tree2)
+                else:
+                    print 'using cached rendering of (%s, %s, %s)' % content_id
+                return self.content[content_id]
+        except cliapp.AppException, err:
+            return bottle.template('error', error=err)
+
     def process_args(self, args):
         if not self.settings['project']:
             raise cliapp.AppException('Input project directory not defined')
@@ -82,7 +111,7 @@ class App(cliapp.Application):
             raise cliapp.AppException('Input project directory does not exist')
 
         self.repository = mustard.repository.Repository(
-                self.settings['project'])
+                self, self.settings['project'])
         self.state_cache = mustard.state.Cache(self, self.repository)
 
         @route('/')
@@ -136,6 +165,14 @@ class App(cliapp.Application):
         @route('/<stateid>/history')
         def history(stateid):
             return self.render_repository(stateid, 'history')
+
+        @route('/<stateid>/diff')
+        def diff(stateid):
+            return self.render_repository(stateid, 'diff')
+
+        @route('/<state1>/diff/<state2>')
+        def diff(state1, state2):
+            return self.render_diff(state1, state2, 'diff')
 
         @route('/public/<filename>')
         def stylesheet(filename):

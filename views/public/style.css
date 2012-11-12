@@ -85,6 +85,14 @@ h1 span {
   filter: alpha(opacity=50);
 }
 
+h1 span.links a, h1 span.links a:link {
+  margin-left: 0.5em;
+}
+
+h1 span.links a:hover {
+  border-bottom: 2px solid #fff;
+}
+
 h1 a, h1 a:link {
   color: #fff;
   text-decoration: none;
@@ -137,16 +145,16 @@ dd *:last-child {
   margin-bottom: 0em;
 }
 
-dd table {
+table {
   border: 0em;
   width: 100%;
   padding: 0em;
   margin: 0em;
 }
 
-dd th, dd td {
+th, td {
   vertical-align: top;
-  padding: 0.5em;
+  padding: 0.5em 0em 0.5em 0em;
   text-align: left;
 }
 
@@ -235,6 +243,7 @@ input, select {
   padding: 0.25em;
   font-size: inherit;
   font-family: inherit;
+  border-radius: 2px;
 }
 
 input[type="button"] {
@@ -300,4 +309,32 @@ blockquote {
   margin-left: 0em;
   padding-left: 1em;
   color: #666;
+}
+
+pre {
+  overflow-x: auto;
+}
+
+.diff-added {
+  color: green;
+}
+
+.diff-removed {
+  color: red;
+}
+
+#history tr.row {
+  cursor: pointer;
+}
+
+#history tr.row:hover {
+  background:#f0f0f0;
+}
+
+#history tr.selected {
+  background: #e6e6e6;
+}
+
+#history-hint, #history-actions {
+  line-height: 2.25em;
 }

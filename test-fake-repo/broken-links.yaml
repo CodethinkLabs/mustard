@@ -1,5 +1,13 @@
 component-with-no-parent:
   kind: component
+  description: |
+    Hello
+
+    > foo
+    > bar
+    > baz
+
+    Bye
 
 component-with-empty-parent:
   kind: component

@@ -14,20 +14,53 @@ class InvalidStateError(cliapp.AppException):
 
 class State(object):
 
-    def __init__(self, app, repository):
+    def __init__(self, app, cache, repository):
         self.app = app
+        self.cache = cache
         self.repository = repository
+        self.title = None
+        self.body = None
+        self.author = None
+        self.author_email = None
+        self.left = None
+        self.right = None
+        self.diff = None
+        self.date = None
 
     def history(self):
         raise NotImplementedError
 
+    def _history_states(self, ref):
+        if ref == 'UNCOMMITTED':
+            sha1s = self.app.runcmd(
+                    ['git', 'log', '--first-parent', '--format=%H %P'],
+                    cwd=self.repository.dirname)
+        else:
+            sha1s = self.app.runcmd(
+                    ['git', 'log', '--first-parent', '--format=%H %P', ref],
+                    cwd=self.repository.dirname)
+        
+        states = [self] if ref == 'UNCOMMITTED' else []
+        for line in sha1s.splitlines():
+            parts = line.split()
+            states.append(self.cache.get(parts[0]))
+        return states
+
+    def diff_against(self, other):
+        return self.app.runcmd(
+                ['git', 'diff', '%s..%s' % (other.sha1, self.sha1)],
+                cwd=self.repository.dirname).strip()
 
 class UncommittedState(State):
 
-    def __init__(self, app, repository):
-        State.__init__(self, app, repository)
+    def __init__(self, app, cache, repository):
+        State.__init__(self, app, cache, repository)
 
         self.identifier = 'UNCOMMITTED'
+        self.sha1 = 'UNCOMMITTED'
+        self.title = 'UNCOMMITTED'
+        self.diff = self.app.runcmd(
+                ['git', 'diff'], cwd=self.repository.dirname).strip()
 
     def filenames(self):
         return self._list_files()
@@ -51,19 +84,47 @@ class UncommittedState(State):
         return open(os.path.join(self.repository.dirname, filename)).read()
 
     def history(self):
-        sha1s = self.app.runcmd(
-                ['git', 'log', '--first-parent', '--format=%H %P'],
-                cwd=self.repository.dirname)
-        return [x.split()[0] for x in sha1s.splitlines()]
-
+        return self._history_states(self.identifier)
 
 class CommittedState(State):
 
-    def __init__(self, app, repository, ref, sha1):
-        State.__init__(self, app, repository)
+    def __init__(self, app, cache, repository, ref, sha1):
+        State.__init__(self, app, cache, repository)
 
         self.identifier = ref
         self.sha1 = sha1
+
+        fmt = '%an\n%ae\n%ad\n%P\n%s\n%b\n{{DIFF}}'
+        log = self.app.runcmd(
+                ['git', 'show', '--format=%s' % fmt, self.sha1],
+                cwd=self.repository.dirname).splitlines()
+
+        self.author = log[0].strip()
+        self.author_email = log[1].strip()
+        self.date = log[2].strip()
+        self.title = log[4].strip()
+        
+        parents = log[3].split()
+        if len(parents) > 0:
+            self.left = parents[0]
+        if len(parents) > 1:
+            self.right = parents[1]
+
+        self.body = []
+        self.diff = []
+        diff_started = False
+        for line in log[5:]:
+            if not diff_started:
+                if line.startswith('{{DIFF}}'):
+                    diff_started = True
+                else:
+                    self.body.append(line)
+            else:
+                self.diff.append(line)
+        
+        self.body = '\n'.join(self.body).strip()
+        self.diff = '\n'.join(self.diff).strip()
+
         self._cached_filenames = []
 
     def filenames(self):
@@ -85,11 +146,7 @@ class CommittedState(State):
                                cwd=self.repository.dirname)
 
     def history(self):
-        sha1s = self.app.runcmd(
-                ['git', 'log', '--first-parent', '--format=%H %P',
-                 self.sha1],
-                cwd=self.repository.dirname)
-        return [x.split()[0] for x in sha1s.splitlines()]
+        return self._history_states(self.sha1)
 
 
 class Cache(object):
@@ -102,14 +159,15 @@ class Cache(object):
     def get(self, ref):
         if ref == 'UNCOMMITTED':
             if not ref in self.states:
-                self.states[ref] = UncommittedState(self.app, self.repository)
+                self.states[ref] = UncommittedState(
+                        self.app, self, self.repository)
             return self.states[ref]
         else:
             try:
                 sha1 = self.resolve_ref(ref)
                 if not sha1 in self.states:
                     self.states[sha1] = CommittedState(
-                            self.app, self.repository, ref, sha1)
+                            self.app, self, self.repository, ref, sha1)
                 return self.states[sha1]
             except cliapp.AppException, err:
                 raise InvalidStateError(ref)
