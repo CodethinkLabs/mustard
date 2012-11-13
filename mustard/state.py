@@ -85,7 +85,7 @@ class CommittedState(State):
         self.body = '\n'.join(commit.message.splitlines()[1:])
 
         if commit.parents:
-            self.diff = commit.tree.diff(commit.parents[0].tree).patch
+            self.diff = commit.parents[0].tree.diff(commit.tree).patch
             self.left = commit.parents[0].hex
             if len(commit.parents) > 1:
                 self.right = commit.parents[1].hex
