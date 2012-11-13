@@ -135,6 +135,7 @@ dd {
   border-top: medium solid #eaeaea;
   border-bottom: medium solid #e6e6e6;
   padding: 1em;
+  display: none;
 }
 
 dd *:first-child {

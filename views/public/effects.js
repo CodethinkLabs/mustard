@@ -250,11 +250,9 @@ $(document).ready(function() {
 
   set_document_title();
 
-  // collapse all items by default
-  $('h2').each(function() {
-    if (!$(this).hasClass('expanded')) {
-      collapse($(this));
-    }
+  // expand all expanded items initially
+  $('h2.expanded').each(function() {
+    expand($(this));
   });
 
   // expand all items in the # part of the URL

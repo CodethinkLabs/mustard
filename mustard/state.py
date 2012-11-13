@@ -28,28 +28,14 @@ class State(object):
         self.date = None
 
     def history(self):
-        raise NotImplementedError
-
-    def _history_states(self, ref):
-        if ref == 'UNCOMMITTED':
-            sha1s = self.app.runcmd(
-                    ['git', 'log', '--first-parent', '--format=%H %P'],
-                    cwd=self.repository.dirname)
+        if self.sha1 == 'UNCOMMITTED':
+            sha1s = ['UNCOMMITTED'] + self.repository.history(None)
         else:
-            sha1s = self.app.runcmd(
-                    ['git', 'log', '--first-parent', '--format=%H %P', ref],
-                    cwd=self.repository.dirname)
-        
-        states = [self] if ref == 'UNCOMMITTED' else []
-        for line in sha1s.splitlines():
-            parts = line.split()
-            states.append(self.cache.get(parts[0]))
-        return states
+            sha1s = self.repository.history(self.sha1)
+        return [self.cache.get(x) for x in sha1s]
 
     def diff_against(self, other):
-        return self.app.runcmd(
-                ['git', 'diff', '%s..%s' % (other.sha1, self.sha1)],
-                cwd=self.repository.dirname).strip()
+        return self.repository.diff(other.sha1, self.sha1)
 
 class UncommittedState(State):
 
@@ -59,8 +45,7 @@ class UncommittedState(State):
         self.identifier = 'UNCOMMITTED'
         self.sha1 = 'UNCOMMITTED'
         self.title = 'UNCOMMITTED'
-        self.diff = self.app.runcmd(
-                ['git', 'diff'], cwd=self.repository.dirname).strip()
+        self.diff = self.repository.diff(None)
 
     def filenames(self):
         return self._list_files()
@@ -83,9 +68,6 @@ class UncommittedState(State):
     def read(self, filename):
         return open(os.path.join(self.repository.dirname, filename)).read()
 
-    def history(self):
-        return self._history_states(self.identifier)
-
 class CommittedState(State):
 
     def __init__(self, app, cache, repository, ref, sha1):
@@ -94,36 +76,23 @@ class CommittedState(State):
         self.identifier = ref
         self.sha1 = sha1
 
-        fmt = '%an\n%ae\n%ad\n%P\n%s\n%b\n{{DIFF}}'
-        log = self.app.runcmd(
-                ['git', 'show', '--format=%s' % fmt, self.sha1],
-                cwd=self.repository.dirname).splitlines()
+        commit = self.repository.commit(self.sha1)
 
-        self.author = log[0].strip()
-        self.author_email = log[1].strip()
-        self.date = log[2].strip()
-        self.title = log[4].strip()
-        
-        parents = log[3].split()
-        if len(parents) > 0:
-            self.left = parents[0]
-        if len(parents) > 1:
-            self.right = parents[1]
+        self.author = commit.author.name
+        self.author_email = commit.author.email
+        self.date = commit.author.time
+        self.title = commit.message.splitlines()[0]
+        self.body = '\n'.join(commit.message.splitlines()[1:])
 
-        self.body = []
-        self.diff = []
-        diff_started = False
-        for line in log[5:]:
-            if not diff_started:
-                if line.startswith('{{DIFF}}'):
-                    diff_started = True
-                else:
-                    self.body.append(line)
-            else:
-                self.diff.append(line)
-        
-        self.body = '\n'.join(self.body).strip()
-        self.diff = '\n'.join(self.diff).strip()
+        if commit.parents:
+            self.diff = commit.tree.diff(commit.parents[0].tree).patch
+            self.left = commit.parents[0].hex
+            if len(commit.parents) > 1:
+                self.right = commit.parents[1].hex
+        else:
+            self.diff = ''
+            self.left = None
+            self.right = None
 
         self._cached_filenames = []
 
@@ -133,21 +102,13 @@ class CommittedState(State):
         return self._cached_filenames
 
     def _list_files(self):
-        tree = self.app.runcmd(['git', 'ls-tree', '-r', self.sha1],
-                               cwd=self.repository.dirname)
-        for line in tree.splitlines():
-            filename = line.split()[3]
+        tree = self.repository.list_tree(self.sha1)
+        for filename in tree:
             if not filename.startswith('.') and filename.endswith('.yaml'):
                 yield filename
 
     def read(self, filename):
-        blob = '%s:%s' % (self.sha1, filename)
-        return self.app.runcmd(['git', 'cat-file', 'blob', blob],
-                               cwd=self.repository.dirname)
-
-    def history(self):
-        return self._history_states(self.sha1)
-
+        return self.repository.cat_file(self.sha1, filename)
 
 class Cache(object):
 
@@ -164,15 +125,10 @@ class Cache(object):
             return self.states[ref]
         else:
             try:
-                sha1 = self.resolve_ref(ref)
+                sha1 = self.repository.resolve_ref(ref)
                 if not sha1 in self.states:
                     self.states[sha1] = CommittedState(
                             self.app, self, self.repository, ref, sha1)
                 return self.states[sha1]
             except cliapp.AppException, err:
                 raise InvalidStateError(ref)
-
-    def resolve_ref(self, ref):
-        rev = self.app.runcmd(['git', 'rev-list', '-n1', ref],
-                              cwd=self.repository.dirname)
-        return rev.split()[0]
