@@ -1,3 +1,18 @@
+MUSTARD README
+==============
+
 This is the official repository for the development of MUSTARD,
 the Mapped Uniform System for Tracking Architecture, Requirements
 and Design.
+
+
+Dependencies
+------------
+
+In order to use MUSTARD, you'll need the following components:
+
+  * Python >= 2.6
+  * PyYAML
+  * python-markdown
+  * python-bottle
+  * pygit2 (and libgit2)
