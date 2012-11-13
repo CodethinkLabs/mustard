@@ -1,10 +1,11 @@
 % if detail == 'list':
   <tr class="row" id="{{state.sha1}}">
     <td>
+      <a href="/{{state.sha1}}">Browse</a>
       % if state.right:
-        <a href="/{{state.sha1}}/diff/{{state.sha1}}~1">Show</a>
+        <a href="/{{state.sha1}}/diff/{{state.sha1}}~1">Diff</a>
       % else:
-        <a href="/{{state.sha1}}/diff">Show</a>
+        <a href="/{{state.sha1}}/diff">Diff</a>
       % end
     </td>
     <td>{{state.title if state.title and len(state.title) < 73 else '%s...' % state.title[0:72]}}</td>
