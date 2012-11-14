@@ -15,3 +15,10 @@ class WorkItem(mustard.elementfactory.Element):
         for ref in data.get('parents', None) or []:
             if ref:
                 self.parents[ref] = None
+
+        self.mapped_here = {}
+        for ref in data.get('mapped-here', []):
+            self.mapped_here[ref] = None
+
+    def get_children(self):
+        return []

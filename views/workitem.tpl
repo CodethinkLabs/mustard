@@ -47,6 +47,49 @@
             % end
           </td>
         </tr>
+        <tr>
+          <th>Requirements</th>
+          <td>
+            % inherited_reqs = item.inherited_requirements(sort_by='title')
+            % if inherited_reqs:
+              <div class="expandable collapsed">
+                <h3>Inherited Requirements</h3>
+                <ul>
+                  % for path, requirement in inherited_reqs:
+                    <li>
+                      % include requirement path=path, requirement=requirement, detail='list'
+                    </li>
+                  % end
+                </ul>
+              </div>
+            % end
+            % if item.mapped_here:
+              <div class="expandable">
+                <h3>Requirements Mapped Here</h3>
+                <ul>
+                  % for path, requirement in item.mapped_here.iteritems():
+                    <li>
+                      % include requirement path=path, requirement=requirement, detail='list'
+                    </li>
+                  % end
+                </ul>
+              </div>
+            % end
+            % delegated_reqs = item.delegated_requirements(sort_by='title')
+            % if delegated_reqs:
+              <div class="expandable collapsed">
+                <h3>Delegated Requirements</h3>
+                <ul>
+                  % for path, requirement in delegated_reqs:
+                    <li>
+                      % include requirement path=path, requirement=requirement, detail='list'
+                    </li>
+                  % end
+                </ul>
+              </div>
+            % end
+          </td>
+        </tr>
       </table>
     </dd>
   % else:

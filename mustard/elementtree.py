@@ -49,6 +49,7 @@ class Tree(object):
         element.title = element.title or os.path.basename(path)
         element.tree = self
         self.elements[path] = element
+        return element
 
     def _resolve_project(self):
         projects = [(x,y) for x,y in self.find_all(kind='project')]

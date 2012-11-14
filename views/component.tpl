@@ -67,24 +67,53 @@
             </td>
           </tr>
         % end
-        % if component.mapped_here or not component.architecture:
-          <tr> 
-            <th>Requirements</th>
-            <td>
-              % if component.mapped_here:
+        <tr> 
+          <th>Requirements</th>
+          <td>
+            % inherited_reqs = component.inherited_requirements(sort_by='title')
+            % if inherited_reqs:
+              <div class="expandable collapsed">
+                <h3>Inherited Requirements</h3>
                 <ul>
-                  % for path, requirement in component.mapped_here.iteritems():
+                  % for path, requirement in inherited_reqs:
                     <li>
                       % include requirement path=path, requirement=requirement, detail='list'
                     </li>
                   % end
                 </ul>
+              </div>
+            % end
+            % if component.mapped_here or not component.architecture:
+              % if component.mapped_here:
+                <div class="expandable">
+                  <h3>Requirements Mapped Here</h3>
+                  <ul>
+                    % for path, requirement in component.mapped_here.iteritems():
+                      <li>
+                        % include requirement path=path, requirement=requirement, detail='list'
+                      </li>
+                    % end
+                  </ul>
+                </div>
               % else:
                 <p class="error">This component either needs an architecture or have requirements mapped to it.</p>
               % end
-            </td>
-          </tr>
-        % end
+            % end
+            % delegated_reqs = component.delegated_requirements(sort_by='title')
+            % if delegated_reqs:
+              <div class="expandable collapsed">
+                <h3>Delegated Requirements</h3>
+                <ul>
+                  % for path, requirement in delegated_reqs:
+                    <li>
+                      % include requirement path=path, requirement=requirement, detail='list'
+                    </li>
+                  % end
+                </ul>
+              </div>
+            % end
+          </td>
+        </tr>
         <tr>
           <th>Work Items</th>
           <td>

@@ -2,6 +2,7 @@
 
 
 import cliapp
+import collections
 import markdown
 import urllib
 import base64
@@ -15,9 +16,9 @@ class Element(object):
         self.kind = data.get('kind', None)
         self.title = data.get('title', None)
         self.set_description(data.get('description', None))
-        
         self.parent = (data.get('parent', None), None)
         self.work_items = {}
+        self.children = {}
 
         self.tags = {}
         for tagref in data.get('tags', []):
@@ -52,6 +53,45 @@ class Element(object):
     def _generate_uml_image(self, uml):
         url = '/plantuml/%s' % base64.b64encode("\n".join(uml))
         return '![UML diagram](%s)' % url
+        
+    def get_parents(self):
+        parents = []
+        if hasattr(self, 'parent'):
+            if self.parent[1]:
+                parents.append(self.parent)
+        if hasattr(self, 'parents'):
+            for path, parent in self.parents.iteritems():
+                if parent:
+                    parents.append((path, parent))
+        return parents
+
+    def get_children(self):
+        raise NotImplementedError   
+    
+    def inherited_requirements(self, **kwargs):
+        results = set()
+        queue = collections.deque()
+        queue.extend(self.get_parents())
+        while queue:
+            path, element = queue.popleft()
+            if hasattr(element, 'mapped_here'):
+                for ref, req in element.mapped_here.iteritems():
+                    results.add((ref, req))
+            queue.extend(element.get_parents())
+        return results
+    
+    def delegated_requirements(self, **kwargs):
+        results = set()
+        queue = collections.deque()
+        queue.extend(self.get_children())
+        while queue:
+            path, element = queue.popleft()
+            if hasattr(element, 'mapped_here'):
+                for ref, req in element.mapped_here.iteritems():
+                    results.add((ref, req))
+            queue.extend(element.get_children())
+        return results
+
 
 class ElementFactory(object):
 

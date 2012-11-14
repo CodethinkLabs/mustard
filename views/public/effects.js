@@ -372,6 +372,18 @@ $(document).ready(function() {
   $('#diff-selected').mouseup(function() {
     diff_selected_rows();
   });
+
+  $('.collapsed ul').each(function() {
+    $(this).hide();
+  });
+
+  $('.expandable h3').mouseup(function () {
+    if ($(this).next('ul').css('display') == 'none') {
+      $(this).next('ul').slideDown();
+    } else {
+      $(this).next('ul').slideUp();
+    }
+  });
 });
 
 

@@ -40,20 +40,49 @@
             </p>
           </td>
         </tr>
-        % if interface.mapped_here:
-          <tr>
-            <th>Requirements</th>
-            <td>
-              <ul>
-                % for path, requirement in interface.mapped_here.iteritems():
-                  <li>
-                    % include requirement path=path, requirement=requirement, detail='list'
-                  </li>
-                % end
-              </ul>
-            </td>
-          </tr>
-        % end
+        <tr>
+          <th>Requirements</th>
+          <td>
+            % inherited_reqs = interface.inherited_requirements(sort_by='title')
+            % if inherited_reqs:
+              <div class="expandable collapsed">
+                <h3>Inherited Requirements</h3>
+                <ul>
+                  % for path, requirement in inherited_reqs:
+                    <li>
+                      % include requirement path=path, requirement=requirement, detail='list'
+                    </li>
+                  % end
+                </ul>
+              </div>
+            % end
+            % if interface.mapped_here:
+              <div class="expandable">
+                <h3>Requirements Mapped Here</h3>
+                <ul>
+                  % for path, requirement in interface.mapped_here.iteritems():
+                    <li>
+                      % include requirement path=path, requirement=requirement, detail='list'
+                    </li>
+                  % end
+                </ul>
+              </div>
+            % end
+            % delegated_reqs = interface.delegated_requirements(sort_by='title')
+            % if delegated_reqs:
+              <div class="expandable collapsed">
+                <h3>Delegated Requirements</h3>
+                <ul>
+                  % for path, requirement in delegated_reqs:
+                    <li>
+                      % include requirement path=path, requirement=requirement, detail='list'
+                    </li>
+                  % end
+                </ul>
+              </div>
+            % end
+          </td>
+        </tr>
         % if interface.work_items:
           <tr>
             <th>Work Items</th>
