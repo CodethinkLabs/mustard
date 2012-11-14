@@ -14,6 +14,14 @@ class DuplicateElementError(cliapp.AppException):
                 self, 'Duplicate element "%s" found' % path)
 
 
+class LoadError(cliapp.AppException):
+
+    def __init__(self, errors):
+        message = 'Failed to load files:\n\n%s' % \
+                '\n\n'.join([str(x) for x in errors])
+        cliapp.AppException.__init__(self, message)
+
+
 class Tree(object):
 
     def __init__(self, state):
@@ -22,12 +30,18 @@ class Tree(object):
         self._load()
 
     def _load(self):
+        errors = []
         for filename in self.state.filenames():
             content = self.state.read(filename)
             io = StringIO.StringIO(content)
-            data = yaml.load(io)
-
-            self._insert_raw(filename.replace('.yaml', ''), data)
+            setattr(io, 'name', filename)
+            try:
+                data = yaml.load(io)
+                self._insert_raw(filename.replace('.yaml', ''), data)
+            except Exception, error:
+                errors.append(error)
+        if errors:
+            raise LoadError(errors)
 
     def _insert_raw(self, path, data):
         segments = self._split(path)
