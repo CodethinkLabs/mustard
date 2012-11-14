@@ -5,8 +5,6 @@ import cliapp
 import os
 import yaml
 
-from itertools import groupby
-
 import mustard
 
 
@@ -163,49 +161,10 @@ class Tree(object):
 
     def find_all(self, **kwargs):
         results = []
-
         for path, element in self.elements.iteritems():
             if element.kind == kwargs.get('kind', element.kind):
                 results.append((path, element))
-
-        sort_by = kwargs.get('sort_by', None)
-        reverse = kwargs.get('reverse', False)
-
-        def compare_elements(pair1, pair2):
-            def split_by_numbers(s):
-                return [''.join(v) for _, v in groupby(s, lambda c: c.isdigit())]
-
-            s1 = getattr(pair1[1], sort_by)
-            s2 = getattr(pair2[1], sort_by)
-            
-            s1s = split_by_numbers(s1)
-            s2s = split_by_numbers(s2)
-
-            s1s.append('')
-            s2s.append('')
-
-            for left, right in zip(s1s, s2s):
-                leftdigit = left.isdigit()
-                rightdigit = right.isdigit()
-                if leftdigit and rightdigit:
-                    cmpres = cmp(int(left), int(right))
-                    if cmpres != 0:
-                        return cmpres
-                elif leftdigit:
-                    return 1 if right == "" else -1
-                elif rightdigit:
-                    return -1 if left == "" else 1
-                cmpres = cmp(left, right)
-                if cmpres != 0:
-                    return cmpres
-            return 0
-
-        if sort_by:
-            return sorted(results,
-                          cmp=compare_elements,
-                          reverse=reverse)
-        else:
-            return results
+        return mustard.sorting.sort_elements(results, kwargs)
 
     def yaml(self):
         return self.raw_tree.yaml()

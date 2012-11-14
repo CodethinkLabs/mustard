@@ -5,7 +5,7 @@
 
 
 import elementfactory
-
+import sorting
 import architecture
 import component
 import integration
@@ -15,9 +15,7 @@ import requirement
 import tag
 import test
 import workitem
-
 import renderer
-
 import elementtree
 import rawtree
 import repository

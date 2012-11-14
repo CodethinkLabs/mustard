@@ -78,7 +78,7 @@ class Element(object):
                 for ref, req in element.mapped_here.iteritems():
                     results.add((ref, req))
             queue.extend(element.get_parents())
-        return results
+        return mustard.sorting.sort_elements(results, kwargs)
     
     def delegated_requirements(self, **kwargs):
         results = set()
@@ -90,7 +90,7 @@ class Element(object):
                 for ref, req in element.mapped_here.iteritems():
                     results.add((ref, req))
             queue.extend(element.get_children())
-        return results
+        return mustard.sorting.sort_elements(results, kwargs)
 
 
 class ElementFactory(object):
