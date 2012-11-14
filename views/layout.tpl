@@ -8,7 +8,7 @@
   </head>
   <body>
     <div id="body">
-      <h1>
+      <h1 id="title">
         <a href="/{{tree.state.identifier}}">{{tree.project.title or 'Unnamed MUSTARD Project'}}</a>
         <span class="links">
           <a href="/HEAD">HEAD</a>

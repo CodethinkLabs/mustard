@@ -16,7 +16,7 @@ body {
     border: 2px solid #64a800;
     box-shadow: 0px 0px 5px #999;
     border-radius: 0px 0px 5px 5px;
-    margin: -2px auto 0em auto;
+    margin: -0.6em auto 0em auto;
     text-align: center;
     height: 2.2em;
     position: relative;
@@ -66,12 +66,16 @@ body {
 h1 {
   background: #a7d239;
   padding: 0.5em 2.5em 0.5em 2.5em;
-  margin: 1em -2.5em 0em -2.5em;
+  margin: 1em -2.5em 0.25em -2.5em;
   font-size: 1.75em;
   color: #fff;
   border: 2px solid #64a800;
   box-shadow: 0px 0px 5px #999;
   position: relative;
+}
+
+h1#title {
+  z-index: 2;
 }
 
 #body > h1:first-child {
@@ -104,6 +108,8 @@ h1 a:hover {
 
 h2 {
   font-size: 1.1em;
+  margin: 0em;
+  padding: 0.5em 0em 0.5em 0em;
 }
 
 h2:before {
@@ -115,6 +121,8 @@ h2 span {
   text-align: right;
   opacity: 0.3;
   filter: alpha(opacity=30);
+  font-size: 0.5em;
+  margin: 0em;
 }
 
 h3 {
@@ -123,6 +131,9 @@ h3 {
 
 dl {
   margin: 0em;
+}
+
+dt {
 }
 
 dt:hover {
