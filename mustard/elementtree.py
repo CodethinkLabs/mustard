@@ -188,9 +188,9 @@ class Tree(object):
                     cmpres = cmp(int(left), int(right))
                     if cmpres != 0:
                         return cmpres
-                if leftdigit:
+                elif leftdigit:
                     return 1 if right == "" else -1
-                if rightdigit:
+                elif rightdigit:
                     return -1 if left == "" else 1
                 cmpres = cmp(left, right)
                 if cmpres != 0:
