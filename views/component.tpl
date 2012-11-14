@@ -97,7 +97,11 @@
                 % end
               </ul>
             % else:
-              <p class="error">No work items specified yet.</p>
+              % if component.architecture:
+                <p class="warning">No work items specified.</p>
+              % else:
+                <p class="error">This component either needs an architecture or work items.</p>
+              % end
             % end
           </td>
         </tr>

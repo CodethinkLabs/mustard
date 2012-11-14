@@ -60,13 +60,13 @@
           </td>
         </tr>
         <tr>
-          <th>Integration Strategy</th>
+          <th>Integration</th>
           <td>
             % path, strategy = architecture.integration_strategy
             % if path:
               % include integration-strategy path=path, strategy=strategy, detail='list'
             % else:
-              <span class="error">No integration strategy specified</span>
+              <span class="warning">No integration strategy specified</span>
             % end
           </td>
         </tr>

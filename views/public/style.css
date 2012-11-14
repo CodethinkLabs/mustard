@@ -217,6 +217,10 @@ a:hover span {
   color: #ff0000;
 }
 
+.warning {
+  color: DarkOrange;
+}
+
 .hierarchy, .hierarchy ul {
   list-style: none;
 }
