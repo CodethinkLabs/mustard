@@ -11,7 +11,7 @@
       % if not diff:
         <p>No changes between {{other_tree.state.sha1}} and {{tree.state.sha1}}.</p>
       % else:
-        <pre>
+        <pre class="diff">
           % for line in tree.state.diff_against(other_tree.state).splitlines():
             % if line.startswith('+'):
 <span class="diff-added">{{line}}</span>

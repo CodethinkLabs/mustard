@@ -351,6 +351,12 @@ pre {
   color: #666;
 }
 
+pre.diff {
+  border: 0em;
+  color: inherit;
+  padding-left: 0em;
+}
+
 .diff-added {
   color: green;
 }

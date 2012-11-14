@@ -80,7 +80,7 @@
       % if not diff:
         <p>No changes introduced in {{state.sha1}}.</p>
       % else:
-        <pre>
+        <pre class="diff">
           % for line in diff:
             % if line.startswith('+'):
 <span class="diff-added">{{line}}</span>
