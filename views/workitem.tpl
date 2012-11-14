@@ -52,7 +52,7 @@
           <td>
             % inherited_reqs = item.inherited_requirements(sort_by='title')
             % if inherited_reqs:
-              <div class="expandable collapsed">
+              <div class="expandable secondary">
                 <h3>Inherited Requirements</h3>
                 <ul>
                   % for path, requirement in inherited_reqs:
@@ -64,8 +64,8 @@
               </div>
             % end
             % if item.mapped_here:
-              <div class="expandable">
-                <h3>Requirements Mapped Here</h3>
+              <div class="expandable expanded">
+                <h3>Requirements</h3>
                 <ul>
                   % for path, requirement in item.mapped_here.iteritems():
                     <li>
@@ -77,7 +77,7 @@
             % end
             % delegated_reqs = item.delegated_requirements(sort_by='title')
             % if delegated_reqs:
-              <div class="expandable collapsed">
+              <div class="expandable secondary">
                 <h3>Delegated Requirements</h3>
                 <ul>
                   % for path, requirement in delegated_reqs:

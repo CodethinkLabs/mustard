@@ -101,11 +101,13 @@ class Tree(object):
     def _resolve_test_links(self):
         for path, element in self.find_all(kind='test'):
             self._resolve_parents(path, element)
+            self._resolve_mapped_here(path, element)
             self._resolve_tags(path, element)
 
     def _resolve_work_item_links(self):
         for path, element in self.find_all(kind='work-item'):
             self._resolve_parents(path, element)
+            self._resolve_mapped_here(path, element)
             self._resolve_tags(path, element)
     
     def _resolve_tags(self, path, element):

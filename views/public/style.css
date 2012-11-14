@@ -89,8 +89,20 @@ h1 span {
   filter: alpha(opacity=50);
 }
 
-h1 span.links a, h1 span.links a:link {
+h1 span.links {
+  opacity: inherit;
+  filter: inherit;
+}
+
+h1 span.links a {
   margin-left: 0.5em;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+h1 span.links a.active {
+  opacity: 1.0;
+  filter: alpha(opacity=100);
 }
 
 h1 span.links a:hover {
@@ -114,6 +126,10 @@ h2 {
 
 h2:before {
   content: '\25B8  ';
+}
+
+h2.expanded:before {
+  content: '\25BE  ';
 }
 
 h2 span {
@@ -372,15 +388,20 @@ pre {
   content: '\25B8  ';
 }
 
+.expanded h3:before {
+  content: '\25BE  ';
+}
+
 .expandable h3:hover {
   text-decoration: underline;
 }
 
 .expandable ul {
   padding-left: 0.8em;
-  margin: 0.5em 0em;
+  margin: 0.5em 0em 0em 0em;
+  display: none;
 }
 
-div.collapsed {
+.secondary {
   opacity: 0.6;
 }

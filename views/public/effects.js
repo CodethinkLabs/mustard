@@ -373,14 +373,18 @@ $(document).ready(function() {
     diff_selected_rows();
   });
 
-  $('.collapsed ul').each(function() {
-    $(this).hide();
+  $('.expandable').each(function() {
+    if ($(this).hasClass('expanded')) {
+      $(this).children('ul').show();
+    }
   });
 
   $('.expandable h3').mouseup(function () {
     if ($(this).next('ul').css('display') == 'none') {
+      $(this).parent().addClass('expanded');
       $(this).next('ul').slideDown();
     } else {
+      $(this).parent().removeClass('expanded');
       $(this).next('ul').slideUp();
     }
   });

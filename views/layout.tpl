@@ -11,9 +11,9 @@
       <h1 id="title">
         <a href="/{{tree.state.identifier}}">{{tree.project.title or 'Unnamed MUSTARD Project'}}</a>
         <span class="links">
-          <a href="/HEAD">HEAD</a>
+          <a{{!' class="active"' if tree.state.identifier == 'HEAD' else ''}} href="/HEAD">HEAD</a>
           % if tree.state.repository.checked_out:
-            <a href="/UNCOMMITTED">UNCOMMITTED</a>
+            <a{{!' class="active"' if tree.state.identifier == 'UNCOMMITTED' else ''}} href="/UNCOMMITTED">UNCOMMITTED</a>
           % end
         </span>
       </h1>
