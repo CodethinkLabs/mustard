@@ -16,3 +16,45 @@ In order to use MUSTARD, you'll need the following components:
   * python-markdown
   * python-bottle
   * pygit2 (and libgit2)
+
+Most of the dependencies should be available in your distro, apart from
+libgit2 and pygit2. The section below explains how to install these two
+easily.
+
+
+Installing pygit2
+-----------------
+
+If you lack pygit2 in your distribution, the safest way to get it is to
+prepare a statically built libgit2 in a temporary installation location
+and then link pygit2 against that.  Since libgit2 is not API/ABI stable
+yet, this will innoculate you against others installing different
+versions of libgit2 at other times.  It won't save you from incompatible
+pygit2 installs, but you can fiddle with python paths if you care about
+that.
+
+To build libgit2 statically and pygit2 with that, do the following:
+
+    $ mkdir pygit-building
+    $ cd pygit-building
+    $ git clone git://github.com/libgit2/libgit2.git
+    $ git clone git://github.com/libgit2/pygit2.git
+    $ cd libgit2
+    $ mkdir build
+    $ cd build
+    $ cmake -DBUILD_SHARED_LIBS:BOOLEAN=OFF \
+        -DCMAKE_INSTALL_PREFIX=$(pwd)/install ..
+    $ make
+    $ make install DESTDIR=""
+    $ cd ../../pygit2
+    $ LIBGIT2="$(pwd)/../libgit2/build/install" python setup.py build
+    $ sudo python setup.py install
+
+This will install pygit2 into /usr/local -- obviously you can tweak the
+`setup.py` invocations if you wish to alter where it installs to.
+
+
+Copyright
+---------
+
+Copyright (C) 2012 Codethink Ltd.
