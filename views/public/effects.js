@@ -59,12 +59,11 @@ function collapse(element, smooth) {
 
 
 function toggle_expanded(element, smooth) {
-  if (smooth) {
-    element.parent().next('dd').slideToggle(250);
+  if (element.hasClass('expanded')) {
+    collapse(element, smooth);
   } else {
-    element.parent().next('dd').toggle();
+    expand(element, smooth);
   }
-  element.toggleClass('expanded');
 }
 
 
@@ -96,12 +95,23 @@ function merge_hashes(hash1, hash2) {
 
   var merged_paths = [hash1_paths[0]];
   for (var path in hash_map) {
-    console.log(path);
     if (path != hash1_paths[0]) {
       merged_paths.push(path);
     }
   }
   return merged_paths;
+}
+
+
+function remove_hash(hashes, hash) {
+  var result = [];
+  var paths = hashes.replace('#', '').split(',');
+  for (var index in paths) {
+    if (paths[index] != hash) {
+      result.push(paths[index]);
+    }
+  }
+  return result;
 }
 
 
@@ -291,6 +301,16 @@ $(document).ready(function() {
   $('h2').css('cursor', 'pointer');
   $('h2').mouseup(function() {
     toggle_expanded($(this), true);
+
+    if ($(this).hasClass('expanded')) {
+      var id = $(this).attr('id');
+      var hashes = merge_hashes(id, window.location.hash);
+      window.location.hash = '#' + hashes.join(',');
+    } else {
+      var id = $(this).attr('id');
+      var hashes = remove_hash(window.location.hash, id);
+      window.location.hash = '#' + hashes.join(',');
+    }
   });
 
   // center all images
