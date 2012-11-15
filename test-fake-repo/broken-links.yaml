@@ -80,3 +80,9 @@ work-item-with-mixed-parents:
     - nonexistent
     -
     -
+
+component-with-nonexistent-requirements:
+  kind: component
+  mapped-here:
+    - nonexistent1
+    - nonexistent2
