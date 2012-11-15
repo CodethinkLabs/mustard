@@ -3,6 +3,7 @@
   <head>
     <title>{{tree.project.title or 'Unnamed MUSTARD Project'}}</title>
     <link rel="stylesheet" type="text/css" href="/public/style.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/public/favicon.ico"/>
     <script type="text/javascript" src="/public/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" src="/public/effects.js"></script>
   </head>
