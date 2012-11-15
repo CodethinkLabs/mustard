@@ -9,8 +9,8 @@ def comparator(sort_key):
         def split_by_numbers(s):
             return [''.join(v) for _, v in groupby(s, lambda c: c.isdigit())]
     
-        s1 = getattr(pair1[1], sort_key)
-        s2 = getattr(pair2[1], sort_key)
+        s1 = getattr(pair1[1], sort_key) if pair1 and pair1[1] else ''
+        s2 = getattr(pair2[1], sort_key) if pair1 and pair1[1] else ''
         
         s1s = split_by_numbers(s1)
         s2s = split_by_numbers(s2)
