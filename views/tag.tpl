@@ -17,7 +17,7 @@
           <tr>
             <th>Used By</th>
             <td>
-              <ul>
+              <ul class="list">
                 % for path, element in tag.tagged.iteritems():
                   <li>
                     % include element path=path, element=element, detail='list'

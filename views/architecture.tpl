@@ -14,40 +14,15 @@
           <th>Description</th>
           <td class="description">{{!architecture.description}}</td>
         </tr>
-        % if architecture.tags:
-          <tr>
-            <th>Tags</th>
-            <td>
-              <ul>
-                % for path, tag in architecture.tags.iteritems():
-                  <li>
-                    % include tag path=path, tag=tag, detail='list'
-                  </li>
-                % end
-              </ul>
-            </td>
-          </tr>
-        % end
+        % include tags-list element=architecture
         % if not architecture.toplevel:
-          <tr>
-            <th>Parent</th>
-            <td>
-              <p>
-                % path, component = architecture.parent
-                % if path:
-                  % include component path=path, component=component, detail='list'
-                % else:
-                  <span class="error">No parent specified</span>
-                % end
-              </p>
-            </td>
-          </tr>
+          % include parents-list element=architecture
         % end
         <tr>
           <th>Components</th>
           <td>
             % if architecture.components:
-              <ul>
+              <ul class="list">
                 % for path, component in architecture.components.iteritems():
                   <li>
                     % include component path=path, component=component, detail='list'
@@ -70,63 +45,8 @@
             % end
           </td>
         </tr>
-        <tr>
-          <th>Requirements</th>
-          <td>
-            % inherited_reqs = architecture.inherited_requirements(sort_by='title')
-            % if inherited_reqs:
-              <div class="expandable secondary">
-                <h3>Inherited Requirements</h3>
-                <ul>
-                  % for path, requirement in inherited_reqs:
-                    <li>
-                      % include requirement path=path, requirement=requirement, detail='list'
-                    </li>
-                  % end
-                </ul>
-              </div>
-            % end
-            % if architecture.mapped_here:
-              <div class="expandable expanded">
-                <h3>Requirements</h3>
-                <ul>
-                  % for path, requirement in architecture.mapped_here.iteritems():
-                    <li>
-                      % include requirement path=path, requirement=requirement, detail='list'
-                    </li>
-                  % end
-                </ul>
-              </div>
-            % end
-            % delegated_reqs = architecture.delegated_requirements(sort_by='title')
-            % if delegated_reqs:
-              <div class="expandable secondary">
-                <h3>Delegated Requirements</h3>
-                <ul>
-                  % for path, requirement in delegated_reqs:
-                    <li>
-                      % include requirement path=path, requirement=requirement, detail='list'
-                    </li>
-                  % end
-                </ul>
-              </div>
-            % end
-          </td>
-        </tr>
-        % if architecture.work_items:
-          <tr>
-            <th>Work Items</th>
-            <td>
-              <ul>
-                % for path, item in architecture.work_items.iteritems():
-                  <li>
-                    % include workitem path=path, item=item, detail='list'
-                  </li>
-                % end
-              </ul>
-            </td>
-          </tr>
-        % end
+        % include requirements-list element=architecture
+        % include work-items-list element=architecture
       </table>
     </dd>
   % else:

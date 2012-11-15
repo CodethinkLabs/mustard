@@ -15,33 +15,8 @@
           <th>Description</th>
           <td class="description">{{!component.description}}</td>
         </tr>
-        % if component.tags:
-          <tr>
-            <th>Tags</th>
-            <td>
-              <ul>
-                % for path, tag in component.tags.iteritems():
-                  <li>
-                    % include tag path=path, tag=tag, detail='list'
-                  </li>
-                % end
-              </ul>
-            </td>
-          </tr>
-        % end
-        <tr> 
-          <th>Parent</th>
-          <td>
-            <p>
-              % path, architecture = component.parent
-              % if path:
-                % include architecture path=path, architecture=architecture, detail='list'
-              % else:
-                <span class="error">No parent specified</span>
-              % end
-            </p>
-          </td>
-        </tr>
+        % include tags-list element=component
+        % include parents-list element=component
         % if component.architecture:
           <tr> 
             % path, architecture = component.architecture
@@ -57,7 +32,7 @@
           <tr> 
             <th>Interfaces</th>
             <td>
-              <ul>
+              <ul class="list">
                 % for path, interface in component.interfaces.iteritems():
                   <li>
                     % include interface path=path, interface=interface, detail='list'
@@ -67,87 +42,9 @@
             </td>
           </tr>
         % end
-        <tr> 
-          <th>Requirements</th>
-          <td>
-            % inherited_reqs = component.inherited_requirements(sort_by='title')
-            % if inherited_reqs:
-              <div class="expandable secondary">
-                <h3>Inherited Requirements</h3>
-                <ul>
-                  % for path, requirement in inherited_reqs:
-                    <li>
-                      % include requirement path=path, requirement=requirement, detail='list'
-                    </li>
-                  % end
-                </ul>
-              </div>
-            % end
-            % if component.mapped_here or not component.architecture:
-              % if component.mapped_here:
-                <div class="expandable expanded">
-                  <h3>Requirements</h3>
-                  <ul>
-                    % for path, requirement in component.mapped_here.iteritems():
-                      <li>
-                        % include requirement path=path, requirement=requirement, detail='list'
-                      </li>
-                    % end
-                  </ul>
-                </div>
-              % else:
-                <p class="error">This component either needs an architecture or have requirements mapped to it.</p>
-              % end
-            % end
-            % delegated_reqs = component.delegated_requirements(sort_by='title')
-            % if delegated_reqs:
-              <div class="expandable secondary">
-                <h3>Delegated Requirements</h3>
-                <ul>
-                  % for path, requirement in delegated_reqs:
-                    <li>
-                      % include requirement path=path, requirement=requirement, detail='list'
-                    </li>
-                  % end
-                </ul>
-              </div>
-            % end
-          </td>
-        </tr>
-        <tr>
-          <th>Work Items</th>
-          <td>
-            % if component.work_items:
-              <ul>
-                % for path, item in component.work_items.iteritems():
-                  <li>
-                    % include workitem path=path, item=item, detail='list'
-                  </li>
-                % end
-              </ul>
-            % else:
-              % if component.architecture:
-                <p class="warning">No work items specified.</p>
-              % else:
-                <p class="error">This component either needs an architecture or work items.</p>
-              % end
-            % end
-          </td>
-        </tr>
-        % if component.tests:
-          <tr>
-            <th>Tests</th>
-            <td>
-              <ul>
-                % for path, test in component.tests.iteritems():
-                  <li>
-                    % include test path=path, test=test, detail='list'
-                  </li>
-                % end
-              </ul>
-            </td>
-          </tr>
-        % end
+        % include requirements-list element=component
+        % include work-items-list element=component
+        % include tests-list element=component
       </table>
     </dd>
   % else:

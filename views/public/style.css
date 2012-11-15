@@ -190,18 +190,8 @@ dd th {
   width: 15%;
 }
 
-dd table ul {
-  list-style: none;
-  padding: 0em;
-}
-
-dd table td.description ul, dd table td.description ol  {
-  list-style: disc;
-  padding-left: 1.5em;
-}
-
 ul, ol {
-  padding-left: 2em;
+  padding-left: 1.5em;
 }
 
 ul {
@@ -403,6 +393,7 @@ pre.diff {
 }
 
 .expandable ul {
+  list-style: none;
   padding-left: 0.8em;
   margin: 0.5em 0em 0em 0em;
   display: none;
@@ -410,4 +401,10 @@ pre.diff {
 
 .secondary {
   opacity: 0.6;
+  filter: alpha(opacity=60);
+}
+
+.list {
+  list-style: none;
+  padding-left: 0em;
 }

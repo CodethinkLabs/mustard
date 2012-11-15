@@ -15,36 +15,13 @@
           <th>Description</th>
           <td class="description">{{!requirement.description}}</td>
         </tr>
-        % if requirement.tags:
-          <tr>
-            <th>Tags</th>
-            <td>
-              <ul>
-                % for path, tag in requirement.tags.iteritems():
-                  <li>
-                    %include tag path=path, tag=tag, detail='list'
-                  </li>
-                % end
-              </ul>
-            </td>
-          </tr>
-        % end
-        % if requirement.parent[0]:
-          <tr>
-            <th>Parent</th>
-            <td>
-              <p>
-                % path, parent = requirement.parent
-                % include requirement path=path, requirement=parent, detail='list'
-              </p>
-            </td>
-          </tr>
-        % end
+        % include tags-list element=requirement
+        % include parents-list element=requirement
         % if requirement.subrequirements:
           <tr>
             <th>Subrequirements</th>
             <td>
-              <ul>
+              <ul class="list">
                 % for path, other in requirement.subrequirements.iteritems():
                   <li>
                     % include requirement path=path, requirement=other, detail='list'
@@ -58,7 +35,7 @@
           <th>Mapped To</th>
           <td>
             % if requirement.mapped_to:
-              <ul>
+              <ul class="list">
                 % for path, element in requirement.mapped_to.iteritems():
                   <li>
                     % include element path=path, element=element, detail='list'
@@ -71,34 +48,8 @@
             % end
           </td>
         </tr>
-        % if requirement.work_items:
-          <tr>
-            <th>Work Items</th>
-            <td>
-              <ul>
-                % for path, item in requirement.work_items.iteritems():
-                  <li>
-                    % include workitem path=path, item=item, detail='list'
-                  </li>
-                % end
-              </ul>
-            </td>
-          </tr>
-        % end
-        % if requirement.tests:
-          <tr>
-            <th>Tests</th>
-            <td>
-              <ul>
-                % for path, test in requirement.tests.iteritems():
-                  <li>
-                    % include test path=path, test=test, detail='list'
-                  </li>
-                % end
-              </ul>
-            </td>
-          </tr>
-        % end
+        % include work-items-list element=requirement
+        % include tests-list element=requirement
       </table>
     </dd>
   % else:
