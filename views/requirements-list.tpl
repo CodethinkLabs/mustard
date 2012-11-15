@@ -20,7 +20,7 @@
           <div class="expandable expanded">
             <h3>Requirements</h3>
             <ul class="list">
-              % for path, requirement in element.mapped_here.iteritems():
+              % for path, requirement in element.mapped_requirements(sort_by='title'):
                 <li>
                   % include requirement path=path, requirement=requirement, detail='list'
                 </li>
@@ -36,7 +36,7 @@
         <div class="expandable expanded">
           <h3>Requirements</h3>
           <ul class="list">
-            % for path, requirement in element.mapped_here.iteritems():
+            % for path, requirement in element.mapped_requirements(sort_by='title'):
               <li>
                 % include requirement path=path, requirement=requirement, detail='list'
               </li>

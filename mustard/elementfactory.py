@@ -79,6 +79,12 @@ class Element(object):
                     results.add((ref, req))
             queue.extend(element.get_parents())
         return mustard.sorting.sort_elements(results, kwargs)
+
+    def mapped_requirements(self, **kwargs):
+        results = set()
+        for ref, req in self.mapped_here.iteritems():
+            results.add((ref, req))
+        return mustard.sorting.sort_elements(results, kwargs)
     
     def delegated_requirements(self, **kwargs):
         results = set()
