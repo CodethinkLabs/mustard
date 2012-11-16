@@ -119,9 +119,11 @@ function scroll_to_first_hash_element(hash) {
   if (hash.length > 0) {
     var paths = hash.replace('#', '').split(',');
     var path = paths[0].replace(/\//g, '\\/');
-    $('html, body').animate({
-      scrollTop: $('#' + path).offset().top
-    }, 'slow');
+    if (path.length > 0) {
+      $('html, body').animate({
+        scrollTop: $('#' + path).offset().top
+      }, 0);
+    }
   }
 }
 

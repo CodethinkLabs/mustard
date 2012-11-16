@@ -1,5 +1,5 @@
 % if element.kind in ['component', 'interface', 'integration-strategy']:
-  <tr> 
+  <tr>
     <th>Parent</th>
     <td>
       <p>
@@ -29,7 +29,7 @@
       <th>Parents</th>
       <td>
         % if element.parents:
-          <ul>
+          <ul class="list">
             % for path, parent in element.parents.iteritems():
               <li>
                 % include element path=path, element=parent, detail='list'
