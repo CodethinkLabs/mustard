@@ -115,7 +115,6 @@ class CommittedState(State):
             if not filename.startswith('files/') \
                     and not filename.startswith('.') \
                     and filename.endswith('.yaml'):
-                print filename
                 yield filename
 
     def read(self, filename):
