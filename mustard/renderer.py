@@ -1,15 +1,16 @@
 # Copyright (C) 2012 Codethink Limited
 
 
+import base64
 import bottle
 import cliapp
+import mimetypes
 import os
 import urllib
-import base64
-
-import mustard
 
 from bottle import route
+
+import mustard
 
 
 defaults = {
@@ -192,6 +193,11 @@ class App(cliapp.Application):
             try:
                 if not content_id in self.content:
                     self.content[content_id] = state.read(path)
+
+                mime_type, encoding = mimetypes.guess_type(filename)
+                bottle.response.set_header('Content-Type', mime_type)
+                bottle.response.set_header('Content-Encoding', encoding)
+
                 return self.content[content_id]
             except Exception, err:
                 bottle.response.status = 404
