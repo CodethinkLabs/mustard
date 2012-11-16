@@ -52,7 +52,7 @@ class Element(object):
 
     def _generate_uml_image(self, uml):
         url = '/plantuml/%s' % base64.b64encode("\n".join(uml))
-        return '![UML diagram](%s)' % url
+        return '[![UML diagram](%s)](%s)' % (url, url)
         
     def get_parents(self):
         parents = []
