@@ -175,10 +175,23 @@ class App(cliapp.Application):
             return self.render_diff(state1, state2, 'diff')
 
         @route('/public/<filename>')
-        def stylesheet(filename):
+        def public(filename):
             public_dir = os.path.join(os.path.dirname(__file__),
                                       '..', 'views', 'public')
             return bottle.static_file(filename, root=public_dir)
+
+        @route('/<stateid>/files/<filename:re:.*>')
+        def file(stateid, filename):
+            path = os.path.join('files/%s' % filename)
+            state = self.state_cache.get(stateid)
+            content_id = (state, 'files', path)
+            try:
+                if not content_id in self.content:
+                    self.content[content_id] = state.read(path)
+                return self.content[content_id]
+            except Exception, err:
+                bottle.response.status = 404
+                return bottle.template('error', error=err)
 
         @route('/plantuml/<content:re:.*>')
         def plantuml(content):
