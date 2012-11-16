@@ -123,6 +123,10 @@ class App(cliapp.Application):
             return None
 
         @route('/<stateid>')
+        def state_redirect(stateid):
+            return bottle.redirect('/%s/' % stateid)
+
+        @route('/<stateid>/')
         def state_index(stateid):
             return self.render_repository(stateid, 'index')
 
