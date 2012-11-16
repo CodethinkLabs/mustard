@@ -7,6 +7,7 @@ import cliapp
 import mimetypes
 import os
 import urllib
+import zlib
 
 from bottle import route
 
@@ -206,7 +207,8 @@ class App(cliapp.Application):
         @route('/plantuml/<content:re:.*>')
         def plantuml(content):
             if not content in self.uml:
-                uml = base64.b64decode(urllib.unquote(content))
+                uml = zlib.decompress(
+                    base64.b64decode(urllib.unquote(content)))
                 self.uml[content] = self.runcmd(
                         ["java", "-jar", self.settings['plantuml-jar'],
                          "-tpng", "-p"],

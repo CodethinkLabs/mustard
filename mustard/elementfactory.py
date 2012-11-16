@@ -6,6 +6,7 @@ import collections
 import markdown
 import urllib
 import base64
+import zlib
 
 import mustard
 
@@ -51,7 +52,7 @@ class Element(object):
         return '\n'.join(resolved_text)
 
     def _generate_uml_image(self, uml):
-        url = '/plantuml/%s' % base64.b64encode("\n".join(uml))
+        url = '/plantuml/%s' % base64.b64encode(zlib.compress("\n".join(uml)))
         return '[![UML diagram](%s)](%s)' % (url, url)
         
     def get_parents(self):
