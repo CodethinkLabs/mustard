@@ -63,4 +63,5 @@ class Repository(object):
         return blob.data
 
     def resolve_ref(self, ref):
+        ref = ref.replace(':', '/')
         return self.repo.revparse_single(ref).hex
