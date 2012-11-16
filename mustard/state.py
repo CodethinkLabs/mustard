@@ -60,7 +60,8 @@ class UncommittedState(State):
             # remove the /files directory from the list as we don't
             # want to include YAML files in that directory
             if os.path.samefile(root, self.repository.dirname):
-                dirs.remove('files')
+                if 'files' in dirs:
+                    dirs.remove('files')
 
             # skip all non-YAML and hidden files
             files[:] = [x for x in files
