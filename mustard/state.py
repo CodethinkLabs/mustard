@@ -37,6 +37,7 @@ class State(object):
     def diff_against(self, other):
         return self.repository.diff(other.sha1, self.sha1)
 
+
 class UncommittedState(State):
 
     def __init__(self, app, cache, repository):
@@ -55,6 +56,11 @@ class UncommittedState(State):
         for root, dirs, files in os.walk(self.repository.dirname):
             # do not recurse into hidden subdirectories
             dirs[:] = [x for x in dirs if not x.startswith('.')]
+
+            # remove the /files directory from the list as we don't
+            # want to include YAML files in that directory
+            if os.path.samefile(root, self.repository.dirname):
+                dirs.remove('files')
 
             # skip all non-YAML and hidden files
             files[:] = [x for x in files
@@ -104,7 +110,12 @@ class CommittedState(State):
     def _list_files(self):
         tree = self.repository.list_tree(self.sha1)
         for filename in tree:
-            if not filename.startswith('.') and filename.endswith('.yaml'):
+            # ignore files in /files because we do not want to include
+            # YAML files in that directory
+            if not filename.startswith('files/') \
+                    and not filename.startswith('.') \
+                    and filename.endswith('.yaml'):
+                print filename
                 yield filename
 
     def read(self, filename):
