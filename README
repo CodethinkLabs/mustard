@@ -201,7 +201,7 @@ Architectures (kind: architecture):
       - identifier/of/a/requirement
       - identifier/of/another/requirement
 
-Components (kind: architecture):
+Components (kind: component):
 
   Used to specify components of an architecture.
 
