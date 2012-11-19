@@ -58,7 +58,7 @@ class Tree(object):
                     current = current[segment]
             else:
                 if segment in current:
-                    raise DuplicateElementError(state, path)
+                    raise DuplicateElementError(path)
                 else:
                     current[segment] = data
 
