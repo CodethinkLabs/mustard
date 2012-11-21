@@ -308,15 +308,15 @@ $(document).ready(function() {
   $('h2').mouseup(function() {
     toggle_expanded($(this), true);
 
-    if ($(this).hasClass('expanded')) {
-      var id = $(this).attr('id');
-      var hashes = merge_hashes(id, window.location.hash);
-      window.location.hash = '#' + hashes.join(',');
-    } else {
-      var id = $(this).attr('id');
-      var hashes = remove_hash(window.location.hash, id);
-      window.location.hash = '#' + hashes.join(',');
-    }
+    //if ($(this).hasClass('expanded')) {
+    //  var id = $(this).attr('id');
+    //  var hashes = merge_hashes(id, window.location.hash);
+    //  window.location.hash = '#' + hashes.join(',');
+    //} else {
+    //  var id = $(this).attr('id');
+    //  var hashes = remove_hash(window.location.hash, id);
+    //  window.location.hash = '#' + hashes.join(',');
+    //}
   });
 
   // center all images

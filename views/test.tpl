@@ -16,6 +16,7 @@
           </tr>
         % end
         % include tags-list element=test
+        % include parents-list element=test
         % include requirements-list element=test
       </table>
     </dd>
