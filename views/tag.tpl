@@ -18,7 +18,7 @@
             <th>Used By</th>
             <td>
               <ul class="list">
-                % for path, element in tag.tagged.iteritems():
+                % for path, element in tag.tagged_by_title():
                   <li>
                     % include element path=path, element=element, detail='list'
                   </li>
