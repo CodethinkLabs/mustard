@@ -3,7 +3,7 @@
 
 '''MUSTARD library.'''
 
-
+import httpauth
 import elementfactory
 import sorting
 import architecture

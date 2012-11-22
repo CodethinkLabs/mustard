@@ -29,6 +29,7 @@ class App(cliapp.Application):
         cliapp.Application.__init__(self)
 
         self.repository = None
+        self.auth = None
         self.state_cache = None
         raw_tree_cache = mustard.rawtree.Cache()
         self.element_tree_cache = mustard.elementtree.Cache(raw_tree_cache)
@@ -116,7 +117,10 @@ class App(cliapp.Application):
                 self, self.settings['project'])
         self.state_cache = mustard.state.Cache(self, self.repository)
 
+        self.auth = mustard.httpauth.Authenticator(self.repository)
+
         @route('/')
+        @self.auth.protected
         def index():
             return bottle.redirect('/HEAD')
 
@@ -125,68 +129,84 @@ class App(cliapp.Application):
             return None
 
         @route('/<stateid>')
+        @self.auth.protected
         def state_redirect(stateid):
             return bottle.redirect('/%s/' % stateid)
 
         @route('/<stateid>/')
+        @self.auth.protected
         def state_index(stateid):
             return self.render_repository(stateid, 'index')
 
         @route('/<stateid>/overview')
+        @self.auth.protected
         def overview(stateid):
             return self.render_repository(stateid, 'overview')
 
         @route('/<stateid>/requirements')
+        @self.auth.protected
         def requirements(stateid):
             return self.render_repository(stateid, 'requirements')
 
         @route('/<stateid>/architectures')
+        @self.auth.protected
         def architectures(stateid):
             return self.render_repository(stateid, 'architectures')
 
         @route('/<stateid>/components')
+        @self.auth.protected
         def components(stateid):
             return self.render_repository(stateid, 'components')
 
         @route('/<stateid>/tags')
+        @self.auth.protected
         def tags(stateid):
             return self.render_repository(stateid, 'tags')
 
         @route('/<stateid>/work-items')
+        @self.auth.protected
         def work_items(stateid):
             return self.render_repository(stateid, 'work-items')
 
         @route('/<stateid>/interfaces')
+        @self.auth.protected
         def interfaces(stateid):
             return self.render_repository(stateid, 'interfaces')
 
         @route('/<stateid>/integration-strategies')
+        @self.auth.protected
         def integration_strategies(stateid):
             return self.render_repository(stateid, 'integration-strategies')
 
         @route('/<stateid>/tests')
+        @self.auth.protected
         def tests(stateid):
             return self.render_repository(stateid, 'tests')
 
         @route('/<stateid>/history')
+        @self.auth.protected
         def history(stateid):
             return self.render_repository(stateid, 'history')
 
         @route('/<stateid>/diff')
+        @self.auth.protected
         def diff(stateid):
             return self.render_repository(stateid, 'diff')
 
         @route('/<state1>/diff/<state2>')
+        @self.auth.protected
         def diff(state1, state2):
             return self.render_diff(state1, state2, 'diff')
 
         @route('/public/<filename>')
+        @self.auth.protected
         def public(filename):
             public_dir = os.path.join(os.path.dirname(__file__),
                                       '..', 'views', 'public')
             return bottle.static_file(filename, root=public_dir)
 
         @route('/<stateid>/files/<filename:re:.*>')
+        @self.auth.protected
         def file(stateid, filename):
             path = os.path.join('files/%s' % filename)
             state = self.state_cache.get(stateid)
@@ -205,6 +225,7 @@ class App(cliapp.Application):
                 return bottle.template('error', error=err)
 
         @route('/plantuml/<content:re:.*>')
+        @self.auth.protected
         def plantuml(content):
             if not content in self.uml:
                 uml = zlib.decompress(
