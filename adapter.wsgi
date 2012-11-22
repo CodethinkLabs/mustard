@@ -9,6 +9,14 @@ import bottle
 
 app = None
 
+def check_password(environ, user, password):
+    global app
+
+    # TODO this is temporary
+    if user == 'valid-mustard-user':
+        return True
+    return None
+
 def application(environ, start_response):
     global app
 
