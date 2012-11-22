@@ -8,6 +8,8 @@
   % include component path=path, component=element, detail='list'
 % elif element.kind == 'requirement':
   % include requirement path=path, requirement=element, detail='list'
+% elif element.kind == 'interface':
+  % include interface path=path, interface=element, detail='list'
 % elif element.kind == 'tag':
   % include tag path=path, tag=element, detail='list'
 % elif element.kind == 'test':
