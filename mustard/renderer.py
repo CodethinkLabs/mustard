@@ -60,9 +60,13 @@ class App(cliapp.Application):
                               default=defaults['reload'])
 
     def render_repository(self, state_id, view):
-        state = self.state_cache.get(state_id)
-
         try:
+            if state_id == 'admin':
+                raise cliapp.AppException(
+                        'Browsing this branch is not permitted')
+
+            state = self.state_cache.get(state_id)
+
             if state_id == 'UNCOMMITTED':
                 raw_tree = mustard.rawtree.Tree(state)
                 element_tree = mustard.elementtree.Tree(raw_tree)
@@ -78,10 +82,14 @@ class App(cliapp.Application):
             return bottle.template('error', error=err)
 
     def render_diff(self, state1, state2, view):
-        state1 = self.state_cache.get(state1)
-        state2 = self.state_cache.get(state2)
-
         try:
+            if state1 == 'admin' or state2 == 'admin':
+                raise cliapp.AppException(
+                        'Browsing this branch is not permitted')
+
+            state1 = self.state_cache.get(state1)
+            state2 = self.state_cache.get(state2)
+
             if state1 == state2:
                 raise cliapp.AppException('Need two different states')
 
@@ -208,6 +216,10 @@ class App(cliapp.Application):
         @route('/<stateid>/files/<filename:re:.*>')
         @self.auth.protected
         def file(stateid, filename):
+            if stateid == 'admin':
+                raise cliapp.AppException(
+                        'Browsing this branch is not permitted')
+
             path = os.path.join('files/%s' % filename)
             state = self.state_cache.get(stateid)
             content_id = (state, 'files', path)
