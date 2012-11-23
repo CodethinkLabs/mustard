@@ -11,7 +11,7 @@
 
     <Directory /home/mustard/mustard>
       SetEnv MUSTARD_SERVER_PATH /home/mustard/mustard/
-      SetEnv MUSTARD_PROJECT_PATH /path/to/projec/mustard/repo.git
+      SetEnv MUSTARD_PROJECT_PATH /path/to/project/mustard/repo.git
       SetEnv MUSTARD_PLANTUML_JAR /home/mustard/plantuml.jar
 
       Order deny,allow
