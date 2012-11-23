@@ -1,19 +1,21 @@
 <VirtualHost *:80>
     ServerName xyz.domain.com
+    {{ALIAS}}
     DocumentRoot /home/mustard/mustard
 
     WSGIPassAuthorization On
-    WSGIDaemonProcess mustard user=mustard group=mustard processes=1 threads=5
+    WSGIDaemonProcess xyz.domain.com user=mustard group=mustard processes=1 threads=5
+    WSGIProcessGroup xyz.domain.com
     WSGIScriptAlias / /home/mustard/mustard/adapter.wsgi
+    WSGIApplicationGroup %{GLOBAL}
 
     <Directory /home/mustard/mustard>
       SetEnv MUSTARD_SERVER_PATH /home/mustard/mustard/
-      SetEnv MUSTARD_PROJECT_PATH /path/to/the/project/mustard/repo.git
+      SetEnv MUSTARD_PROJECT_PATH /path/to/projec/mustard/repo.git
       SetEnv MUSTARD_PLANTUML_JAR /home/mustard/plantuml.jar
 
-      WSGIProcessGroup mustard
-      WSGIApplicationGroup %{GLOBAL}
       Order deny,allow
       Allow from all
     </Directory>
 </VirtualHost>
+
