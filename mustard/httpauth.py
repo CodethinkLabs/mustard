@@ -14,7 +14,6 @@ class Authenticator(object):
         self.repository = repository
 
     def check_auth(self, username, password):
-        print 'check auth'
         try:
             data = self.repository.cat_file('admin', 'acl.yaml')
         except KeyError, err:
