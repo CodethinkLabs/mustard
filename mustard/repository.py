@@ -18,11 +18,9 @@ class Repository(object):
     
     def history(self, ref):
         refs = []
-        if ref:
-            sha1 = self.resolve_ref(ref)
-        else:
-            sha1 = self.repo.head.hex
-        commit = self.repo[sha1]
+        if not ref:
+            ref = self.repo.head.hex
+        commit = self.commit(ref)
         while commit is not None:
             refs.append(commit.hex)
             if commit.parents:
@@ -33,10 +31,8 @@ class Repository(object):
     
     def diff(self, ref1=None, ref2=None):
         if ref1 and ref2:
-            sha1 = self.resolve_ref(ref1)
-            sha2 = self.resolve_ref(ref2)
-            commit1 = self.repo[sha1]
-            commit2 = self.repo[sha2]
+            commit1 = self.commit(ref1)
+            commit2 = self.commit(ref2)
             tree1 = commit1.tree
             tree2 = commit2.tree
             return tree1.diff(tree2).patch
@@ -45,12 +41,15 @@ class Repository(object):
 
     def commit(self, ref):
         sha1 = self.resolve_ref(ref)
-        return self.repo[sha1]
+        commit_or_tag = self.repo[sha1]
+        if type(commit_or_tag) == pygit2.Tag:
+            commit_or_tag = self.repo[commit_or_tag.target]
+        return commit_or_tag
 
     def list_tree(self, ref):
         sha1 = self.resolve_ref(ref)
         queue = collections.deque()
-        queue.append((self.repo[sha1].tree, ''))
+        queue.append((self.commit(sha1).tree, ''))
         while queue:
             (tree, path) = queue.popleft()
             for entry in tree:
@@ -61,8 +60,7 @@ class Repository(object):
                     yield os.path.join(path, entry.name)
 
     def cat_file(self, ref, filename):
-        sha1 = self.resolve_ref(ref)
-        commit = self.repo[sha1]
+        commit = self.commit(ref)
         entry = commit.tree[filename]
         blob = self.repo[entry.oid]
         return blob.data
