@@ -22,8 +22,13 @@ class Repository(object):
             sha1 = self.resolve_ref(ref)
         else:
             sha1 = self.repo.head.hex
-        for commit in self.repo.walk(sha1, pygit2.GIT_SORT_TIME):
+        commit = self.repo[sha1]
+        while commit is not None:
             refs.append(commit.hex)
+            if commit.parents:
+                commit = commit.parents[0]
+            else:
+                commit = None
         return refs
     
     def diff(self, ref1=None, ref2=None):
