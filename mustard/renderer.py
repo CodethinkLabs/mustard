@@ -241,7 +241,7 @@ class App(cliapp.Application):
         def plantuml(content):
             if not content in self.uml:
                 uml = zlib.decompress(
-                    base64.b64decode(urllib.unquote(content)))
+                    base64.urlsafe_b64decode(urllib.unquote(content)))
                 self.uml[content] = self.runcmd(
                         ["java", "-jar", self.settings['plantuml-jar'],
                          "-tpng", "-p"],
