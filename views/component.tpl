@@ -44,7 +44,7 @@
         % end
         % include requirements-list element=component
         % include work-items-list element=component
-        % include tests-list element=component
+        % include test-strategy-list element=component
       </table>
     </dd>
   % else:

@@ -186,10 +186,10 @@ class App(cliapp.Application):
         def integration_strategies(stateid):
             return self.render_repository(stateid, 'integration-strategies')
 
-        @route('/<stateid>/tests')
+        @route('/<stateid>/test-strategies')
         @self.auth.protected
-        def tests(stateid):
-            return self.render_repository(stateid, 'tests')
+        def test_strategies(stateid):
+            return self.render_repository(stateid, 'test-strategies')
 
         @route('/<stateid>/history')
         @self.auth.protected

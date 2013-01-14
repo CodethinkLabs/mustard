@@ -49,7 +49,7 @@
           </td>
         </tr>
         % include work-items-list element=requirement
-        % include tests-list element=requirement
+        % include test-strategy-list element=requirement
       </table>
     </dd>
   % else:

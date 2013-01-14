@@ -18,7 +18,7 @@
         % include tags-list element=strategy
         % include parents-list element=strategy
         % include requirements-list element=strategy
-        % include tests-list element=strategy
+        % include test-strategy-list element=strategy
       </table>
     </dd>
   % else:

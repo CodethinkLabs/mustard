@@ -1,9 +1,9 @@
-% def render_test(path, test):
+% def render_test_strategy(path, teststrategy):
   <li>
-    % include test path=path, test=test, detail='list'
-    % if test.parents:
+    % include test-strategy path=path, teststrategy=teststrategy, detail='list'
+    % if teststrategy.parents:
       <ul>
-        % for path, element in test.parents.iteritems():
+        % for path, element in teststrategy.parents.iteritems():
           <li>
             % include element path=path, element=element, detail='list'
           </li>
@@ -16,10 +16,10 @@
 % def render_integration_strategy(path, strategy):
   <li>
     % include integration-strategy path=path, strategy=strategy, detail='list'
-    % if strategy.tests:
+    % if strategy.teststrategies:
       <ul>
-        % for path, test in strategy.tests.iteritems():
-          % render_test(path, test)
+        % for path, teststrategy in strategy.teststrategies.iteritems():
+          % render_test(path, teststrategy)
         % end
       </ul>
     % end
@@ -101,10 +101,10 @@
         % end
       </ul>
     % end
-    % if component.tests:
+    % if component.teststrategies:
       <ul>
-        % for path, test in component.tests.iteritems():
-          % render_test(path, test)
+        % for path, teststrategy in component.teststrategies.iteritems():
+          % render_test(path, teststrategy)
         % end
       </ul>
     % end

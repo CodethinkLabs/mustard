@@ -13,4 +13,4 @@ class Requirement(mustard.elementfactory.Element):
 
         self.mapped_to = {}
         self.subrequirements = {}
-        self.tests = {}
+        self.teststrategies = {}

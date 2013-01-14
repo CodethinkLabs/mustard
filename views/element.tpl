@@ -12,8 +12,8 @@
   % include interface path=path, interface=element, detail='list'
 % elif element.kind == 'tag':
   % include tag path=path, tag=element, detail='list'
-% elif element.kind == 'test':
-  % include test path=path, test=element, detail='list'
+% elif element.kind == 'test-strategy':
+  % include test-strategy path=path, teststrategy=element, detail='list'
 % elif element.kind == 'integration-strategy':
   % include integration-strategy path=path, strategy=element, detail='list'
 % else:

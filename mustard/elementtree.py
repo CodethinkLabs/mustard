@@ -61,7 +61,7 @@ class Tree(object):
         self._resolve_interface_links()
         self._resolve_requirement_links()
         self._resolve_tag_links()
-        self._resolve_test_links()
+        self._resolve_test_strategy_links()
         self._resolve_work_item_links()
 
     def _resolve_architecture_links(self):
@@ -96,8 +96,8 @@ class Tree(object):
     def _resolve_tag_links(self):
         pass
 
-    def _resolve_test_links(self):
-        for path, element in self.find_all(kind='test'):
+    def _resolve_test_strategy_links(self):
+        for path, element in self.find_all(kind='test-strategy'):
             self._resolve_parents(path, element)
             self._resolve_mapped_here(path, element)
             self._resolve_tags(path, element)
@@ -141,11 +141,11 @@ class Tree(object):
     def _resolve_parents(self, path, element):
         for ref in element.parents.iterkeys():
             if ref in self.elements:
-                if element.kind == 'test':
+                if element.kind == 'test-strategy':
                     if self.elements[ref].kind == 'requirement':
                         self.elements[ref].mapped_to[path] = element
                     else:
-                        self.elements[ref].tests[path] = element
+                        self.elements[ref].teststrategies[path] = element
                 elif element.kind == 'work-item':
                     if self.elements[ref].kind == 'requirement':
                         self.elements[ref].mapped_to[path] = element

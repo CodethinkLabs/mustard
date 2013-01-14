@@ -11,7 +11,7 @@ class IntegrationStrategy(mustard.elementfactory.Element):
     def __init__(self, data):
         mustard.elementfactory.Element.__init__(self, data)
 
-        self.tests = {}
+        self.teststrategies = {}
 
         self.mapped_here = {}
         for ref in data.get('mapped-here', []):
@@ -22,7 +22,7 @@ class IntegrationStrategy(mustard.elementfactory.Element):
         for path, item in self.work_items.iteritems():
             if item:
                 children.append((path, item))
-        for path, test in self.tests.iteritems():
-            if test:
+        for path, teststrategy in self.teststrategies.iteritems():
+            if teststrategy:
                 children.append((path, test))
         return children

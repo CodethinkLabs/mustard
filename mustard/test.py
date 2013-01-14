@@ -6,7 +6,7 @@ import markdown
 import mustard
 
 
-class Test(mustard.elementfactory.Element):
+class TestStrategy(mustard.elementfactory.Element):
 
     def __init__(self, data):
         mustard.elementfactory.Element.__init__(self, data)
