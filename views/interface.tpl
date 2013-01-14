@@ -6,7 +6,7 @@
   % end
 % elif detail == 'full':
   % if interface:
-    <dt><h2 id="{{path}}">{{interface.title}} <span>{{path}}</span></h2></dt>
+    <dt><h2 id="{{path}}">{{interface.title}} <span><a href="#{{path}}" onclick="return false">{{path}}</a></span></h2></dt>
     <dd>
       <table cellspacing="0" cellpadding="0">
         <tr>

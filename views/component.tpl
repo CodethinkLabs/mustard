@@ -8,7 +8,7 @@
   % end
 % elif detail == 'full':
   % if component:
-    <dt><h2 id="{{path}}">{{!'<span class="error">☐</span>' if not component.work_items and not component.architecture else '☑'}} {{component.title}} <span>{{path}}</span></h2></dt>
+    <dt><h2 id="{{path}}">{{!'<span class="error">☐</span>' if not component.work_items and not component.architecture else '☑'}} {{component.title}} <span><a href="#{{path}}" onclick="return false">{{path}}</a></span></h2></dt>
     <dd>
       <table cellspacing="0" cellpadding="0">
         <tr>

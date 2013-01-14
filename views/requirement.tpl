@@ -8,7 +8,7 @@
   % end
 % elif detail == 'full':
   % if requirement:
-    <dt><h2 id="{{path}}">{{!'<span class="error">☐</span>' if not [x for x in requirement.mapped_to.itervalues() if x.kind == 'component'] else '☑'}} {{requirement.title}} <span>{{path}}</span></h2></dt>
+    <dt><h2 id="{{path}}">{{!'<span class="error">☐</span>' if not [x for x in requirement.mapped_to.itervalues() if x.kind == 'component'] else '☑'}} {{requirement.title}} <span><a href="#{{path}}" onclick="return false">{{path}}</a></span></h2></dt>
     <dd>
       <table cellspacing="0" cellpadding="0">
         <tr>

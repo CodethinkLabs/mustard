@@ -7,7 +7,7 @@
   % end
 % elif detail == 'full':
   % if architecture:
-    <dt><h2 id="{{path}}">{{!'<span class="error">☐</span>' if not architecture.components else '☑'}} {{architecture.title}} <span>{{path}}</span></h2></dt>
+    <dt><h2 id="{{path}}">{{!'<span class="error">☐</span>' if not architecture.components else '☑'}} {{architecture.title}} <span><a href="#{{path}}" onclick="return false">{{path}}</a></span></h2></dt>
     <dd>
       <table cellspacing="0" cellpadding="0">
         <tr>

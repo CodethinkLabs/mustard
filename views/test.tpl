@@ -6,7 +6,7 @@
   % end
 % elif detail == 'full':
   % if test:
-    <dt><h2 id="{{path}}">{{test.title}} <span>{{path}}</span></h2></dt>
+    <dt><h2 id="{{path}}">{{test.title}} <span><a href="#{{path}}" onclick="return false">{{path}}</a></span></h2></dt>
     <dd>
       <table cellspacing="0" cellpadding="0">
         % if test.description:
