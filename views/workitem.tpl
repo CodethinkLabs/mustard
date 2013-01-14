@@ -1,14 +1,14 @@
 % if detail == 'list':
   % if item:
     <a class="workitem" href="/{{item.tree.state.identifier}}/work-items#{{path}}">
-      {{!'<span class="error">☐</span>' if not 'tags/completed' in item.tags else '☑'}} {{item.title}} <span>{{path}}</span>
+      {{item.title}} <span>{{path}}</span>
     </a>
   % else:
     % include pathnotfound path=path, detail=detail
   % end
 % elif detail == 'full':
   % if item:
-    <dt><h2 id="{{path}}">{{!'<span class="error">☐</span>' if not 'tags/completed' in item.tags else '☑'}} {{item.title}} <span><a href="#{{path}}" onclick="return false">{{path}}</a></span></h2></dt>
+    <dt><h2 id="{{path}}">{{item.title}} <span><a href="#{{path}}" onclick="return false">{{path}}</a></span></h2></dt>
     <dd>
       <table cellspacing="0" cellpadding="0">
         % if item.description:
