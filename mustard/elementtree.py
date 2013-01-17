@@ -8,13 +8,6 @@ import yaml
 import mustard
 
 
-class NonDictElementError(cliapp.AppException):
-
-    def __init__(self, node):
-        cliapp.AppException.__init__(
-                self, 'Non-dictionary found: %s' % node)
-
-
 class Tree(object):
 
     def __init__(self, raw_tree):
@@ -31,16 +24,13 @@ class Tree(object):
         self._resolve_links()
 
     def _load_node(self, path, node):
-        if not isinstance(node, dict):
-            raise NonDictElementError(node)
-        else:
-            if 'kind' in node:
-                element = self._load_element(path, node)
+        if 'kind' in node:
+            element = self._load_element(path, node)
 
-            children = [(x,y) for x,y in node.iteritems()
-                        if isinstance(y, dict)]
-            for segment, child in children:
-                self._load_node(os.path.join(path, segment), child)
+        children = [(x,y) for x,y in node.iteritems()
+                    if isinstance(y, dict)]
+        for segment, child in children:
+            self._load_node(os.path.join(path, segment), child)
 
     def _load_element(self, path, node):
         element = self.element_factory.create(node)
