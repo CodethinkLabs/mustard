@@ -186,10 +186,10 @@ class App(cliapp.Application):
         def integration_strategies(stateid):
             return self.render_repository(stateid, 'integration-strategies')
 
-        @route('/<stateid>/test-strategies')
+        @route('/<stateid>/verification-criteria')
         @self.auth.protected
-        def test_strategies(stateid):
-            return self.render_repository(stateid, 'test-strategies')
+        def verification_criteria(stateid):
+            return self.render_repository(stateid, 'verification-criteria')
 
         @route('/<stateid>/history')
         @self.auth.protected

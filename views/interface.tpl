@@ -17,7 +17,7 @@
         % include parents-list element=interface
         % include requirements-list element=interface
         % include work-items-list element=interface
-        % include test-strategy-list element=interface
+        % include verification-criterion-list element=interface
       </table>
     </dd>
   % else:

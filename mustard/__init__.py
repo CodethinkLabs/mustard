@@ -13,7 +13,7 @@ import interface
 import project
 import requirement
 import tag
-import test
+import criterion
 import workitem
 import renderer
 import elementtree

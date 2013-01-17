@@ -1,9 +1,9 @@
-% def render_test_strategy(path, teststrategy):
+% def render_verification_criterion(path, criterion):
   <li>
-    % include test-strategy path=path, teststrategy=teststrategy, detail='list'
-    % if teststrategy.parents:
+    % include verification-criterion path=path, criterion=criterion, detail='list'
+    % if criterion.parents:
       <ul>
-        % for path, element in teststrategy.parents.iteritems():
+        % for path, element in criterion.parents.iteritems():
           <li>
             % include element path=path, element=element, detail='list'
           </li>
@@ -16,10 +16,10 @@
 % def render_integration_strategy(path, strategy):
   <li>
     % include integration-strategy path=path, strategy=strategy, detail='list'
-    % if strategy.teststrategies:
+    % if strategy.verificationcriteria:
       <ul>
-        % for path, teststrategy in strategy.teststrategies.iteritems():
-          % render_test(path, teststrategy)
+        % for path, criterion in strategy.verificationcriteria.iteritems():
+          % render_verification_criterion(path, criterion)
         % end
       </ul>
     % end
@@ -101,10 +101,10 @@
         % end
       </ul>
     % end
-    % if component.teststrategies:
+    % if component.verificationcriteria:
       <ul>
-        % for path, teststrategy in component.teststrategies.iteritems():
-          % render_test(path, teststrategy)
+        % for path, criterion in component.verificationcriteria.iteritems():
+          % render_verification_criterion(path, criterion)
         % end
       </ul>
     % end

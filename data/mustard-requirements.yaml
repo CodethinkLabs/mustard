@@ -85,8 +85,8 @@ requirements:
 
     # Requirements for tests and integration
 
-      tests:
-        info: Tests can be defined.
+      verification-criteria:
+        info: Verification criteria can be defined.
         status: implemented
 
       integration-strategies:
@@ -106,12 +106,12 @@ requirements:
           order to verify the corresponding architecture requirements.
         status: implemented
 
-      tests-for-requirements:
+      verification-of-requirements:
         info: >
-          Tests can be associated with any number of requirements or
-          integration strategies. Tests for the latter exist, among
-          other things, to verify that the components of an architecture
-          meet their interface specifications.
+          Verification criteria can be associated with any number of
+          requirements or integration strategies. Criteria for the latter
+          exist, among other things, to verify that the components of an
+          architecture meet their interface specifications.
         status: implemented
 
     # Requirements for work items
@@ -122,7 +122,7 @@ requirements:
 
       work-items-linking:
         info: Work items can be linked to any object in the tree, e.g.
-          components, requirements, tests or integration strategies.
+          components, requirements, criteria or integration strategies.
         status: implemented
 
     # Requirements for integration into external software

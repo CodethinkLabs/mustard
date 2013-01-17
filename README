@@ -28,7 +28,7 @@ Mustard allows you to manage the following information about a project:
   * Components
   * Interfaces
   * Integration strategies
-  * Tests
+  * Verification criteria
   * Work Items
 
 Mustard reads these elements from YAML files stored in a Git repository.
@@ -53,7 +53,7 @@ And:
 Every element in the project is associated with a unique identifier that
 is very similar to a path in a file system. The identifiers allow to
 link elements together and thereby establish a bidirectional mapping
-from requirements all the way down to work items and tests and back.
+from requirements all the way down to work items and back.
 
 How the YAML files are organised in the repository tree is up to the
 architects. The element paths are specified as follows:
@@ -276,10 +276,11 @@ Integration strategies (kind: integration-strategy):
       - identifier/of/a/requirement
       - identifier/of/another/requirement
 
-Tests (kind: test):
+Verification Criterion (kind: verification-criterion):
 
-  Used to describe tests for an integration strategy, a component or an
-  interface.
+  Used to describe how to verify that an an integration strategy, a component
+  or an interface is performed or implemented properly; or how to know if a
+  requirement has been met.
 
   Supported keys:
 
@@ -291,7 +292,7 @@ Tests (kind: test):
 
   Example:
 
-    kind: test
+    kind: verification-criterion
     title: Any string
     description: A string in Markdown format.
     tags:
@@ -332,7 +333,7 @@ Work Items (kind: work-item):
       - identifier/of/a/component
       - identifier/of/an/interface
       - identifier/of/an/integration-strategy
-      - identifier/of/a/test
+      - identifier/of/a/verification-criterion
     mapped-here:
       - identifier/of/a/requirement
       - identifier/of/another/requirement

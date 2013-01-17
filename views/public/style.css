@@ -253,7 +253,7 @@ a.requirement:after  { content: '  [r]'; opacity: 0.5; filter: alpha(opacity=50)
 a.interface:after    { content: '  [i]'; opacity: 0.5; filter: alpha(opacity=50); }
 a.tag:after          { content: '  [t]'; opacity: 0.5; filter: alpha(opacity=50); }
 a.strategy:after     { content: '  [s]'; opacity: 0.5; filter: alpha(opacity=50); }
-a.teststrategy:after { content: '  [v]'; opacity: 0.5; filter: alpha(opacity=50); }
+a.verificationcriterion:after { content: '  [v]'; opacity: 0.5; filter: alpha(opacity=50); }
 
 label {
   margin-right: 6px;

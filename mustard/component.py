@@ -13,7 +13,7 @@ class Component(mustard.elementfactory.Element):
 
         self.architecture = None
         self.interfaces = {}
-        self.teststrategies = {}
+        self.verificationcriteria = {}
         
         self.mapped_here = {}
         for ref in data.get('mapped-here', []):
@@ -29,7 +29,7 @@ class Component(mustard.elementfactory.Element):
         for path, interface in self.interfaces.iteritems():
             if interface:
                 children.append((path, interface))
-        for path, teststrategy in self.teststrategies.iteritems():
-            if teststrategy:
-                children.append((path, teststrategy))
+        for path, criterion in self.verificationcriteria.iteritems():
+            if criterion:
+                children.append((path, criterion))
         return children

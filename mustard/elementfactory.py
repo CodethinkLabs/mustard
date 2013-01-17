@@ -118,8 +118,8 @@ class ElementFactory(object):
             return mustard.interface.Interface(data)
         elif data['kind'] == 'integration-strategy':
             return mustard.integration.IntegrationStrategy(data)
-        elif data['kind'] == 'test-strategy':
-            return mustard.test.TestStrategy(data)
+        elif data['kind'] == 'verification-criterion':
+            return mustard.criterion.VerificationCriterion(data)
         elif data['kind'] == 'project':
             return mustard.project.Project(data)
         else:

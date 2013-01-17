@@ -6,7 +6,7 @@ import markdown
 import mustard
 
 
-class TestStrategy(mustard.elementfactory.Element):
+class VerificationCriterion(mustard.elementfactory.Element):
 
     def __init__(self, data):
         mustard.elementfactory.Element.__init__(self, data)
