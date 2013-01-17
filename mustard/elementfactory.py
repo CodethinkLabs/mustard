@@ -10,6 +10,28 @@ import zlib
 
 import mustard
 
+kind_aliases = {
+# Aliases to reduce wrist-strain for MUSTARDy people
+    'r':      'requirement',
+    'req':    'requirement',
+    'a':      'architecture',
+    'arch':   'architecture',
+    'c':      'component',
+    'comp':   'component',
+    'i':      'interface',
+    'iface':  'interface',
+    'w':      'work-item',
+    'work':   'work-item',
+    't':      'tag',
+    's':      'integration-strategy',
+    'istrat': 'integration-strategy',
+    'v':      'verification-criterion',
+    'vcrit':  'verification-criterion',
+
+# Additional tag aliases for porting reasons (can be removed later)
+    'test':   'verification-criterion',
+    'test-strategy': 'verification-criterion',
+}
 
 class Element(object):
 
@@ -104,6 +126,7 @@ class Element(object):
 class ElementFactory(object):
 
     def create(self, data):
+        data['kind'] = kind_aliases.get(data['kind'], data['kind'])
         if data['kind'] == 'requirement':
             return mustard.requirement.Requirement(data)
         elif data['kind'] == 'tag':

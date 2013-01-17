@@ -154,7 +154,7 @@ will try to help you resolve them.
 Supported elements and keys
 ---------------------------
 
-Requirements (kind: requirement):
+Requirements (kind: requirement, req, r):
 
   Used to specify requirements.
 
@@ -175,7 +175,7 @@ Requirements (kind: requirement):
       - tags/high-priority
     parent: identifier/of/parent/requirement
 
-Architectures (kind: architecture):
+Architectures (kind: architecture, arch, a):
 
   Used to specify the system architecture and architectures of
   components.
@@ -201,7 +201,7 @@ Architectures (kind: architecture):
       - identifier/of/a/requirement
       - identifier/of/another/requirement
 
-Components (kind: component):
+Components (kind: component, comp, c):
 
   Used to specify components of an architecture.
 
@@ -226,7 +226,7 @@ Components (kind: component):
       - identifier/of/a/requirement
       - identifier/of/another/requirement
 
-Interfaces (kind: interface):
+Interfaces (kind: interface, iface, i):
 
   Used to specify interfaces of components.
 
@@ -251,7 +251,7 @@ Interfaces (kind: interface):
       - identifier/of/a/requirement
       - identifier/of/another/requirement
 
-Integration strategies (kind: integration-strategy):
+Integration strategies (kind: integration-strategy, istrat, s):
 
   Used to specify integration strategies for architectures.
 
@@ -276,7 +276,7 @@ Integration strategies (kind: integration-strategy):
       - identifier/of/a/requirement
       - identifier/of/another/requirement
 
-Verification Criterion (kind: verification-criterion):
+Verification Criterion (kind: verification-criterion, vcrit, v):
 
   Used to describe how to verify that an an integration strategy, a component
   or an interface is performed or implemented properly; or how to know if a
@@ -306,7 +306,7 @@ Verification Criterion (kind: verification-criterion):
       - identifier/of/a/requirement
       - identifier/of/another/requirement
 
-Work Items (kind: work-item):
+Work Items (kind: work-item, work, w):
 
   Used to specify work items required to implement/realise
   architectures, components, interfaces, tests etc., all in order to
