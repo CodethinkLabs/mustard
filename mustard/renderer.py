@@ -78,6 +78,8 @@ class App(cliapp.Application):
                     self.content[content_id] = bottle.template(
                             view, tree=element_tree)
                 return self.content[content_id]
+        except mustard.MustardError, err:
+            return bottle.template('treeerror', error=err)
         except cliapp.AppException, err:
             return bottle.template('error', error=err)
 

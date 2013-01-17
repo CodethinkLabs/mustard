@@ -51,7 +51,13 @@ class Tree(object):
 
     def _resolve_project(self):
         projects = [(x,y) for x,y in self.find_all(kind='project')]
-        if projects:
+        if len(projects) == 0:
+            raise mustard.MustardError('No project defined')
+        elif len(projects) > 1:
+            raise mustard.MustardError('%s project nodes found: %r' % 
+                                       (len(projects),
+                                        [x for x,y in projects]))
+        else:
             self.project = projects[0][1]
 
     def _resolve_links(self):
@@ -129,6 +135,12 @@ class Tree(object):
             if element.kind == 'component':
                 self.elements[ref].components[path] = element
             elif element.kind == 'integration-strategy':
+                if hasattr(self.elements[ref], 'integration_strategy') and \
+                        self.elements[ref].integration_strategy[1] is not None:
+                    raise mustard.MustardError(
+                        '%s is attempting to be the integration strategy for '
+                        '%s which already has %s as its integration strategy.'
+                        % (path, ref, self.elements[ref].integration_strategy[0]))
                 self.elements[ref].integration_strategy = (path, element)
             element.parent = (ref, self.elements[ref])
 
@@ -136,6 +148,11 @@ class Tree(object):
         ref = requirement.parent[0]
         if ref in self.elements:
             requirement.parent = (ref, self.elements[ref])
+            if requirement.parent[1].kind != 'requirement':
+                raise mustard.MustardError(
+                    '%s is listing %s (kind: %s) as its parent, but '
+                    'requirements may only have requirements as parents' % (
+                        path, ref, requirement.parent[1].kind))
             self.elements[ref].subrequirements[path] = requirement
 
     def _resolve_parents(self, path, element):
@@ -145,6 +162,12 @@ class Tree(object):
                     if self.elements[ref].kind == 'requirement':
                         self.elements[ref].mapped_to[path] = element
                     else:
+                        if not hasattr(self.elements[ref],
+                                       'verificationcriteria'):
+                            raise mustard.MustardError(
+                                '%s incorrectly refers to %s (kind: %s) which '
+                                'cannot have verification criteria' % (
+                                    path, ref, self.elements[ref].kind))
                         self.elements[ref].verificationcriteria[path] = element
                 elif element.kind == 'work-item':
                     if self.elements[ref].kind == 'requirement':

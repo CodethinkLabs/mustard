@@ -20,3 +20,6 @@ import elementtree
 import rawtree
 import repository
 import state
+
+class MustardError(Exception):
+    '''Errors directly associated with MUSTARD.'''
