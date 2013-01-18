@@ -37,6 +37,7 @@ class Tree(object):
         element = self.element_factory.create(node)
         element.title = element.title or os.path.basename(path)
         element.tree = self
+        element.name = path
         self.elements[path] = element
         return element
 
