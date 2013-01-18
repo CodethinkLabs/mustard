@@ -3,13 +3,13 @@ import collections
 import yaml
 import yaml.constructor
 
-class OrderedDictYAMLLoader(yaml.Loader):
+class OrderedDictYAMLLoader(yaml.cyaml.CLoader):
     """
     A YAML loader that loads mappings into ordered dictionaries.
     """
 
     def __init__(self, *args, **kwargs):
-        yaml.Loader.__init__(self, *args, **kwargs)
+        yaml.cyaml.CLoader.__init__(self, *args, **kwargs)
 
         self.add_constructor(u'tag:yaml.org,2002:map', type(self).construct_yaml_map)
 
