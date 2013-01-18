@@ -3,6 +3,7 @@
 
 import cliapp
 import os
+import os.path
 import yaml
 
 import mustard
@@ -51,6 +52,7 @@ class Tree(object):
             self.project = projects[0][1]
 
     def _resolve_links(self):
+        self._resolve_auto_parents()
         self._resolve_architecture_links()
         self._resolve_component_links()
         self._resolve_integration_strategy_links()
@@ -59,6 +61,15 @@ class Tree(object):
         self._resolve_tag_links()
         self._resolve_verification_criterion_links()
         self._resolve_work_item_links()
+
+    def _resolve_auto_parents(self):
+        for path, element in self.elements.items():
+            if element.parent[0] is not None:
+                continue
+            parent_path = os.path.dirname(path)
+            if parent_path in self.elements:
+                element.parent = (parent_path, None)
+
 
     def _resolve_architecture_links(self):
         for path, element in self.find_all(kind='architecture'):
@@ -113,6 +124,11 @@ class Tree(object):
     def _resolve_parent_component(self, path, element):
         ref = element.parent[0]
         if ref in self.elements:
+            if self.elements[ref].kind != 'component':
+                raise mustard.MustardError(
+                    '%s (kind: %s) has %s (kind: %s) as a parent, but may '
+                    'only be parented to a component.' % (
+                        path, element.kind, ref, self.elements[ref].kind))
             if element.kind == 'architecture':
                 self.elements[ref].architecture = (path, element)
             elif element.kind == 'interface':
@@ -122,6 +138,11 @@ class Tree(object):
     def _resolve_parent_architecture(self, path, element):
         ref = element.parent[0]
         if ref in self.elements:
+            if self.elements[ref].kind != 'architecture':
+                raise mustard.MustardError(
+                    '%s (kind: %s) has %s (kind: %s) as a parent, but can '
+                    'only be parented to an architecture.' % (
+                        path, element.kind, ref, self.elements[ref].kind))
             if element.kind == 'component':
                 self.elements[ref].components[path] = element
             elif element.kind == 'integration-strategy':
