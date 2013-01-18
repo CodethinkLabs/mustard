@@ -4,6 +4,7 @@
 import cliapp
 import collections
 import markdown
+from markdown.treeprocessors import Treeprocessor
 import urllib
 import base64
 import zlib
@@ -33,6 +34,29 @@ kind_aliases = {
     'test-strategy': 'verification-criterion',
 }
 
+# Header level mapping for markdown
+headermap = {
+    'h1': 'h3',
+    'h2': 'h4',
+    'h3': 'h5',
+    'h4': 'h6',
+    'h5': 'h6',
+    'h6': 'h6'
+}
+
+class HeaderDemotionProcessor(Treeprocessor):
+    def run(self, element):
+        for child in element:
+            if child.tag in headermap:
+                child.tag = headermap[child.tag]
+            self.run(child)
+
+class HeaderDemotionExtension(markdown.Extension):
+    def extendMarkdown(self, md, md_globals):
+        md.treeprocessors['headerdemotion'] = HeaderDemotionProcessor(md)
+
+md = markdown.Markdown(extensions=[HeaderDemotionExtension()])
+
 class Element(object):
 
     def __init__(self, data):
@@ -51,7 +75,7 @@ class Element(object):
         self.description = text
         if self.description:
             self.description = self._resolve_uml(self.description) 
-            self.description = markdown.markdown(self.description)
+            self.description = md.convert(self.description)
 
     def _resolve_uml(self, text):
         inside_uml = False
