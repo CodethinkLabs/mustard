@@ -1,7 +1,7 @@
 <tr> 
   <th>Requirements</th>
   <td>
-    % inherited_reqs = element.inherited_requirements(sort_by='title')
+    % inherited_reqs = element.inherited_requirements(sort_by='DEFAULT')
     % if inherited_reqs:
       <div class="expandable secondary">
         <h3>Inherited Requirements</h3>
@@ -20,7 +20,7 @@
           <div class="expandable expanded">
             <h3>Requirements</h3>
             <ul class="list">
-              % for path, requirement in element.mapped_requirements(sort_by='title'):
+              % for path, requirement in element.mapped_requirements(sort_by='DEFAULT'):
                 <li>
                   % include requirement path=path, requirement=requirement, detail='list'
                 </li>
@@ -36,7 +36,7 @@
         <div class="expandable expanded">
           <h3>Requirements</h3>
           <ul class="list">
-            % for path, requirement in element.mapped_requirements(sort_by='title'):
+            % for path, requirement in element.mapped_requirements(sort_by='DEFAULT'):
               <li>
                 % include requirement path=path, requirement=requirement, detail='list'
               </li>
@@ -45,7 +45,7 @@
         </div>
       % end
     % end
-    % delegated_reqs = element.delegated_requirements(sort_by='title')
+    % delegated_reqs = element.delegated_requirements(sort_by='DEFAULT')
     % if delegated_reqs:
       <div class="expandable secondary">
         <h3>Delegated Requirements</h3>

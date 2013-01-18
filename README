@@ -154,6 +154,26 @@ will try to help you resolve them.
 Supported elements and keys
 ---------------------------
 
+Project (kind: project):
+
+  Used to state core project configuration.  Entirely optional, but no more
+  than one may exist.
+  
+  Supported keys:
+
+    - title       (optional)
+    - description (optional)
+    - copyright   (optional)
+    - sort-by     (optional)
+
+  Example:
+
+    kind: project
+    title: The FooBar project
+    copyright: 2013 Badger Corporation
+    sort-by: location
+    description: A string in Markdown format.
+
 Requirements (kind: requirement, req, r):
 
   Used to specify requirements.

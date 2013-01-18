@@ -38,7 +38,14 @@ def comparator(sort_key):
 
 
 def sort_elements(elements, args):
+    real_elements = [e for p, e in elements if e is not None]
+    if real_elements:
+        default_sort_by = real_elements[0].tree.project.sort_by
+    else:
+        default_sort_by = None
     sort_by = args.get('sort_by', None)
+    if sort_by == 'DEFAULT':
+        sort_by = default_sort_by
     reverse = args.get('reverse', False)
     if sort_by:
         return sorted(elements, cmp=comparator(sort_by), reverse=reverse)

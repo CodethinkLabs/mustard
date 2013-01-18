@@ -13,6 +13,6 @@ class Tag(mustard.elementfactory.Element):
 
         self.tagged = {}
 
-    def tagged_by_title(self):
+    def sorted_tagged(self):
         tagged = list(self.tagged.iteritems())
-        return mustard.sorting.sort_elements(tagged, {'sort_by': 'title'})
+        return mustard.sorting.sort_elements(tagged, {'sort_by': 'DEFAULT'})

@@ -1,4 +1,4 @@
-% tags = tree.find_all(kind='tag', sort_by='title')
+% tags = tree.find_all(kind='tag', sort_by='DEFAULT')
 % if tags:
   <h1>Tags <span>{{len(tags)}}</span></h1>
   <dl>

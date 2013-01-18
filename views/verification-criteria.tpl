@@ -1,4 +1,4 @@
-% verificationcriteria = tree.find_all(kind='verification-criterion', sort_by='title')
+% verificationcriteria = tree.find_all(kind='verification-criterion', sort_by='DEFAULT')
 % if verificationcriteria:
   <h1>Verification Criteria</h1>
   <dl>

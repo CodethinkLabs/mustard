@@ -1,4 +1,4 @@
-% archs = tree.find_all(kind='architecture', sort_by='title')
+% archs = tree.find_all(kind='architecture', sort_by='DEFAULT')
 % if archs:
   % archs_with_comps = [(x,y) for x,y in archs if y.components]
   <h1>Architectures <span>{{len(archs_with_comps)}} of {{len(archs)}} with components</span></h1>
