@@ -62,6 +62,7 @@ class Element(object):
     def __init__(self, data):
         self.kind = data.get('kind', None)
         self.title = data.get('title', None)
+        self.location = data.get('_location', '')
         self.set_description(data.get('description', None))
         self.parent = (data.get('parent', None), None)
         self.work_items = {}

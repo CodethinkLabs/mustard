@@ -4,8 +4,8 @@
 import cliapp
 import pprint
 import StringIO
-import yaml
 
+from mustard.util import load_yaml
 
 class DuplicateElementError(cliapp.AppException):
 
@@ -36,7 +36,7 @@ class Tree(object):
             io = StringIO.StringIO(content)
             setattr(io, 'name', filename)
             try:
-                data = yaml.load(io)
+                data = load_yaml(io, filename.replace('.yaml',''))
                 self._insert_raw(filename.replace('.yaml', ''), data)
             except Exception, error:
                 errors.append(error)
