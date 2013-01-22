@@ -3,6 +3,10 @@ import collections
 import yaml
 import yaml.constructor
 
+if not hasattr(collections, 'OrderedDict'):
+    import ordereddict
+    collections.OrderedDict = ordereddict.OrderedDict
+
 class OrderedDictYAMLLoader(yaml.cyaml.CLoader):
     """
     A YAML loader that loads mappings into ordered dictionaries.
