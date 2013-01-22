@@ -1,6 +1,6 @@
 % if detail == 'list':
   % if criterion:
-    <a class="verificationcriterion" href="/{{criterion.tree.state.identifier}}/verification-critera#{{path}}">{{criterion.title}} <span>{{path}}</span></a>
+    <a class="verificationcriterion" href="/{{criterion.tree.state.identifier}}/verification-criteria#{{path}}">{{criterion.title}} <span>{{path}}</span></a>
   % else:
     % include pathnotfound path=path, detail=detail
   % end
@@ -15,8 +15,8 @@
             <td>{{!criterion.description}}</td>
           </tr>
         % end
+	% include parents-list element=criterion
         % include tags-list element=criterion
-        % include parents-list element=criterion
         % include requirements-list element=criterion
       </table>
     </dd>

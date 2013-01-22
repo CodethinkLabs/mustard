@@ -1,4 +1,4 @@
-% if element.kind in ['component', 'interface', 'integration-strategy']:
+% if element.kind in ['component', 'interface', 'integration-strategy', 'verification-criterion']:
   <tr>
     <th>Parent</th>
     <td>

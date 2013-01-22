@@ -106,7 +106,7 @@ class Tree(object):
 
     def _resolve_verification_criterion_links(self):
         for path, element in self.find_all(kind='verification-criterion'):
-            self._resolve_parents(path, element)
+            self._resolve_criterion_parent(path, element)
             self._resolve_mapped_here(path, element)
             self._resolve_tags(path, element)
 
@@ -121,6 +121,21 @@ class Tree(object):
             if ref in self.elements:
                 element.tags[ref] = self.elements[ref]
                 self.elements[ref].tagged[path] = element
+
+    def _resolve_criterion_parent(self, path, element):
+        ref = element.parent[0]
+        if ref in self.elements:
+            if self.elements[ref].kind == 'requirement':
+                self.elements[ref].mapped_to[path] = element
+            else:
+                if not hasattr(self.elements[ref],
+                               'verificationcriteria'):
+                    raise mustard.MustardError(
+                        '%s incorrectly refers to %s (kind: %s) which '
+                        'cannot have verification criteria' % (
+                            path, ref, self.elements[ref].kind))
+                self.elements[ref].verificationcriteria[path] = element
+            element.parent = (ref, self.elements[ref])
 
     def _resolve_parent_component(self, path, element):
         ref = element.parent[0]
@@ -170,18 +185,7 @@ class Tree(object):
     def _resolve_parents(self, path, element):
         for ref in element.parents.iterkeys():
             if ref in self.elements:
-                if element.kind == 'verification-criterion':
-                    if self.elements[ref].kind == 'requirement':
-                        self.elements[ref].mapped_to[path] = element
-                    else:
-                        if not hasattr(self.elements[ref],
-                                       'verificationcriteria'):
-                            raise mustard.MustardError(
-                                '%s incorrectly refers to %s (kind: %s) which '
-                                'cannot have verification criteria' % (
-                                    path, ref, self.elements[ref].kind))
-                        self.elements[ref].verificationcriteria[path] = element
-                elif element.kind == 'work-item':
+                if element.kind == 'work-item':
                     if self.elements[ref].kind == 'requirement':
                         self.elements[ref].mapped_to[path] = element
                     else:
