@@ -1,15 +1,6 @@
 % def render_verification_criterion(path, criterion):
   <li>
     % include verification-criterion path=path, criterion=criterion, detail='list'
-    % if criterion.parents:
-      <ul>
-        % for path, element in criterion.parents.iteritems():
-          <li>
-            % include element path=path, element=element, detail='list'
-          </li>
-        % end
-      </ul>
-    % end
   </li>
 % end
 
