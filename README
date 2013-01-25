@@ -476,6 +476,8 @@ Replacing /path/to/plantuml.jar and /path/to/mustard/to/render as appropriate
 
 This method should NOT be used for deployment.
 
+You will need to install cliapp to use the commandline tooling. See http://liw.fi/cliapp/ 
+ 
 4. Copyright
 ============
 
