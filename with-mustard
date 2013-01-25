@@ -1,0 +1,67 @@
+#!/usr/bin/python
+# -*- Python -*-
+
+import code
+import readline
+import sys
+
+import mustard
+
+class Thingy(object):
+    pass
+
+state_id = "UNCOMMITTED"
+
+raw_tree_cache = mustard.rawtree.Cache()
+element_tree_cache = mustard.elementtree.Cache(raw_tree_cache)
+
+thingy = Thingy()
+
+repository = mustard.repository.Repository(thingy, ".")
+state_cache = mustard.state.Cache(thingy, repository)
+
+state = state_cache.get(state_id)
+raw_tree = mustard.rawtree.Tree(state)
+element_tree = mustard.elementtree.Tree(raw_tree)
+
+elt = element_tree
+
+def fst(l):
+    return [f for (f,s) in l]
+def snd(l):
+    return [s for (f,s) in l]
+
+d = dict
+s = set
+
+def path(node):
+    revmap = dict([(v,k) for (k,v) in elt.elements.items()])
+    return revmap.get(node, None)
+
+def has_todo(elt):
+    return "TODO" in elt.description
+
+def showall(elts):
+    if type(elts) == dict:
+        elts = elts.itervalues()
+    mapping = {}
+    for elt in elts:
+        mapping[path(elt)] = elt.title
+    keys = mapping.keys()
+    keys.sort()
+    for k in keys:
+        print "%s : %s" % (k, mapping[k])
+
+namespace = globals().copy()
+namespace.update(locals())
+code.InteractiveConsole(namespace).interact("""
+The variable `elt' is the MUSTARD element tree.
+
+Useful listish operations include 'fst' which given a list of tuples, returns a
+list of the first element of the tuples, and 'snd' which does the same with the
+second elements. 'd' is a short alias for 'dict' and 's' for 'set'.  'showall'
+is a function which takes a collection of elements and lists them.
+
+""")
+
+
