@@ -464,7 +464,17 @@ follows:
 For the above to work, Mustard, or at least its `adapter.wsgi` must be
 located in `/var/www/someserver.com`.
 
+4. Hacking Mustard
+==================
 
+To hack on mustard and have your changed immediately testable in a web browser,
+you can use
+
+./mustard-render -b -r -j /path/to/plantuml.jar -p /path/to/mustard/to/render
+
+Replacing /path/to/plantuml.jar and /path/to/mustard/to/render as appropriate
+
+This method should NOT be used for deployment.
 
 4. Copyright
 ============
