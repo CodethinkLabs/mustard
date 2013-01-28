@@ -203,6 +203,8 @@ class Tree(object):
         for path, element in self.elements.iteritems():
             if element.kind == kwargs.get('kind', element.kind):
                 results.append((path, element))
+        if kwargs.get('top_level'):
+	    results = [ (p,e) for (p,e) in results if e.parent == (None,None) ]
         return mustard.sorting.sort_elements(results, kwargs)
 
     def yaml(self):
