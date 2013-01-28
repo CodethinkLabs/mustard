@@ -1,4 +1,4 @@
-% requirements = tree.find_all(kind='requirement', sort_by='DEFAULT')
+% requirements = [i for i in tree.find_all(kind='requirement', sort_by='DEFAULT') if i[1].parent == (None,None)]
 % if requirements:
   % mapped_requirements = []
   % for req in [y for x,y in requirements if y.mapped_to]:

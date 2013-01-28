@@ -8,7 +8,12 @@
   % end
 % elif detail == 'full':
   % if requirement:
-    <dt><h2 id="{{path}}">{{!'<span class="error">☐</span>' if not [x for x in requirement.mapped_to.itervalues() if x.kind == 'component'] else '☑'}} {{requirement.title}} <span><a href="#{{path}}" onclick="return false">{{path}}</a></span></h2></dt>
+    <dt>
+      <h2 id="{{path}}">
+       {{!'<span class="error">☐</span>' if not [x for x in requirement.mapped_to.itervalues() if x.kind == 'component'] else '☑'}} {{requirement.title}}
+        <span><a href="#{{path}}" onclick="return false">{{path}}</a></span>
+      </h2>
+    </dt>
     <dd>
       <table cellspacing="0" cellpadding="0">
         <tr>
@@ -52,6 +57,14 @@
         % include verification-criterion-list element=requirement
       </table>
     </dd>
+    % if requirement.subrequirements:
+      <dl>
+	% for p, r in requirement.sort_subrequirements():
+	  % include requirement path=p, requirement=r, detail='full'
+	% end
+      </dl>
+    % end
+    
   % else:
     % include pathnotfound path=path, detail=detail
   % end

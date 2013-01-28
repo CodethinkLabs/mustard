@@ -14,3 +14,6 @@ class Requirement(mustard.elementfactory.Element):
         self.mapped_to = {}
         self.subrequirements = {}
         self.verificationcriteria = {}
+
+    def sort_subrequirements(self, **kwargs):
+	return mustard.sorting.sort_elements(self.subrequirements.items(), kwargs)
