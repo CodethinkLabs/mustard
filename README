@@ -307,7 +307,7 @@ Verification Criterion (kind: verification-criterion, vcrit, v):
     - title       (optional)
     - description (optional)
     - tags        (optional)
-    - parents     (optional)
+    - parent      (optional)
     - mapped-here (optional)
 
   Example:
@@ -318,10 +318,7 @@ Verification Criterion (kind: verification-criterion, vcrit, v):
     tags:
       - tags/foo
       - tags/bar
-    parents:
-      - identifier/of/an/integration-strategy
-      - identifier/of/a/component
-      - identifier/of/an/interface
+    parent: identifier/of/an/integration-strategy
     mapped-here:
       - identifier/of/a/requirement
       - identifier/of/another/requirement
@@ -358,7 +355,21 @@ Work Items (kind: work-item, work, w):
       - identifier/of/a/requirement
       - identifier/of/another/requirement
 
+Tags (kind: tag, t)
 
+  Used to provide generic tagging of other nodes in the MUSTARD.
+
+  Supported keys:
+
+    - title       (optional)
+    - description (optional)
+
+  Example:
+
+    kind: tag
+    title: "Attention: Architect"
+    description: |
+      The architect needs to think here, it's not ready.
 
 2. Installing Mustard
 =====================
