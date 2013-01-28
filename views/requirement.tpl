@@ -22,20 +22,6 @@
         </tr>
         % include tags-list element=requirement
         % include parents-list element=requirement
-        % if requirement.subrequirements:
-          <tr>
-            <th>Subrequirements</th>
-            <td>
-              <ul class="list">
-                % for path, other in requirement.subrequirements.iteritems():
-                  <li>
-                    % include requirement path=path, requirement=other, detail='list'
-                  </li>
-                % end
-              </ul>
-            </td>
-          </tr>
-        % end
         <tr>
           <th>Mapped To</th>
           <td>
@@ -59,7 +45,7 @@
     </dd>
     % if requirement.subrequirements:
       <dl>
-	% for p, r in requirement.sort_subrequirements():
+	% for p, r in requirement.sort_subrequirements(sort_by='DEFAULT'):
 	  % include requirement path=p, requirement=r, detail='full'
 	% end
       </dl>
