@@ -385,6 +385,7 @@ In order to use MUSTARD, you'll need the following components:
   * python-markdown
   * python-bottle
   * pygit2 (and libgit2)
+  * cliapp
 
 Most of the dependencies should be available in your distro, apart from
 libgit2 and pygit2. The section below explains how to install these two
