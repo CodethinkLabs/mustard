@@ -1,4 +1,4 @@
-# Copyright (C) 2012 Codethink Limited
+# Copyright (C) 2012-2013 Codethink Limited
 
 
 import base64
@@ -15,11 +15,12 @@ import mustard
 
 
 defaults = {
+    'auth': 'codethink',
     'port': 8080,
     'plantuml-jar': '/usr/local/share/plantuml.jar',
+    'reload': False,
     'run-bottle': False,
     'server': 'wsgiref',
-    'reload': False,
 }
 
 
@@ -38,6 +39,21 @@ class App(cliapp.Application):
         self.uml = {}
 
     def add_settings(self):
+        self.settings.string(['auth'],
+                             'Authentication mechanism '
+                             '(git, codethink; default: %s)' % \
+                                    defaults['auth'],
+                             metavar='MECHANISM',
+                             default=defaults['auth'])
+        self.settings.string(['auth-server'],
+                             'Authentication server to use',
+                             metavar='SERVER')
+        self.settings.string(['auth-user'],
+                             'Authentication lookup user (optional)',
+                             metavar='USER')
+        self.settings.string(['auth-password'],
+                             'Authentication lookup password (optional)',
+                             metavar='PASSWORD')
         self.settings.integer(['port'],
                               'Port to listen on',
                               metavar='PORTNUM',
@@ -45,6 +61,9 @@ class App(cliapp.Application):
         self.settings.string(['project', 'p'],
                              'Location of the input project',
                              metavar='DIR')
+        self.settings.string(['project-code'],
+                             'Project code (e.g. XYZ)',
+                             metavar='XYZ')
         self.settings.string(['plantuml-jar', 'j'],
                              'Path to the PlantUML JAR file',
                              metavar='JARPATH',
@@ -127,7 +146,15 @@ class App(cliapp.Application):
                 self, self.settings['project'])
         self.state_cache = mustard.state.Cache(self, self.repository)
 
-        self.auth = mustard.httpauth.Authenticator(self.repository)
+        if self.settings['auth'] == 'git':
+            self.auth = mustard.gitauth.Authenticator(
+                    self, self.settings, self.repository)
+        elif self.settings['auth'] == 'codethink':
+            self.auth = mustard.codethinkauth.Authenticator(
+                    self, self.settings)
+        else:
+            raise cliapp.AppException(
+                    'Unsupported auth mechanism "%s"' % self.settings['auth'])
 
         @route('/')
         @self.auth.protected

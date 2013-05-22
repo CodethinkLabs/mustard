@@ -3,7 +3,10 @@
 
 '''MUSTARD library.'''
 
-import httpauth
+import auth
+import codethinkauth
+import gitauth
+
 import elementfactory
 import sorting
 import architecture

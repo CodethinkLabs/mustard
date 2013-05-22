@@ -1,33 +1,19 @@
-# Copyright (C) 2012 Codethink Limited
+# Copyright (c) 2013 Codethink Limited
 
 
 import bottle
-import yaml
-import StringIO
 
 from functools import wraps
 
 
 class Authenticator(object):
 
-    def __init__(self, repository):
-        self.repository = repository
-
-    def check_auth(self, username, password):
-        try:
-            data = self.repository.cat_file('admin', 'acl.yaml')
-        except KeyError, err:
-            return False
-        io = StringIO.StringIO(data)
-        acl = yaml.load(io)
-        
-        if 'users' in acl:
-            if username in acl['users'] and acl['users'][username] == password:
-                return True
-            else:
-                return False
-        else:
-            return False
+    def __init__(self, app, settings):
+        self.app = app
+        self.auth_server = settings['auth-server']
+        self.auth_user = settings['auth-user']
+        self.auth_password = settings['auth-password']
+        self.project = settings['project-code']
 
     def authenticate(self):
         return bottle.HTTPResponse('Login Required', 401, {
