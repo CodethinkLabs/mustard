@@ -20,11 +20,12 @@ class Authenticator(mustard.auth.Authenticator):
                     self.auth_server,
                     self.auth_user,
                     self.auth_password) as server:
-                permissions = server.authenticate(user, context)
-                if permissions.can_read() or permissions.is_customer():
-                    return True
-                else:
-                    return False
+                if server.authenticate(user):
+                    permissions = server.authorise(user, context)
+                    if permissions.can_read() or permissions.is_customer():
+                        return True
+                    else:
+                        return False
         except Exception, err:
             print repr(err)
             return False
