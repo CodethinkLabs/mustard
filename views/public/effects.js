@@ -394,6 +394,12 @@ $(document).ready(function() {
       $(this).next('ul').slideUp();
     }
   });
+
+  $('select').change(function() {
+    $(this).children(':selected').each(function () {
+      window.location.href = $(this).attr('value');
+    });
+  });
 });
 
 

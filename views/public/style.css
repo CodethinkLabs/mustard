@@ -89,33 +89,25 @@ h1 span {
   filter: alpha(opacity=50);
 }
 
-h1 span.links {
-  opacity: inherit;
-  filter: inherit;
-}
-
-h1 span.links a {
-  margin-left: 0.5em;
-  opacity: 0.5;
-  filter: alpha(opacity=50);
-}
-
-h1 span.links a.active {
-  opacity: 1.0;
-  filter: alpha(opacity=100);
-}
-
-h1 span.links a:hover {
-  border-bottom: 2px solid #fff;
-}
-
 h1 a, h1 a:link {
+  float: left;
   color: #fff;
   text-decoration: none;
 }
 
 h1 a:hover {
   text-decoration: none;
+}
+
+h1 form {
+  text-align: right;
+  font-size: 0.6em;
+}
+
+h1 select, h1 option {
+  background: #97c229;
+  border: thin solid #64a800;
+  color: #fff;
 }
 
 h2 {

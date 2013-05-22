@@ -15,6 +15,16 @@ class Repository(object):
         self.repo = pygit2.Repository(self.dirname)
 
         self.checked_out = True if self.repo.workdir else False
+
+    def tags(self):
+        refs = self.repo.listall_references()
+        return [(x, x.replace('/', ':'))
+                for x in refs if x.startswith('refs/tags/')]
+
+    def branches(self):
+        refs = self.repo.listall_references()
+        return [(x, x.replace('/', ':'))
+                for x in refs if x.startswith('refs/heads/')]
     
     def history(self, ref):
         refs = []

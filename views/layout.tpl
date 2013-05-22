@@ -11,12 +11,18 @@
     <div id="body">
       <h1 id="title">
         <a href="/{{tree.state.identifier}}">{{tree.project.title or 'Unnamed MUSTARD Project'}}</a>
-        <span class="links">
-          <a{{!' class="active"' if tree.state.identifier == 'HEAD' else ''}} href="/HEAD">HEAD</a>
-          % if tree.state.repository.checked_out:
-            <a{{!' class="active"' if tree.state.identifier == 'UNCOMMITTED' else ''}} href="/UNCOMMITTED">UNCOMMITTED</a>
-          % end
-        </span>
+        <form>
+          <select id="state">
+            % for tag, identifier in tree.state.repository.tags():
+              <option{{!' selected="selected"' if tree.state.identifier == identifier else ''}} value="/{{identifier}}">{{tag}}</option>
+            % end
+            % for branch, identifier in tree.state.repository.branches():
+              <option{{!' selected="selected"' if tree.state.identifier == identifier else ''}} value="/{{identifier}}">{{branch}}</option>
+            % end
+            <option{{!' selected="selected"' if tree.state.identifier == 'HEAD' else ''}} value="/HEAD">HEAD</option>
+            <option{{!' selected="selected"' if tree.state.identifier == 'UNCOMMITTED' else ''}} value="/UNCOMMITTED">UNCOMMITTED</option>
+          </select>
+        </form>
       </h1>
       <div id="nav">
         <ul>
