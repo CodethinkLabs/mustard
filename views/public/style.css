@@ -108,6 +108,11 @@ h1 select, h1 option {
   background: #97c229;
   border: thin solid #64a800;
   color: #fff;
+  font-family: monospace;
+}
+
+#state option.active {
+  background: #77a209;
 }
 
 h2 {

@@ -20,14 +20,14 @@ class Repository(object):
         return self.repo.config['core.bare']
 
     def tags(self):
-        refs = self.repo.listall_references()
-        return [(x, x.replace('/', ':'))
-                for x in refs if x.startswith('refs/tags/')]
+        for ref in self.repo.listall_references():
+            if ref.startswith('refs/tags/'):
+                yield ref, ref.replace('refs/tags/', '').replace('/', ':')
 
     def branches(self):
-        refs = self.repo.listall_references()
-        return [(x, x.replace('/', ':'))
-                for x in refs if x.startswith('refs/heads/')]
+        for ref in self.repo.listall_references():
+            if ref != 'refs/heads/admin' and ref.startswith('refs/heads/'):
+                yield ref, ref.replace('refs/heads/', '').replace('/', ':')
     
     def history(self, ref):
         refs = []
