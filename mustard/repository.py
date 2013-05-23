@@ -16,6 +16,9 @@ class Repository(object):
 
         self.checked_out = True if self.repo.workdir else False
 
+    def is_bare(self):
+        return self.repo.config['core.bare']
+
     def tags(self):
         refs = self.repo.listall_references()
         return [(x, x.replace('/', ':'))
