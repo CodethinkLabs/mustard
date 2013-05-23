@@ -22,12 +22,12 @@ class Repository(object):
     def tags(self):
         for ref in self.repo.listall_references():
             if ref.startswith('refs/tags/'):
-                yield ref, ref.replace('refs/tags/', '').replace('/', ':')
+                yield ref, self.escape_ref(ref.replace('refs/tags/', ''))
 
     def branches(self):
         for ref in self.repo.listall_references():
             if ref != 'refs/heads/admin' and ref.startswith('refs/heads/'):
-                yield ref, ref.replace('refs/heads/', '').replace('/', ':')
+                yield ref, self.escape_ref(ref.replace('refs/heads/', ''))
     
     def history(self, ref):
         refs = []
@@ -78,6 +78,12 @@ class Repository(object):
         blob = self.repo[entry.oid]
         return blob.data
 
+    def escape_ref(self, ref):
+        return ref.replace('/', ':')
+
+    def unescape_ref(self, ref):
+        return ref.replace(':', '/')
+
     def resolve_ref(self, ref):
-        ref = ref.replace(':', '/')
+        ref = self.unescape_ref(ref)
         return self.repo.revparse_single(ref).hex
