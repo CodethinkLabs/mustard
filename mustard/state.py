@@ -136,10 +136,23 @@ class Cache(object):
             return self.states[ref]
         else:
             try:
+                # resolve the (potentially symbolic) ref into a SHA1
                 sha1 = self.repository.resolve_ref(ref)
-                if not sha1 in self.states:
-                    self.states[sha1] = CommittedState(
+
+                # we cache content for a combination of commit SHA1
+                # and list of refs in the repository; this means the
+                # cache is invalidated when either our ref moves on
+                # or other refs (e.g. tags or branches) are added or
+                # removed
+                key = (sha1,
+                       tuple(self.repository.tags()),
+                       tuple(self.repository.branches()))
+
+                if not key in self.states:
+                    print '%s not in cache' % sha1
+                    self.states[key] = CommittedState(
                             self.app, self, self.repository, ref, sha1)
-                return self.states[sha1]
+                print '%s now cached' % sha1
+                return self.states[key]
             except cliapp.AppException, err:
                 raise InvalidStateError(ref)
