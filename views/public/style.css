@@ -101,14 +101,22 @@ h1 a:hover {
 
 h1 form {
   text-align: right;
-  font-size: 0.6em;
+  font-size: 0.5em;
+  height: 2.25em;
+  margin: 0em;
+  padding: 0em;
 }
 
-h1 select, h1 option {
+#state {
   background: #97c229;
   border: thin solid #64a800;
   color: #fff;
   font-family: monospace;
+}
+
+#state option {
+  background: #97c229;
+  color: #fff;
 }
 
 #state option.active {
