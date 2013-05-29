@@ -1,4 +1,4 @@
-% items = tree.find_all(kind='work-item', sort_by='DEFAULT')
+% items = tree.find_all(kind='work-item', sort_by='DEFAULT', top_level=True)
 % if items:
   <h1>Work Items</h1>
   <dl>

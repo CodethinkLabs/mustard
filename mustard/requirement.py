@@ -16,4 +16,5 @@ class Requirement(mustard.elementfactory.Element):
         self.verificationcriteria = {}
 
     def sort_subrequirements(self, **kwargs):
-	return mustard.sorting.sort_elements(self.subrequirements.items(), kwargs)
+        return mustard.sorting.sort_elements(
+                self.subrequirements.items(), kwargs)

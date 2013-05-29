@@ -71,7 +71,6 @@ class Tree(object):
             if parent_path in self.elements:
                 element.parent = (parent_path, None)
 
-
     def _resolve_architecture_links(self):
         for path, element in self.find_all(kind='architecture'):
             self._resolve_parent_component(path, element)
@@ -112,6 +111,7 @@ class Tree(object):
 
     def _resolve_work_item_links(self):
         for path, element in self.find_all(kind='work-item'):
+            self._resolve_parent_work_item(path, element)
             self._resolve_parents(path, element)
             self._resolve_mapped_here(path, element)
             self._resolve_tags(path, element)
@@ -182,6 +182,17 @@ class Tree(object):
                         path, ref, requirement.parent[1].kind))
             self.elements[ref].subrequirements[path] = requirement
 
+    def _resolve_parent_work_item(self, path, item):
+        ref = item.parent[0]
+        if ref in self.elements:
+            item.parent = (ref, self.elements[ref])
+            if item.parent[1].kind != 'work-item':
+                raise mustard.MustardError(
+                    '%s is referencing %s (kind: %s) as its parent, but '
+                    'work items may only have work items as their parent' % (
+                        path, ref, item.parent[1].kind))
+            self.elements[ref].work_items[path] = item
+
     def _resolve_parents(self, path, element):
         for ref in element.parents.iterkeys():
             if ref in self.elements:
@@ -204,7 +215,7 @@ class Tree(object):
             if element.kind == kwargs.get('kind', element.kind):
                 results.append((path, element))
         if kwargs.get('top_level'):
-	    results = [ (p,e) for (p,e) in results if e.parent == (None,None) ]
+            results[:] = [(p,e) for (p,e) in results if e.is_toplevel()]
         return mustard.sorting.sort_elements(results, kwargs)
 
     def yaml(self):

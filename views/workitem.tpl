@@ -22,6 +22,13 @@
         % include requirements-list element=item
       </table>
     </dd>
+    % if item.work_items:
+      <dl>
+        % for p, i in item.sort_work_items(sort_by='DEFAULT'):
+          % include workitem path=p, item=i, detail='full'
+        % end
+      </dl>
+    % end
   % else:
     % include pathnotfound path=path, detail=detail
   % end

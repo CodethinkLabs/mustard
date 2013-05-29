@@ -72,6 +72,9 @@ class Element(object):
         for tagref in data.get('tags', []):
             self.tags[tagref] = None
 
+    def is_toplevel(self):
+        return self.parent == (None, None)
+
     def set_description(self, text):
         self.description = text
         if self.description:

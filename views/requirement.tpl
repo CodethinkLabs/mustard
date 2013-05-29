@@ -45,12 +45,11 @@
     </dd>
     % if requirement.subrequirements:
       <dl>
-	% for p, r in requirement.sort_subrequirements(sort_by='DEFAULT'):
-	  % include requirement path=p, requirement=r, detail='full'
-	% end
+        % for p, r in requirement.sort_subrequirements(sort_by='DEFAULT'):
+          % include requirement path=p, requirement=r, detail='full'
+        % end
       </dl>
     % end
-    
   % else:
     % include pathnotfound path=path, detail=detail
   % end

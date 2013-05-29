@@ -20,5 +20,11 @@ class WorkItem(mustard.elementfactory.Element):
         for ref in data.get('mapped-here', []):
             self.mapped_here[ref] = None
 
+        self.work_items = {}
+
     def get_children(self):
-        return []
+        return self.work_items.items()
+
+    def sort_work_items(self, **kwargs):
+        return mustard.sorting.sort_elements(
+                self.work_items.items(), kwargs)
