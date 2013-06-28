@@ -15,7 +15,7 @@ def application(environ, start_response):
     if not app:
         config_file = environ.get(
                 'MUSTARD_CONFIG_FILE', '/home/mustard/.mustard.conf')
-        auth = environ['MUSTARD_AUTH']
+        auth = environ.get('MUSTARD_AUTH', 'git')
         auth_server = environ['MUSTARD_AUTH_SERVER']
         server_path = environ['MUSTARD_SERVER_PATH']
         project_path = environ['MUSTARD_PROJECT_PATH']
