@@ -13,6 +13,9 @@ def application(environ, start_response):
     global app
 
     if not app:
+        config_file = environ['MUSTARD_CONFIG_FILE']
+        auth = environ['MUSTARD_AUTH']
+        auth_server = environ['MUSTARD_AUTH_SERVER']
         server_path = environ['MUSTARD_SERVER_PATH']
         project_path = environ['MUSTARD_PROJECT_PATH']
         plantuml_jar = environ['MUSTARD_PLANTUML_JAR']
@@ -25,6 +28,9 @@ def application(environ, start_response):
             '-p', project_path,
             '-j', plantuml_jar,
             '-s', 'cherrypy',
+            '--auth', auth,
+            '--auth-server=%s' % auth_server,
+            '--config', config_file,
             ])
 
         app = bottle.default_app()

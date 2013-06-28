@@ -15,7 +15,7 @@ import mustard
 
 
 defaults = {
-    'auth': 'codethink',
+    'auth': 'git',
     'port': 8080,
     'plantuml-jar': '/usr/local/share/plantuml.jar',
     'reload': False,
