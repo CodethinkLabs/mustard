@@ -13,7 +13,8 @@ def application(environ, start_response):
     global app
 
     if not app:
-        config_file = environ['MUSTARD_CONFIG_FILE']
+        config_file = environ.get(
+                'MUSTARD_CONFIG_FILE', '/home/mustard/.mustard.conf')
         auth = environ['MUSTARD_AUTH']
         auth_server = environ['MUSTARD_AUTH_SERVER']
         server_path = environ['MUSTARD_SERVER_PATH']
