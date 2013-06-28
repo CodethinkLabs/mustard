@@ -20,6 +20,7 @@ def application(environ, start_response):
         server_path = environ['MUSTARD_SERVER_PATH']
         project_path = environ['MUSTARD_PROJECT_PATH']
         plantuml_jar = environ['MUSTARD_PLANTUML_JAR']
+        project_code = environ.get('MUSTARD_PROJECT_CODE', '')
 
         sys.path.append(server_path)
         os.chdir(os.path.dirname(__file__))
@@ -32,6 +33,7 @@ def application(environ, start_response):
             '--auth', auth,
             '--auth-server=%s' % auth_server,
             '--config', config_file,
+            '--project-code', project_code,
             ])
 
         app = bottle.default_app()

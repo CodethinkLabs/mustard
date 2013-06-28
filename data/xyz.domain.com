@@ -13,6 +13,7 @@
       SetEnv MUSTARD_CONFIG_FILE /home/mustard/.mustard.conf
       SetEnv MUSTARD_AUTH codethink
       SetEnv MUSTARD_AUTH_SERVER {{AUTH_SERVER}}
+      SetEnv MUSTARD_PROJECT_CODE {{PROJECT CODE}}
       SetEnv MUSTARD_SERVER_PATH /home/mustard/mustard/
       SetEnv MUSTARD_PROJECT_PATH /path/to/project/mustard/repo.git
       SetEnv MUSTARD_PLANTUML_JAR /home/mustard/plantuml.jar
