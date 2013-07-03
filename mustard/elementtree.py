@@ -54,7 +54,6 @@ class Tree(object):
 
     def _resolve_links(self):
         self._resolve_auto_parents()
-        self._resolve_architecture_links()
         self._resolve_component_links()
         self._resolve_integration_strategy_links()
         self._resolve_interface_links()
@@ -71,21 +70,15 @@ class Tree(object):
             if parent_path in self.elements:
                 element.parent = (parent_path, None)
 
-    def _resolve_architecture_links(self):
-        for path, element in self.find_all(kind='architecture'):
-            self._resolve_parent_component(path, element)
-            self._resolve_mapped_here(path, element)
-            self._resolve_tags(path, element)
-
     def _resolve_component_links(self):
         for path, element in self.find_all(kind='component'):
-            self._resolve_parent_architecture(path, element)
+            self._resolve_parent_component(path, element)
             self._resolve_mapped_here(path, element)
             self._resolve_tags(path, element)
     
     def _resolve_integration_strategy_links(self):
         for path, element in self.find_all(kind='integration-strategy'):
-            self._resolve_parent_architecture(path, element)
+            self._resolve_parent_component(path, element)
             self._resolve_mapped_here(path, element)
             self._resolve_tags(path, element)
     
@@ -145,29 +138,18 @@ class Tree(object):
                     '%s (kind: %s) has %s (kind: %s) as a parent, but may '
                     'only be parented to a component.' % (
                         path, element.kind, ref, self.elements[ref].kind))
-            if element.kind == 'architecture':
-                self.elements[ref].architecture = (path, element)
-            elif element.kind == 'interface':
-                self.elements[ref].interfaces[path] = element
-            element.parent = (ref, self.elements[ref])
-
-    def _resolve_parent_architecture(self, path, element):
-        ref = element.parent[0]
-        if ref in self.elements:
-            if self.elements[ref].kind != 'architecture':
-                raise mustard.MustardError(
-                    '%s (kind: %s) has %s (kind: %s) as a parent, but can '
-                    'only be parented to an architecture.' % (
-                        path, element.kind, ref, self.elements[ref].kind))
             if element.kind == 'component':
                 self.elements[ref].components[path] = element
+            elif element.kind == 'interface':
+                self.elements[ref].interfaces[path] = element
             elif element.kind == 'integration-strategy':
                 if hasattr(self.elements[ref], 'integration_strategy') and \
                         self.elements[ref].integration_strategy[1] is not None:
                     raise mustard.MustardError(
                         '%s is attempting to be the integration strategy for '
                         '%s which already has %s as its integration strategy.'
-                        % (path, ref, self.elements[ref].integration_strategy[0]))
+                        % (path, ref,
+                            self.elements[ref].integration_strategy[0]))
                 self.elements[ref].integration_strategy = (path, element)
             element.parent = (ref, self.elements[ref])
 

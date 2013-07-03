@@ -15,8 +15,8 @@ kind_aliases = {
 # Aliases to reduce wrist-strain for MUSTARDy people
     'r':      'requirement',
     'req':    'requirement',
-    'a':      'architecture',
-    'arch':   'architecture',
+    'a':      'component',
+    'arch':   'component',
     'c':      'component',
     'comp':   'component',
     'i':      'interface',
@@ -30,7 +30,8 @@ kind_aliases = {
     'vcrit':  'verification-criterion',
 
 # Additional tag aliases for porting reasons (can be removed later)
-    'test':   'verification-criterion',
+    'architecture':  'component',
+    'test':          'verification-criterion',
     'test-strategy': 'verification-criterion',
 }
 
@@ -159,8 +160,6 @@ class ElementFactory(object):
             return mustard.requirement.Requirement(data)
         elif data['kind'] == 'tag':
             return mustard.tag.Tag(data)
-        elif data['kind'] == 'architecture':
-            return mustard.architecture.Architecture(data)
         elif data['kind'] == 'component':
             return mustard.component.Component(data)
         elif data['kind'] == 'work-item':

@@ -185,12 +185,19 @@ class App(cliapp.Application):
         def requirements(stateid):
             return self.render_repository(stateid, 'requirements')
 
+        # only exists for backwards-compatibility, /architecture is the new way
         @route('/<stateid>/architectures')
         @self.auth.protected
-        def architectures(stateid):
-            return self.render_repository(stateid, 'architectures')
+        def components(stateid):
+            return self.render_repository(stateid, 'components')
 
+        # only exists for backwards-compatibility, /architecture is the new way
         @route('/<stateid>/components')
+        @self.auth.protected
+        def components(stateid):
+            return self.render_repository(stateid, 'components')
+
+        @route('/<stateid>/architecture')
         @self.auth.protected
         def components(stateid):
             return self.render_repository(stateid, 'components')

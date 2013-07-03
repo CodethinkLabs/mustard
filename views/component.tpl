@@ -1,14 +1,14 @@
 % if detail == 'list':
   % if component:
-    <a class="component" href="/{{component.tree.state.identifier}}/components#{{path}}">
-      {{!'<span class="error">☐</span>' if not component.work_items and not component.architecture else '☑'}} {{component.title}} <span>{{path}}</span>
+    <a class="component" href="/{{component.tree.state.identifier}}/architecture#{{path}}">
+      {{!'<span class="error">☐</span>' if not component.work_items and not component.components else '☑'}} {{component.title}} <span>{{path}}</span>
     </a>
   % else:
     % include pathnotfound path=path, detail=detail
   % end
 % elif detail == 'full':
   % if component:
-    <dt><h2 id="{{path}}">{{!'<span class="error">☐</span>' if not component.work_items and not component.architecture else '☑'}} {{component.title}} <span><a href="#{{path}}" onclick="return false">{{path}}</a></span></h2></dt>
+    <dt><h2 id="{{path}}">{{!'<span class="error">☐</span>' if not component.work_items and not component.components else '☑'}} {{component.title}} <span><a href="#{{path}}" onclick="return false">{{path}}</a></span></h2></dt>
     <dd>
       <table cellspacing="0" cellpadding="0">
         <tr>
@@ -16,17 +16,8 @@
           <td class="description">{{!component.description}}</td>
         </tr>
         % include tags-list element=component
-        % include parents-list element=component
-        % if component.architecture:
-          <tr> 
-            % path, architecture = component.architecture
-            <th>Architecture</th>
-            <td>
-              <p>
-                % include architecture path=path, architecture=architecture, detail='list'
-              </p>
-            </td>
-          </tr>
+        % if not component.toplevel:
+            % include parents-list element=component
         % end
         % if component.interfaces:
           <tr> 
@@ -47,6 +38,13 @@
         % include verification-criterion-list element=component
       </table>
     </dd>
+    % if component.components:
+      <dl> 
+        % for path, subcomponent in component.sort_subcomponents(sort_by='DEFAULT'):
+            % include component path=path, component=subcomponent, detail='full'
+        % end
+      </dl>
+    % end
   % else:
     % include pathnotfound path=path, detail=detail
   % end

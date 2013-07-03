@@ -15,7 +15,7 @@
       </div>
     % end
     % if element.kind == 'component':
-      % if element.mapped_here or not element.architecture:
+      % if element.mapped_here or not element.components:
         % if element.mapped_here:
           <div class="expandable expanded">
             <h3>Requirements</h3>
@@ -28,7 +28,7 @@
             </ul>
           </div>
         % else:
-          <p class="error">This element either needs an architecture or have requirements mapped to it.</p>
+          <p class="error">This element either needs components or have requirements mapped to it.</p>
         % end
       % end
     % else:

@@ -9,7 +9,6 @@ import gitauth
 
 import elementfactory
 import sorting
-import architecture
 import component
 import integration
 import interface

@@ -29,8 +29,7 @@
       <div id="nav">
         <ul>
           <li><a href="/{{tree.state.identifier}}/requirements">Requirements</a></li>
-          <li><a href="/{{tree.state.identifier}}/architectures">Architectures</a></li>
-          <li><a href="/{{tree.state.identifier}}/components">Components</a></li>
+          <li><a href="/{{tree.state.identifier}}/architecture">Architecture</a></li>
           <li><a href="/{{tree.state.identifier}}/interfaces">Interfaces</a></li>
           <li><a href="/{{tree.state.identifier}}/work-items">Work Items</a></li>
           <li><a href="/{{tree.state.identifier}}/tags">Tags</a></li>
