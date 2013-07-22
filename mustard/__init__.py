@@ -6,6 +6,7 @@
 import auth
 import codethinkauth
 import gitauth
+import noauth
 
 import elementfactory
 import sorting

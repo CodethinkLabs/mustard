@@ -152,6 +152,9 @@ class App(cliapp.Application):
         elif self.settings['auth'] == 'codethink':
             self.auth = mustard.codethinkauth.Authenticator(
                     self, self.settings)
+        elif self.settings['auth'] == 'none':
+            self.auth = mustard.noauth.Authenticator(
+                    self, self.settings)
         else:
             raise cliapp.AppException(
                     'Unsupported auth mechanism "%s"' % self.settings['auth'])
