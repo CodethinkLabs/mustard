@@ -15,7 +15,7 @@
             <td>{{!criterion.description}}</td>
           </tr>
         % end
-	% include parents-list element=criterion
+        % include parents-list element=criterion
         % include tags-list element=criterion
         % include requirements-list element=criterion
       </table>

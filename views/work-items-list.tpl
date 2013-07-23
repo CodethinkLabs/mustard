@@ -14,7 +14,7 @@
         % if element.components:
           <p class="warning">No work items specified.</p>
         % else:
-          <p class="error">This element either needs components or work items.</p>
+          <p class="error">This element needs components or work items.</p>
         % end
       % end
     </td>

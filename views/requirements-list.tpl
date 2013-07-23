@@ -1,4 +1,4 @@
-<tr> 
+<tr>
   <th>Requirements</th>
   <td>
     % inherited_reqs = element.inherited_requirements(sort_by='DEFAULT')
@@ -28,7 +28,7 @@
             </ul>
           </div>
         % else:
-          <p class="error">This element either needs components or have requirements mapped to it.</p>
+          <p class="error">This element needs subcomponents or requirements mapped to it.</p>
         % end
       % end
     % else:
