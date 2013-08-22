@@ -28,7 +28,7 @@ class Repository(object):
         for ref in self.repo.listall_references():
             if ref != 'refs/heads/admin' and ref.startswith('refs/heads/'):
                 yield ref, self.escape_ref(ref.replace('refs/heads/', ''))
-    
+
     def history(self, ref):
         refs = []
         if not ref:
@@ -41,7 +41,7 @@ class Repository(object):
             else:
                 commit = None
         return refs
-    
+
     def diff(self, ref1=None, ref2=None):
         if ref1 and ref2:
             commit1 = self.commit(ref1)

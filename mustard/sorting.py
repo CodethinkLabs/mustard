@@ -8,16 +8,16 @@ def comparator(sort_key):
     def compare_elements(pair1, pair2):
         def split_by_numbers(s):
             return [''.join(v) for _, v in groupby(s, lambda c: c.isdigit())]
-    
+
         s1 = getattr(pair1[1], sort_key) if pair1 and pair1[1] else ''
         s2 = getattr(pair2[1], sort_key) if pair2 and pair2[1] else ''
-        
+
         s1s = split_by_numbers(s1)
         s2s = split_by_numbers(s2)
-    
+
         s1s.append('')
         s2s.append('')
-    
+
         for left, right in zip(s1s, s2s):
             leftdigit = left.isdigit()
             rightdigit = right.isdigit()

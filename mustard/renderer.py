@@ -41,8 +41,8 @@ class App(cliapp.Application):
     def add_settings(self):
         self.settings.string(['auth'],
                              'Authentication mechanism '
-                             '(git, codethink; default: %s)' % \
-                                    defaults['auth'],
+                             '(git, codethink; default: %s)' %
+                             defaults['auth'],
                              metavar='MECHANISM',
                              default=defaults['auth'])
         self.settings.string(['auth-server'],
@@ -82,7 +82,7 @@ class App(cliapp.Application):
         try:
             if state_id == 'admin':
                 raise cliapp.AppException(
-                        'Browsing this branch is not permitted')
+                    'Browsing this branch is not permitted')
 
             state = self.state_cache.get(state_id)
 
@@ -95,7 +95,7 @@ class App(cliapp.Application):
                 if not content_id in self.content:
                     element_tree = self.element_tree_cache.get(state)
                     self.content[content_id] = bottle.template(
-                            view, tree=element_tree)
+                        view, tree=element_tree)
                 return self.content[content_id]
         except mustard.MustardError, err:
             return bottle.template('treeerror', error=err)
@@ -106,7 +106,7 @@ class App(cliapp.Application):
         try:
             if state1 == 'admin' or state2 == 'admin':
                 raise cliapp.AppException(
-                        'Browsing this branch is not permitted')
+                    'Browsing this branch is not permitted')
 
             state1 = self.state_cache.get(state1)
             state2 = self.state_cache.get(state2)
@@ -120,7 +120,7 @@ class App(cliapp.Application):
                 element_tree2 = self.element_tree_cache.get(state2)
 
                 return bottle.template(
-                        'diff', tree=element_tree1, other_tree=element_tree2)
+                    'diff', tree=element_tree1, other_tree=element_tree2)
             else:
                 content_id = (state1, state2, view)
                 if not content_id in self.content:
@@ -128,7 +128,7 @@ class App(cliapp.Application):
                     tree2 = self.element_tree_cache.get(state2)
 
                     self.content[content_id] = bottle.template(
-                            'diff', tree=tree1, other_tree=tree2)
+                        'diff', tree=tree1, other_tree=tree2)
                 else:
                     print 'using cached rendering of (%s, %s, %s)' % content_id
                 return self.content[content_id]
@@ -143,21 +143,21 @@ class App(cliapp.Application):
             raise cliapp.AppException('Input project directory does not exist')
 
         self.repository = mustard.repository.Repository(
-                self, self.settings['project'])
+            self, self.settings['project'])
         self.state_cache = mustard.state.Cache(self, self.repository)
 
         if self.settings['auth'] == 'git':
             self.auth = mustard.gitauth.Authenticator(
-                    self, self.settings, self.repository)
+                self, self.settings, self.repository)
         elif self.settings['auth'] == 'codethink':
             self.auth = mustard.codethinkauth.Authenticator(
-                    self, self.settings)
+                self, self.settings)
         elif self.settings['auth'] == 'none':
             self.auth = mustard.noauth.Authenticator(
-                    self, self.settings)
+                self, self.settings)
         else:
             raise cliapp.AppException(
-                    'Unsupported auth mechanism "%s"' % self.settings['auth'])
+                'Unsupported auth mechanism "%s"' % self.settings['auth'])
 
         @route('/')
         @self.auth.protected
@@ -257,7 +257,7 @@ class App(cliapp.Application):
         def file(stateid, filename):
             if stateid == 'admin':
                 raise cliapp.AppException(
-                        'Browsing this branch is not permitted')
+                    'Browsing this branch is not permitted')
 
             path = os.path.join('files/%s' % filename)
             state = self.state_cache.get(stateid)
@@ -283,8 +283,7 @@ class App(cliapp.Application):
                     base64.urlsafe_b64decode(urllib.unquote(content)))
                 self.uml[content] = self.runcmd(
                         ["java", "-jar", self.settings['plantuml-jar'],
-                         "-tpng", "-p"],
-                        feed_stdin=uml)
+                         "-tpng", "-p"], feed_stdin=uml)
             bottle.response.content_type = 'image/png'
             return self.uml[content]
 

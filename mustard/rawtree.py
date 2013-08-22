@@ -7,18 +7,19 @@ import StringIO
 
 from mustard.util import load_yaml
 
+
 class DuplicateElementError(cliapp.AppException):
 
     def __init__(self, path):
         cliapp.AppException.__init__(
-                self, 'Duplicate element "%s" found' % path)
+            self, 'Duplicate element "%s" found' % path)
 
 
 class LoadError(cliapp.AppException):
 
     def __init__(self, errors):
         message = 'Failed to load files:\n\n%s' % \
-                '\n\n'.join([str(x) for x in errors])
+            '\n\n'.join([str(x) for x in errors])
         cliapp.AppException.__init__(self, message)
 
 
@@ -36,7 +37,7 @@ class Tree(object):
             io = StringIO.StringIO(content)
             setattr(io, 'name', filename)
             try:
-                data = load_yaml(io, filename.replace('.yaml',''))
+                data = load_yaml(io, filename.replace('.yaml', ''))
                 self._insert_raw(filename.replace('.yaml', ''), data)
             except Exception, error:
                 errors.append(error)

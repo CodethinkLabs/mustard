@@ -12,7 +12,7 @@ import zlib
 import mustard
 
 kind_aliases = {
-# Aliases to reduce wrist-strain for MUSTARDy people
+    # Aliases to reduce wrist-strain for MUSTARDy people
     'r':      'requirement',
     'req':    'requirement',
     'a':      'component',
@@ -29,7 +29,7 @@ kind_aliases = {
     'v':      'verification-criterion',
     'vcrit':  'verification-criterion',
 
-# Additional tag aliases for porting reasons (can be removed later)
+    # Additional tag aliases for porting reasons (can be removed later)
     'architecture':  'component',
     'test':          'verification-criterion',
     'test-strategy': 'verification-criterion',
@@ -45,6 +45,7 @@ headermap = {
     'h6': 'h6'
 }
 
+
 class HeaderDemotionProcessor(Treeprocessor):
     def run(self, element):
         for child in element:
@@ -52,11 +53,14 @@ class HeaderDemotionProcessor(Treeprocessor):
                 child.tag = headermap[child.tag]
             self.run(child)
 
+
 class HeaderDemotionExtension(markdown.Extension):
     def extendMarkdown(self, md, md_globals):
         md.treeprocessors['headerdemotion'] = HeaderDemotionProcessor(md)
 
+
 md = markdown.Markdown(extensions=[HeaderDemotionExtension()])
+
 
 class Element(object):
 
@@ -79,7 +83,7 @@ class Element(object):
     def set_description(self, text):
         self.description = text
         if self.description:
-            self.description = self._resolve_uml(self.description) 
+            self.description = self._resolve_uml(self.description)
             self.description = md.convert(self.description)
 
     def _resolve_uml(self, text):
@@ -104,9 +108,9 @@ class Element(object):
 
     def _generate_uml_image(self, uml):
         url = '/plantuml/%s' % base64.urlsafe_b64encode(
-                zlib.compress("\n".join(uml)))
+            zlib.compress("\n".join(uml)))
         return '[![UML diagram](%s)](%s)' % (url, url)
-        
+
     def get_parents(self):
         parents = []
         if hasattr(self, 'parent'):
@@ -119,8 +123,8 @@ class Element(object):
         return parents
 
     def get_children(self):
-        raise NotImplementedError   
-    
+        raise NotImplementedError
+
     def inherited_requirements(self, **kwargs):
         results = set()
         queue = collections.deque()
@@ -138,7 +142,7 @@ class Element(object):
         for ref, req in self.mapped_here.iteritems():
             results.add((ref, req))
         return mustard.sorting.sort_elements(results, kwargs)
-    
+
     def delegated_requirements(self, **kwargs):
         results = set()
         queue = collections.deque()

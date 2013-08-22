@@ -13,7 +13,7 @@ class Component(mustard.elementfactory.Element):
 
         self.interfaces = {}
         self.verificationcriteria = {}
-        
+
         self.components = {}
         self.integration_strategy = (None, None)
         self.toplevel = data.get('toplevel', False)

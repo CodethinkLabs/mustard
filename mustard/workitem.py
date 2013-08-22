@@ -1,8 +1,6 @@
 # Copyright (C) 2012 Codethink Limited
 
 
-import markdown
-
 import mustard
 
 
@@ -26,5 +24,4 @@ class WorkItem(mustard.elementfactory.Element):
         return self.work_items.items()
 
     def sort_work_items(self, **kwargs):
-        return mustard.sorting.sort_elements(
-                self.work_items.items(), kwargs)
+        return mustard.sorting.sort_elements(self.work_items.items(), kwargs)

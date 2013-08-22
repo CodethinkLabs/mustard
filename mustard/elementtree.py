@@ -28,7 +28,7 @@ class Tree(object):
         if 'kind' in node:
             element = self._load_element(path, node)
 
-        children = [(x,y) for x,y in node.iteritems()
+        children = [(x, y) for x, y in node.iteritems()
                     if isinstance(y, dict)]
         for segment, child in children:
             self._load_node(os.path.join(path, segment), child)
@@ -42,13 +42,13 @@ class Tree(object):
         return element
 
     def _resolve_project(self):
-        projects = [(x,y) for x,y in self.find_all(kind='project')]
+        projects = [(x, y) for x, y in self.find_all(kind='project')]
         if len(projects) == 0:
             raise mustard.MustardError('No project defined')
         elif len(projects) > 1:
-            raise mustard.MustardError('%s project nodes found: %r' % 
+            raise mustard.MustardError('%s project nodes found: %r' %
                                        (len(projects),
-                                        [x for x,y in projects]))
+                                        [x for x, y in projects]))
         else:
             self.project = projects[0][1]
 
@@ -75,24 +75,24 @@ class Tree(object):
             self._resolve_parent_component(path, element)
             self._resolve_mapped_here(path, element)
             self._resolve_tags(path, element)
-    
+
     def _resolve_integration_strategy_links(self):
         for path, element in self.find_all(kind='integration-strategy'):
             self._resolve_parent_component(path, element)
             self._resolve_mapped_here(path, element)
             self._resolve_tags(path, element)
-    
+
     def _resolve_interface_links(self):
         for path, element in self.find_all(kind='interface'):
             self._resolve_parent_component(path, element)
             self._resolve_mapped_here(path, element)
             self._resolve_tags(path, element)
-    
+
     def _resolve_requirement_links(self):
         for path, element in self.find_all(kind='requirement'):
             self._resolve_parent_requirement(path, element)
             self._resolve_tags(path, element)
-    
+
     def _resolve_tag_links(self):
         pass
 
@@ -108,7 +108,7 @@ class Tree(object):
             self._resolve_parents(path, element)
             self._resolve_mapped_here(path, element)
             self._resolve_tags(path, element)
-    
+
     def _resolve_tags(self, path, element):
         for ref in element.tags.iterkeys():
             if ref in self.elements:
@@ -197,7 +197,7 @@ class Tree(object):
             if element.kind == kwargs.get('kind', element.kind):
                 results.append((path, element))
         if kwargs.get('top_level'):
-            results[:] = [(p,e) for (p,e) in results if e.is_toplevel()]
+            results[:] = [(p, e) for (p, e) in results if e.is_toplevel()]
         return mustard.sorting.sort_elements(results, kwargs)
 
     def yaml(self):

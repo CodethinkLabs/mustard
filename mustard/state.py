@@ -6,10 +6,10 @@ import os
 
 
 class InvalidStateError(cliapp.AppException):
-    
+
     def __init__(self, ref):
         cliapp.AppException.__init__(
-                self, 'Failed to resolve state "%s"' % ref)
+            self, 'Failed to resolve state "%s"' % ref)
 
 
 class State(object):
@@ -71,9 +71,10 @@ class UncommittedState(State):
             for filename in files:
                 yield os.path.relpath(os.path.join(root, filename),
                                       self.repository.dirname)
-    
+
     def read(self, filename):
         return open(os.path.join(self.repository.dirname, filename)).read()
+
 
 class CommittedState(State):
 
@@ -121,6 +122,7 @@ class CommittedState(State):
     def read(self, filename):
         return self.repository.cat_file(self.sha1, filename)
 
+
 class Cache(object):
 
     def __init__(self, app, repository):
@@ -132,7 +134,7 @@ class Cache(object):
         if ref == 'UNCOMMITTED':
             if not ref in self.states:
                 self.states[ref] = UncommittedState(
-                        self.app, self, self.repository)
+                    self.app, self, self.repository)
             return self.states[ref]
         else:
             try:
@@ -151,7 +153,7 @@ class Cache(object):
                 if not key in self.states:
                     print '%s not in cache' % sha1
                     self.states[key] = CommittedState(
-                            self.app, self, self.repository, ref, sha1)
+                        self.app, self, self.repository, ref, sha1)
                 print '%s now cached' % sha1
                 return self.states[key]
             except cliapp.AppException, err:
