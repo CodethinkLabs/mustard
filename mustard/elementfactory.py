@@ -59,7 +59,7 @@ class HeaderDemotionExtension(markdown.Extension):
         md.treeprocessors['headerdemotion'] = HeaderDemotionProcessor(md)
 
 
-md = markdown.Markdown(extensions=[HeaderDemotionExtension()])
+md = markdown.Markdown(extensions=['extra', HeaderDemotionExtension()])
 
 
 class Element(object):
