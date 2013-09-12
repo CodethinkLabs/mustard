@@ -62,6 +62,114 @@ class HeaderDemotionExtension(markdown.Extension):
 md = markdown.Markdown(extensions=['extra', HeaderDemotionExtension()])
 
 
+element_descriptions = {
+  'requirement': {
+    'title-plural':   'Requirements',
+    'title-singular': 'Requirement',
+    'default': True,
+    'fields': [
+      { 'name': 'description',  'title': 'Description',  'default': True  },
+      { 'name': 'tags',         'title': 'Tags',         'default': True },
+      { 'name': 'parent',       'title': 'Parent',       'default': True  },
+      { 'name': 'mapped-to',    'title': 'Mapped To',    'default': True  },
+      { 'name': 'path',         'title': 'Path',         'default': True },
+    ]
+  },
+  'component': {
+    'title-plural':   'Components',
+    'title-singular': 'Component',
+    'default': True,
+    'fields': [
+      { 'name': 'description',  'title': 'Description',  'default': True  },
+      { 'name': 'tags',         'title': 'Tags',         'default': True },
+      { 'name': 'parent',       'title': 'Parent',       'default': True  },
+      { 'name': 'interfaces',   'title': 'Interfaces',   'default': True  },
+      { 'name': 'vcrits',       'title': 'Verification Criteria',
+        'default': True },
+      { 'name': 'integration',  'title': 'Integration Strategies',
+        'default': True },
+      { 'name': 'work-items',   'title': 'Work Items',   'default': True  },
+      { 'name': 'inherited',    'title': 'Inherited Requirements',
+        'default': False },
+      { 'name': 'requirements', 'title': 'Requirements', 'default': True  },
+      { 'name': 'delegated',    'title': 'Delegated Requirements',
+        'default': False },
+      { 'name': 'path',         'title': 'Path',         'default': True },
+    ]
+  },
+  'interface': {
+    'title-plural':   'Interfaces',
+    'title-singular': 'Interface',
+    'default': True,
+    'fields': [
+      { 'name': 'description',  'title': 'Description',  'default': True  },
+      { 'name': 'tags',         'title': 'Tags',         'default': True },
+      { 'name': 'parent',       'title': 'Parent',       'default': True  },
+      { 'name': 'work-items',   'title': 'Work Items',   'default': True  },
+      { 'name': 'inherited',    'title': 'Inherited Requirements',
+        'default': False },
+      { 'name': 'requirements', 'title': 'Requirements', 'default': True  },
+      { 'name': 'delegated',    'title': 'Delegated Requirements',
+        'default': False },
+      { 'name': 'path',         'title': 'Path',         'default': True },
+    ]
+  },
+  'work-item': {
+    'title-plural':   'Work Items',
+    'title-singular': 'Work Item',
+    'default': True,
+    'fields': [
+      { 'name': 'description',  'title': 'Description',  'default': True  },
+      { 'name': 'tags',         'title': 'Tags',         'default': True  },
+      { 'name': 'parents',      'title': 'Parents',      'default': True  },
+      { 'name': 'inherited',    'title': 'Inherited Requirements',
+        'default': False },
+      { 'name': 'requirements', 'title': 'Requirements', 'default': True  },
+      { 'name': 'path',         'title': 'Path',         'default': True  },
+    ]
+  },
+  'tag': {
+    'title-plural':   'Tags',
+    'title-singular': 'Tag',
+    'default': True,
+    'fields': [
+      { 'name': 'description',  'title': 'Description',  'default': True  },
+      { 'name': 'used-by',      'title': 'Used By',      'default': True  },
+    ]
+  },
+  'integration-strategy': {
+    'title-plural':   'Integration Strategies',
+    'title-singular': 'Integration Strategy',
+    'default': True,
+    'fields': [
+      { 'name': 'description',  'title': 'Description',  'default': True  },
+      { 'name': 'tags',         'title': 'Tags',         'default': True },
+      { 'name': 'parent',       'title': 'Parent',       'default': True  },
+      { 'name': 'vcrits',       'title': 'Verification Criteria',
+        'default': True },
+      { 'name': 'inherited',    'title': 'Inherited Requirements',
+        'default': False },
+      { 'name': 'requirements', 'title': 'Requirements', 'default': True  },
+      { 'name': 'path',         'title': 'Path',         'default': True },
+    ]
+  },
+  'verification-criterion': {
+    'title-plural':   'Verification Criteria',
+    'title-singular': 'Verification Criterion',
+    'default': True,
+    'fields': [
+      { 'name': 'description',  'title': 'Description',  'default': True  },
+      { 'name': 'tags',         'title': 'Tags',         'default': True },
+      { 'name': 'parent',       'title': 'Parent',       'default': True  },
+      { 'name': 'inherited',    'title': 'Inherited Requirements',
+        'default': False },
+      { 'name': 'requirements', 'title': 'Requirements', 'default': True  },
+      { 'name': 'path',         'title': 'Path',         'default': True },
+    ]
+  },
+}
+
+
 class Element(object):
 
     def __init__(self, data):

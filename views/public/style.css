@@ -281,12 +281,12 @@ input, select {
   border-radius: 2px;
 }
 
-input[type="button"] {
+input[type="button"], input[type="submit"] {
   background: #f6f6f6;
   cursor: pointer;
 }
 
-input[type="button"]:hover, input[type="button"].pressed {
+input[type="button"]:hover, input[type="submit"]:hover, input[type="button"].pressed {
   background: #ddd;
   border-color: #ccc;
 }
@@ -420,4 +420,29 @@ pre.diff {
 .list {
   list-style: none;
   padding-left: 0em;
+}
+
+#content fieldset {
+  border: 0em;
+}
+
+#content form h2:before {
+  content: '';
+}
+
+#content form h2.expanded:before {
+  content: '';
+}
+
+#content form p.fields {
+  margin-top: 0em;
+  margin-left: 2em;
+}
+
+#content form .buttons {
+  text-align: center;
+}
+
+#content form input[type="button"], #content form input[type="submit"] {
+  padding: 0.5em;
 }

@@ -135,6 +135,22 @@ class App(cliapp.Application):
         except cliapp.AppException, err:
             return bottle.template('error', error=err)
 
+    def render_export(self, stateid, view, forms=None):
+        try:
+            if stateid == 'admin':
+                raise cliapp.AppException(
+                    'Browsing this branch is not permitted')
+
+            state = self.state_cache.get(stateid)
+
+            raw_tree = mustard.rawtree.Tree(state)
+            element_tree = mustard.elementtree.Tree(raw_tree)
+            return bottle.template(
+                view, tree=element_tree, forms=forms,
+                elements=mustard.elementfactory.element_descriptions)
+        except cliapp.AppException, err:
+            return bottle.template('error', error=err)
+
     def process_args(self, args):
         if not self.settings['project']:
             raise cliapp.AppException('Input project directory not defined')
@@ -244,6 +260,17 @@ class App(cliapp.Application):
         @self.auth.protected
         def diff(state1, state2):
             return self.render_diff(state1, state2, 'diff')
+
+        @route('/<stateid>/export')
+        @self.auth.protected
+        def export(stateid):
+            return self.render_export(stateid, 'export')
+
+        @route('/<stateid>/export', method='POST')
+        @self.auth.protected
+        def export(stateid):
+            return self.render_export(
+                stateid, 'export-html', bottle.request.forms)
 
         @route('/public/<filename>')
         @self.auth.protected

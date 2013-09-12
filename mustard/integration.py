@@ -17,6 +17,9 @@ class IntegrationStrategy(mustard.elementfactory.Element):
         for ref in data.get('mapped-here', []):
             self.mapped_here[ref] = None
 
+    def is_toplevel(self):
+        return True
+
     def get_children(self):
         children = []
         for path, item in self.work_items.iteritems():

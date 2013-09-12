@@ -40,6 +40,7 @@
               <li><a href="/{{tree.state.identifier}}/integration-strategies">Integration Strategies</a></li>
               <li><a href="/{{tree.state.identifier}}/verification-criteria">Verification Criteria</a></li>
               <li><a href="/{{tree.state.identifier}}/history">History</a></li>
+              <li><a href="/{{tree.state.identifier}}/export">Export</a></li>
             </ul>
           </li>
         </ul>
