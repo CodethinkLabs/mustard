@@ -32,7 +32,10 @@ class Repository(object):
     def history(self, ref):
         refs = []
         if not ref:
-            ref = self.repo.head.hex
+            try:
+                ref = self.repo.head.hex
+            except AttributeError:
+                ref = self.repo.head.get_object().oid.hex
         commit = self.commit(ref)
         while commit is not None:
             refs.append(commit.hex)
@@ -50,7 +53,13 @@ class Repository(object):
             tree2 = commit2.tree
             return tree1.diff(tree2).patch
         else:
-            return self.repo.head.tree.diff().patch
+            try:
+                return self.repo.head.tree.diff().patch
+            except AttributeError:
+                try:
+                    return self.repo.diff('HEAD').patch
+                except pygit2.GitError:
+                    return ''
 
     def commit(self, ref):
         sha1 = self.resolve_ref(ref)
