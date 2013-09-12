@@ -16,21 +16,39 @@
     <p>Tags:</p>
     <ul>
       % for path, tag in element.tags.iteritems():
-        <li><a href="#{{path}}">{{tag.title}}</a></li>
+        % if tag:
+          <li><a href="#{{path}}">{{tag.title}}</a></li>
+        % else:
+          <li>
+            % include pathnotfound path=path, detail='list'
+          </li>
+        % end
       % end
     </ul>
   % end
 
   % if forms.get('%s[parent]' % element.kind) and element.parent and element.parent[1]:
     % path, parent = element.parent
-    <p>Parent: <a href="#{{path}}">{{parent.title}}</a></p>
+    <p>Parent:
+      % if parent:
+        <a href="#{{path}}">{{parent.title}}</a>
+      % else:
+        % include pathnotfound path=path, detail='list'
+      % end
+    </p>
   % end
 
   % if forms.get('%s[mapped-to]' % element.kind) and element.mapped_to:
     <p>Mapped To:</p>
     <ul>
       % for path, el in element.mapped_to.iteritems():
-        <li><a href="#{{path}}">{{el.title}}</a></li>
+        % if el:
+          <li><a href="#{{path}}">{{el.title}}</a></li>
+        % else:
+          <li>
+            % include pathnotfound path=path, detail='list'
+          </li>
+        % end
       % end
     </ul>
   % end
@@ -39,7 +57,13 @@
     <p>Parents:</p>
     <ul>
       % for path, parent in element.get_parents():
-        <li><a href="#{{path}}">{{parent.title}}</a></li>
+        % if parent:
+          <li><a href="#{{path}}">{{parent.title}}</a></li>
+        % else:
+          <li>
+            % include pathnotfound path=path, detail='list'
+          </li>
+        % end
       % end
     </ul>
   % end
@@ -48,21 +72,39 @@
     <p>Interfaces:</p>
     <ul>
       % for path, el in element.interfaces.iteritems():
-        <li><a href="#{{path}}">{{el.title}}</a></li>
+        % if el:
+          <li><a href="#{{path}}">{{el.title}}</a></li>
+        % else:
+          <li>
+            % include pathnotfound path=path, detail='list'
+          </li>
+        % end
       % end
     </ul>
   % end
 
   % if forms.get('%s[vcrits]' % element.kind) and element.integration_strategy[1]:
     % path, strategy = element.integration_strategy
-    <p>Integration Strategy: <a href="#{{path}}">{{strategy.ttile}}</a></p>
+    <p>Integration Strategy:
+      % if strategy:
+        <a href="#{{path}}">{{strategy.ttile}}</a>
+      % else:
+        % include pathnotfound path=path, detail='list'
+      % end
+    </p>
   % end
 
   % if forms.get('%s[vcrits]' % element.kind) and element.verificationcriteria:
     <p>Verification Criteria:</p>
     <ul>
       % for path, el in element.verificationcriteria.iteritems():
-        <li><a href="#{{path}}">{{el.title}}</a></li>
+        % if el:
+          <li><a href="#{{path}}">{{el.title}}</a></li>
+        % else:
+          <li>
+            % include pathnotfound path=path, detail='list'
+          </li>
+        % end
       % end
     </ul>
   % end
@@ -73,7 +115,13 @@
       <p>Inherited Requirements:</p>
       <ul>
         % for path, el in inherited_reqs:
-          <li><a href="#{{path}}">{{el.title}}</a></li>
+          % if el:
+            <li><a href="#{{path}}">{{el.title}}</a></li>
+          % else:
+            <li>
+              % include pathnotfound path=path, detail='list'
+            </li>
+          % end
         % end
       </ul>
     % end
@@ -85,7 +133,13 @@
       <p>Requirements:</p>
       <ul>
         % for path, el in mapped_reqs:
-          <li><a href="#{{path}}">{{el.title}}</a></li>
+          % if el:
+            <li><a href="#{{path}}">{{el.title}}</a></li>
+          % else:
+            <li>
+              % include pathnotfound path=path, detail='list'
+            </li>
+          % end
         % end
       </ul>
     % end
@@ -97,7 +151,13 @@
       <p>Delegated Requirements:</p>
       <ul>
         % for path, el in delegated_reqs:
-          <li><a href="#{{path}}">{{el.title}}</a></li>
+          % if el:
+            <li><a href="#{{path}}">{{el.title}}</a></li>
+          % else:
+            <li>
+              % include pathnotfound path=path, detail='list'
+            </li>
+          % end
         % end
       </ul>
     % end
@@ -107,7 +167,13 @@
     <p>Used By:</p>
     <ul>
       % for path, el in element.tagged.iteritems():
-        <li><a href="#{{path}}">{{el.title}}</a></li>
+        % if el:
+          <li><a href="#{{path}}">{{el.title}}</a></li>
+        % else:
+          <li>
+            % include pathnotfound path=path, detail='list'
+          </li>
+        % end
       % end
     </ul>
   % end

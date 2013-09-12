@@ -8,6 +8,9 @@
         border: 0em;
         border-bottom: thin solid #999;
       }
+      .error {
+        color: #ff0000;
+      }
     </style>
   </head>
   <body>
