@@ -36,7 +36,7 @@ Contents
 
 ![History](https://github.com/CodethinkLabs/mustard/raw/master/data/screenshots/history.png "History")
 
-![Diffs](https://github.com/CodethinkLabs/mustard/raw/master/data/screenshots/diffs.png "Diffs")
+![Diffs](https://github.com/CodethinkLabs/mustard/raw/master/data/screenshots/diff.png "Diffs")
 
 
 2. Mustard data format
