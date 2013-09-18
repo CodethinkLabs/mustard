@@ -39,15 +39,15 @@ that identifies the type of the element.
 
 Two examples:
 
-  kind: requirement
-  title: The software needs to do XYZ
+    kind: requirement
+    title: The software needs to do XYZ
 
 And:
 
-  kind: component
-  title: Web application
-  description: Some Markdown-formatted text to describe the component.
-  parent: components/software
+    kind: component
+    title: Web application
+    description: Some Markdown-formatted text to describe the component.
+    parent: components/software
 
 Every element in the project is associated with a unique identifier that
 is very similar to a path in a file system. The identifiers allow to
@@ -66,12 +66,12 @@ identifier of the element.
 
 For example, a file called
 
-  $repo/requirements/software/feature-xyz.yaml
+    $repo/requirements/software/feature-xyz.yaml
 
 with the contents
 
-  kind: requirements
-  title: Feature XYZ
+    kind: requirements
+    title: Feature XYZ
 
 would result in a requirement element with the identifier
 `requirements/software/feature-xyz`.
@@ -83,38 +83,38 @@ become the element identifiers.
 
 First example: a file called
 
-  $repo/components/software.yaml
+    $repo/components/software.yaml
 
 with the contents
 
-  webapp:
-    kind: component
-    title: Web application
-    parent: components/software
+    webapp:
+      kind: component
+      title: Web application
+      parent: components/software
 
-  phoneapp:
-    kind: component
-    title: Phone app
-    parent: components/software
+    phoneapp:
+      kind: component
+      title: Phone app
+      parent: components/software
 
 results in two component elements with the identifiers
 `components/software/webapp` and `components/software/phoneapp`.
 
 A file called
 
-  $repo/requirements.yaml
+    $repo/requirements.yaml
 
 with nested dictionaries
 
-  system:
-    software:
-      rails:
-        kind: requirement
-        title: Web application written in Ruby on Rails
-    infrastructure:
-      heroku:
-        kind: requirement
-        title: Web app deployment via Heroku
+    system:
+      software:
+        rails:
+          kind: requirement
+          title: Web application written in Ruby on Rails
+      infrastructure:
+        heroku:
+          kind: requirement
+          title: Web app deployment via Heroku
 
 will generate two requirement elements with the identifiers
 `requirements/system/software/rails` and
@@ -122,18 +122,18 @@ will generate two requirement elements with the identifiers
 
 It is also possible to nest elements like this:
 
-  requirements.yaml:
+    requirements.yaml:
 
-  system:
-    software:
-      webapp:
-        kind: requirement
-        title: There needs to be a web application
-
-        heroku:
+    system:
+      software:
+        webapp:
           kind: requirement
-          title: Web app deployment via Heroku
-          parent: requirements/system/software/webapp
+          title: There needs to be a web application
+
+          heroku:
+            kind: requirement
+            title: Web app deployment via Heroku
+            parent: requirements/system/software/webapp
 
 The above results in two elements with the identifiers
 `requirements/system/software/webapp` and
@@ -395,8 +395,8 @@ This will install pygit2 into $HOME/.local -- obviously you can tweak the
 Mustard cannot currently be installed into the system. It can, however,
 be run directly from the source directory:
 
-  ./mustard-render -b -r -j /path/to/plantuml.jar \
-    -p /path/to/mustard/to/render
+    ./mustard-render -b -r -j /path/to/plantuml.jar \
+      -p /path/to/mustard/to/render
 
 The usual way to run it is to clone the source code repository
 somehwere and then integrate it with Apache or any WSGI-compatible
@@ -446,8 +446,8 @@ located in `/var/www/someserver.com`. The source tree with
 To hack on mustard and have your changed immediately testable in a web
 browser, you can use
 
-./mustard-render -b -r -j /path/to/plantuml.jar \
-  -p /path/to/mustard/to/render
+    ./mustard-render -b -r -j /path/to/plantuml.jar \
+      -p /path/to/mustard/to/render
 
 Replacing /path/to/plantuml.jar and /path/to/mustard/to/render as
 appropriate
