@@ -26,8 +26,7 @@ General concepts
 Mustard allows you to manage the following information about a project:
 
   * Requirements
-  * Architecture(s)
-  * Components
+  * Components / Architectures
   * Interfaces
   * Integration strategies
   * Verification criteria
@@ -50,7 +49,7 @@ And:
   kind: component
   title: Web application
   description: Some Markdown-formatted text to describe the component.
-  parent: architectures/software
+  parent: components/software
 
 Every element in the project is associated with a unique identifier that
 is very similar to a path in a file system. The identifiers allow to
@@ -95,12 +94,12 @@ with the contents
   webapp:
     kind: component
     title: Web application
-    parent: architectures/software
+    parent: components/software
 
   phoneapp:
     kind: component
     title: Phone app
-    parent: architectures/software
+    parent: components/software
 
 results in two component elements with the identifiers
 `components/software/webapp` and `components/software/phoneapp`.
@@ -197,35 +196,10 @@ Requirements (kind: requirement, req, r):
       - tags/high-priority
     parent: identifier/of/parent/requirement
 
-Architectures (kind: architecture, arch, a):
-
-  Used to specify the system architecture and architectures of
-  components.
-
-  Supported keys:
-
-    - title       (optional)
-    - description (optional)
-    - tags        (optional)
-    - parent      (optional)
-    - mapped-here (optional)
-
-  Example:
-
-    kind: architecture
-    title: Any string
-    description: A string in Markdown format.
-    tags:
-      - tags/foo
-      - tags/bar
-    parent: identifier/of/parent/component
-    mapped-here:
-      - identifier/of/a/requirement
-      - identifier/of/another/requirement
-
 Components (kind: component, comp, c):
 
-  Used to specify components of an architecture.
+  Used to specify any components in the system. The result is a
+  hierarchy of components also called the "architecture".
 
   Supported keys:
 
@@ -243,7 +217,7 @@ Components (kind: component, comp, c):
     tags:
       - tags/foo
       - tags/bar
-    parent: identifier/of/parent/architecture
+    parent: identifier/of/parent/component
     mapped-here:
       - identifier/of/a/requirement
       - identifier/of/another/requirement
@@ -275,7 +249,7 @@ Interfaces (kind: interface, iface, i):
 
 Integration strategies (kind: integration-strategy, istrat, s):
 
-  Used to specify integration strategies for architectures.
+  Used to specify integration strategies for components.
 
   Supported keys:
 
@@ -293,7 +267,7 @@ Integration strategies (kind: integration-strategy, istrat, s):
     tags:
       - tags/foo
       - tags/bar
-    parent: identifier/of/parent/architecture
+    parent: identifier/of/parent/component
     mapped-here:
       - identifier/of/a/requirement
       - identifier/of/another/requirement
@@ -327,9 +301,9 @@ Verification Criterion (kind: verification-criterion, vcrit, v):
 
 Work Items (kind: work-item, work, w):
 
-  Used to specify work items required to implement/realise
-  architectures, components, interfaces, tests etc., all in order to
-  satisfy the system requirements.
+  Used to specify work items required to implement/realise components,
+  interfaces, tests etc., all in order to satisfy the system
+  requirements.
 
   Supported keys:
 
@@ -348,7 +322,7 @@ Work Items (kind: work-item, work, w):
       - tags/foo
       - tags/bar
     parents:
-      - identifier/of/an/architecture
+      - identifier/of/an/component
       - identifier/of/a/component
       - identifier/of/an/interface
       - identifier/of/an/integration-strategy
