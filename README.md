@@ -17,11 +17,10 @@ Contents:
 
 
 1. Mustard data format
-======================
+----------------------
 
 
-General concepts
-----------------
+### General concepts
 
 Mustard allows you to manage the following information about a project:
 
@@ -60,8 +59,7 @@ How the YAML files are organised in the repository tree is up to the
 architects. The element paths are specified as follows:
 
 
-Element identifiers
--------------------
+### Element identifiers
 
 One possible way to store elements in the YAML repository is to use
 one file per element. In this case the path to the file, relative to
@@ -144,16 +142,14 @@ The above results in two elements with the identifiers
 `requirements/system/software/webapp/heroku`.
 
 
-Uniqueness
-----------
+### Uniqueness
 
 NOTE: Mustard requires that all identifiers in the project be unique.
 It will raise an error whenever there are duplicates in the system and
 will try to help you resolve them.
 
 
-Supported elements and keys
----------------------------
+### Supported elements and keys
 
 Project (kind: project):
 
@@ -350,11 +346,10 @@ Tags (kind: tag, t)
 
 
 2. Installing Mustard
-=====================
+---------------------
 
 
-Dependencies
-------------
+### Dependencies
 
 In order to use Mustard, you'll need the following components:
 
@@ -370,8 +365,7 @@ libgit2 and pygit2. The section below explains how to install these two
 easily.
 
 
-Installing pygit2
------------------
+### Installing pygit2
 
 If you lack pygit2 in your distribution, the safest way to get it is to
 prepare a statically built libgit2 in a temporary installation location
@@ -404,8 +398,7 @@ This will install pygit2 into $HOME/.local -- obviously you can tweak the
 `setup.py` invocations if you wish to alter where it installs to.
 
 
-Installing Mustard itself
--------------------------
+### Installing Mustard itself
 
 Mustard cannot currently be installed into the system. It can, however,
 be run directly from the source directory:
@@ -421,7 +414,7 @@ deploy Mustard using Apache.
 
 
 3. Deploying Mustard using Apache2
-==================================
+----------------------------------
 
 Mustard can be set up as an Apache site easily using mod_wsgi. It ships
 an `adapter.wsgi` file that can be set up to handle HTTP requests as
@@ -458,7 +451,7 @@ located in `/var/www/someserver.com`. The source tree with
 
 
 4. Hacking Mustard
-==================
+------------------
 
 To hack on mustard and have your changed immediately testable in a web
 browser, you can use
@@ -477,7 +470,7 @@ See http://liw.fi/cliapp/.
 
 
 5. Contributing
-===============
+---------------
 
 Mustard is a Codethink Labs project. As such, its development takes
 place within the Codethink Labs project on GitHub:
@@ -490,7 +483,7 @@ repository and send pull requests.
 
 
 6. Copyright & License
-======================
+----------------------
 
 Copyright (C) 2012-2013 Codethink Ltd.
 
