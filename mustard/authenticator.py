@@ -21,12 +21,13 @@ from functools import wraps
 
 class Authenticator(object):
 
-    def __init__(self, app, settings):
+    def __init__(self, app, settings, repository):
         self.app = app
         self.auth_server = settings['auth-server']
         self.auth_user = settings['auth-user']
         self.auth_password = settings['auth-password']
         self.project = settings['project-code']
+        self.repository = repository
 
     def authenticate(self):
         return bottle.HTTPResponse('Login Required', 401, {

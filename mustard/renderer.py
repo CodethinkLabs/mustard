@@ -19,6 +19,7 @@ import bottle
 import cliapp
 import mimetypes
 import os
+import pkgutil
 import urllib
 import zlib
 
@@ -43,6 +44,7 @@ class App(cliapp.Application):
         cliapp.Application.__init__(self)
 
         self.repository = None
+
         self.auth = None
         self.state_cache = None
         raw_tree_cache = mustard.rawtree.Cache()
@@ -51,11 +53,24 @@ class App(cliapp.Application):
         self.content = {}
         self.uml = {}
 
+        # load available authentication mechanisms
+        self.auth_mechanisms = {}
+        from mustard import auth
+        auth_path = os.path.dirname(auth.__file__)
+        for module_loader, name, _ in pkgutil.iter_modules([auth_path]):
+            try:
+                self.auth_mechanisms[name] = \
+                    module_loader.find_module(name).load_module(name)
+            except ImportError:
+                pass
+
     def add_settings(self):
         self.settings.string(['auth'],
                              'Authentication mechanism '
-                             '(none, git, codethink; default: %s)' %
-                             defaults['auth'],
+                             '(%s; default: %s)' % (
+                                 ', '.join(self.auth_mechanisms.iterkeys()),
+                                 defaults['auth'],
+                                 ),
                              metavar='MECHANISM',
                              default=defaults['auth'])
         self.settings.string(['auth-server'],
@@ -175,18 +190,14 @@ class App(cliapp.Application):
             self, self.settings['project'])
         self.state_cache = mustard.state.Cache(self, self.repository)
 
-        if self.settings['auth'] == 'git':
-            self.auth = mustard.gitauth.Authenticator(
-                self, self.settings, self.repository)
-        elif self.settings['auth'] == 'codethink':
-            self.auth = mustard.codethinkauth.Authenticator(
-                self, self.settings)
-        elif self.settings['auth'] == 'none':
-            self.auth = mustard.noauth.Authenticator(
-                self, self.settings)
-        else:
+        if not self.settings['auth'] in self.auth_mechanisms:
             raise cliapp.AppException(
-                'Unsupported auth mechanism "%s"' % self.settings['auth'])
+                'Unsupported authentication mechanism: %s' %
+                self.settings['auth'])
+
+        auth_module = self.auth_mechanisms[self.settings['auth']]
+        self.auth = auth_module.Authenticator(
+                self, self.settings, self.repository)
 
         @route('/')
         @self.auth.protected

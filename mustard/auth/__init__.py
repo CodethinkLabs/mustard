@@ -14,13 +14,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import mustard
-
-
-class Authenticator(mustard.auth.Authenticator):
-
-    def __init__(self, app, settings):
-        mustard.auth.Authenticator.__init__(self, app, settings)
-
-    def check_auth(self, username, password):
-        return True
+try:
+    import codethink
+except ImportError:
+    pass
+import git

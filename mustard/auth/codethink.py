@@ -14,21 +14,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-try:
-    import ctauth
-except:
-    import sys
-    sys.stderr.write('Warning: Failed to import python-ctauth.\n'
-                     'The "codethink" authentication mechanism will '
-                     'not be available\n')
+import ctauth
 
 import mustard
 
 
-class Authenticator(mustard.auth.Authenticator):
+class Authenticator(mustard.authenticator.Authenticator):
 
-    def __init__(self, app, settings):
-        mustard.auth.Authenticator.__init__(self, app, settings)
+    def __init__(self, app, settings, repository):
+        mustard.authenticator.Authenticator.__init__(
+            self, app, settings, repository)
 
     def check_auth(self, username, password):
         user = ctauth.user.User(username, password)

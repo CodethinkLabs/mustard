@@ -16,11 +16,8 @@
 
 '''The Mustard library.'''
 
-import auth
-import codethinkauth
-import gitauth
-import noauth
 
+import authenticator
 import elementfactory
 import sorting
 import component
@@ -37,6 +34,8 @@ import rawtree
 import repository
 import state
 import util
+
+import auth
 
 
 class MustardError(Exception):

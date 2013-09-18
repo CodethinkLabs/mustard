@@ -14,30 +14,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import yaml
-import StringIO
-
 import mustard
 
 
-class Authenticator(mustard.auth.Authenticator):
+class Authenticator(mustard.authenticator.Authenticator):
 
     def __init__(self, app, settings, repository):
-        mustard.auth.Authenticator.__init__(self, app, settings)
-        self.repository = repository
+        mustard.authenticator.Authenticator.__init__(
+            self, app, settings, repository)
 
     def check_auth(self, username, password):
-        try:
-            data = self.repository.cat_file('admin', 'acl.yaml')
-        except KeyError:
-            return False
-        io = StringIO.StringIO(data)
-        acl = yaml.load(io)
-
-        if 'users' in acl:
-            if username in acl['users'] and acl['users'][username] == password:
-                return True
-            else:
-                return False
-        else:
-            return False
+        return True

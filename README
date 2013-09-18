@@ -364,14 +364,10 @@ In order to use Mustard, you'll need the following components:
   * python-bottle
   * pygit2 (and libgit2)
   * cliapp
-  * python-ctauth (optional)
 
 Most of the dependencies should be available in your distro, apart from
 libgit2 and pygit2. The section below explains how to install these two
 easily.
-
-Also, python-ctauth is a Codethink-specific authentication library that
-is needed if you want to use the "codethink" authentication mechanism.
 
 
 Installing pygit2
