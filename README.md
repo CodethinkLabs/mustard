@@ -5,20 +5,19 @@ This is the official repository for the development of Mustard,
 the Mapped Uniform System for Tracking Architecture, Requirements
 and Design.
 
-Contents:
+Contents
+--------
 
-  1. Mustard data format
-  2. Installing Mustard
-  3. Deploying Mustard Using Apache2
-  4. Hacking Mustard
-  5. Contributing
-  6. Copyright & License
-
+1. Mustard data format
+2. Installing Mustard
+3. Deploying Mustard Using Apache2
+4. Hacking Mustard
+5. Contributing
+6. Copyright & License
 
 
 1. Mustard data format
 ----------------------
-
 
 ### General concepts
 
@@ -57,7 +56,6 @@ from requirements all the way down to work items and back.
 
 How the YAML files are organised in the repository tree is up to the
 architects. The element paths are specified as follows:
-
 
 ### Element identifiers
 
@@ -141,13 +139,11 @@ The above results in two elements with the identifiers
 `requirements/system/software/webapp` and
 `requirements/system/software/webapp/heroku`.
 
-
 ### Uniqueness
 
 NOTE: Mustard requires that all identifiers in the project be unique.
 It will raise an error whenever there are duplicates in the system and
 will try to help you resolve them.
-
 
 ### Supported elements and keys
 
@@ -344,10 +340,8 @@ Tags (kind: tag, t)
       The architect needs to think here, it's not ready.
 
 
-
 2. Installing Mustard
 ---------------------
-
 
 ### Dependencies
 
@@ -363,7 +357,6 @@ In order to use Mustard, you'll need the following components:
 Most of the dependencies should be available in your distro, apart from
 libgit2 and pygit2. The section below explains how to install these two
 easily.
-
 
 ### Installing pygit2
 
@@ -397,7 +390,6 @@ To build libgit2 statically and pygit2 with that, do the following:
 This will install pygit2 into $HOME/.local -- obviously you can tweak the
 `setup.py` invocations if you wish to alter where it installs to.
 
-
 ### Installing Mustard itself
 
 Mustard cannot currently be installed into the system. It can, however,
@@ -410,7 +402,6 @@ The usual way to run it is to clone the source code repository
 somehwere and then integrate it with Apache or any WSGI-compatible
 web server. See the following section for more details on how to
 deploy Mustard using Apache.
-
 
 
 3. Deploying Mustard using Apache2
@@ -449,7 +440,6 @@ located in `/var/www/someserver.com`. The source tree with
 `adapter.wsgi` may also be located somewhere outside `DocumentRoot`.
 
 
-
 4. Hacking Mustard
 ------------------
 
@@ -468,7 +458,6 @@ You will need to install cliapp to use the commandline tooling.
 See http://liw.fi/cliapp/.
 
 
-
 5. Contributing
 ---------------
 
@@ -479,7 +468,6 @@ place within the Codethink Labs project on GitHub:
 
 Anyone interested in improving Mustard is welcome to clone the project
 repository and send pull requests.
-
 
 
 6. Copyright & License
