@@ -13,7 +13,7 @@ Contents
 3. Deploying Mustard Using Apache2
 4. Hacking Mustard
 5. Contributing
-6. Copyright & License
+6. Copyright and License
 
 
 1. Mustard data format
