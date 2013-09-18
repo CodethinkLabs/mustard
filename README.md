@@ -479,10 +479,10 @@ See http://liw.fi/cliapp/.
 5. Contributing
 ===============
 
-The development of Mustard takes place within the CodethinkLtd project
-on GitHub:
+Mustard is a Codethink Labs project. As such, its development takes
+place within the Codethink Labs project on GitHub:
 
-  http://github.com/CodethinkLtd/mustard
+  http://github.com/CodethinkLabs/mustard
 
 Anyone interested in improving Mustard is welcome to clone the project
 repository and send pull requests.
