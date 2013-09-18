@@ -14,7 +14,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import ctauth
+try:
+    import ctauth
+except:
+    import sys
+    sys.stderr.write('Warning: Failed to import python-ctauth.\n'
+                     'The "codethink" authentication mechanism will '
+                     'not be available\n')
 
 import mustard
 
