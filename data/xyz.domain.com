@@ -28,7 +28,7 @@
 
     <Directory /home/mustard/mustard>
       SetEnv MUSTARD_CONFIG_FILE /home/mustard/.mustard.conf
-      SetEnv MUSTARD_AUTH codethink
+      SetEnv MUSTARD_AUTH {{AUTH METHOD}}
       SetEnv MUSTARD_AUTH_SERVER {{AUTH SERVER}}
       SetEnv MUSTARD_PROJECT_CODE {{PROJECT CODE}}
       SetEnv MUSTARD_SERVER_PATH /home/mustard/mustard/
