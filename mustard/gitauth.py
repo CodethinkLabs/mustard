@@ -29,7 +29,7 @@ class Authenticator(mustard.auth.Authenticator):
     def check_auth(self, username, password):
         try:
             data = self.repository.cat_file('admin', 'acl.yaml')
-        except KeyError, err:
+        except KeyError:
             return False
         io = StringIO.StringIO(data)
         acl = yaml.load(io)

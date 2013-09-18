@@ -128,8 +128,8 @@ class App(cliapp.Application):
                 raise cliapp.AppException('Need two different states')
 
             if state1.identifier == 'UNCOMMITTED':
-                raw_tree1 = mustard.rawtree.Tree(state)
-                element_tree1 = mustard.elementtree.Tree(raw_tree)
+                raw_tree1 = mustard.rawtree.Tree(state1)
+                element_tree1 = mustard.elementtree.Tree(raw_tree1)
                 element_tree2 = self.element_tree_cache.get(state2)
 
                 return bottle.template(
@@ -220,18 +220,18 @@ class App(cliapp.Application):
         # only exists for backwards-compatibility, /architecture is the new way
         @route('/<stateid>/architectures')
         @self.auth.protected
-        def components(stateid):
+        def old_architectures(stateid):
             return self.render_repository(stateid, 'components')
 
         # only exists for backwards-compatibility, /architecture is the new way
         @route('/<stateid>/components')
         @self.auth.protected
-        def components(stateid):
+        def old_components(stateid):
             return self.render_repository(stateid, 'components')
 
         @route('/<stateid>/architecture')
         @self.auth.protected
-        def components(stateid):
+        def architecture(stateid):
             return self.render_repository(stateid, 'components')
 
         @route('/<stateid>/tags')
@@ -271,7 +271,7 @@ class App(cliapp.Application):
 
         @route('/<state1>/diff/<state2>')
         @self.auth.protected
-        def diff(state1, state2):
+        def diff_states(state1, state2):
             return self.render_diff(state1, state2, 'diff')
 
         @route('/<stateid>/export')
@@ -281,7 +281,7 @@ class App(cliapp.Application):
 
         @route('/<stateid>/export', method='POST')
         @self.auth.protected
-        def export(stateid):
+        def perform_export(stateid):
             return self.render_export(
                 stateid, 'export-html', bottle.request.forms)
 

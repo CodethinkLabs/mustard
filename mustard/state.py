@@ -173,5 +173,5 @@ class Cache(object):
                         self.app, self, self.repository, ref, sha1)
                 print '%s now cached' % sha1
                 return self.states[key]
-            except cliapp.AppException, err:
+            except cliapp.AppException:
                 raise InvalidStateError(ref)

@@ -15,8 +15,8 @@
 
 
 import cliapp
-import pprint
 import StringIO
+import yaml
 
 from mustard.util import load_yaml
 

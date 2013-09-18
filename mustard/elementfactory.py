@@ -18,7 +18,6 @@ import cliapp
 import collections
 import markdown
 from markdown.treeprocessors import Treeprocessor
-import urllib
 import base64
 import zlib
 

@@ -14,10 +14,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import cliapp
 import os
 import os.path
-import yaml
 
 import mustard
 
@@ -39,7 +37,7 @@ class Tree(object):
 
     def _load_node(self, path, node):
         if 'kind' in node:
-            element = self._load_element(path, node)
+            self._load_element(path, node)
 
         children = [(x, y) for x, y in node.iteritems()
                     if isinstance(y, dict)]
@@ -52,7 +50,6 @@ class Tree(object):
         element.tree = self
         element.name = path
         self.elements[path] = element
-        return element
 
     def _resolve_project(self):
         projects = [(x, y) for x, y in self.find_all(kind='project')]
