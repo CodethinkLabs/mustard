@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>{{tree.project.title or 'Unnamed MUSTARD Project'}}</title>
+    <title>{{tree.project.title or 'Unnamed Mustard Project'}}</title>
     <link rel="shortcut icon" type="image/x-icon" href="/public/favicon.ico"/>
     <style type="text/css" media="projection,screen,tv">
       hr {
@@ -16,7 +16,7 @@
   <body>
     <div id="body">
       <div id="title">
-        <h1><a href="/{{tree.state.identifier}}">{{tree.project.title or 'Unnamed MUSTARD Project'}}</a></h1>
+        <h1><a href="/{{tree.state.identifier}}">{{tree.project.title or 'Unnamed Mustard Project'}}</a></h1>
         <p>{{!tree.project.description}}</p>
       </div>
       <div id="nav">

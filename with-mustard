@@ -70,7 +70,7 @@ def showall(elts):
 namespace = globals().copy()
 namespace.update(locals())
 code.InteractiveConsole(namespace).interact("""
-The variable `elt' is the MUSTARD element tree.
+The variable `elt' is the Mustard element tree.
 
 Useful listish operations include 'fst' which given a list of tuples, returns a
 list of the first element of the tuples, and 'snd' which does the same with the

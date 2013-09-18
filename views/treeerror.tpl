@@ -1,2 +1,2 @@
-<h1>Error loading MUSTARD data tree:</h1>
+<h1>Error loading Mustard data tree:</h1>
 <pre>{{str(error)}}</pre>

@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-'''MUSTARD library.'''
+'''The Mustard library.'''
 
 import auth
 import codethinkauth

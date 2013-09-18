@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>{{tree.project.title or 'Unnamed MUSTARD Project'}}</title>
+    <title>{{tree.project.title or 'Unnamed Mustard Project'}}</title>
     <link rel="stylesheet" type="text/css" href="/public/style.css"/>
     <link rel="shortcut icon" type="image/x-icon" href="/public/favicon.ico"/>
     <script type="text/javascript" src="/public/jquery-1.8.2.min.js"></script>
@@ -10,7 +10,7 @@
   <body>
     <div id="body">
       <h1 id="title">
-        <a href="/{{tree.state.identifier}}">{{tree.project.title or 'Unnamed MUSTARD Project'}}</a>
+        <a href="/{{tree.state.identifier}}">{{tree.project.title or 'Unnamed Mustard Project'}}</a>
         <form>
           <select id="state">
             % for tag, identifier in tree.state.repository.tags():

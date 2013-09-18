@@ -2,7 +2,7 @@
 % if tree.project.description:
   {{!tree.project.description}}
 % else:
-  <p>Welcome to your new MUSTARD project. MUSTARD stands for</p>
+  <p>Welcome to your new Mustard project. Mustard stands for</p>
   <ul>
     <li><strong>M</strong>apped</li>
     <li><strong>U</strong>nified</li>

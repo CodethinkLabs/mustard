@@ -25,7 +25,7 @@ import zlib
 import mustard
 
 kind_aliases = {
-    # Aliases to reduce wrist-strain for MUSTARDy people
+    # Aliases to reduce wrist-strain for Mustardy people
     'r':      'requirement',
     'req':    'requirement',
     'a':      'component',
