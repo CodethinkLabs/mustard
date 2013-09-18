@@ -8,15 +8,38 @@ and Design.
 Contents
 --------
 
-1. Mustard data format
-2. Installing Mustard
-3. Deploying Mustard Using Apache2
-4. Hacking Mustard
-5. Contributing
-6. Copyright and License
+1. Screenshots
+2. Mustard data format
+3. Installing Mustard
+4. Deploying Mustard Using Apache2
+5. Hacking Mustard
+6. Contributing
+7. Copyright and License
 
 
-1. Mustard data format
+1. Screenshots
+--------------
+
+### Requirements
+
+![Requirements](https://github.com/CodethinkLabs/mustard/raw/master/data/screenshots/requirements.png "Requirements")
+
+### Architecture
+
+![Architecture](https://github.com/CodethinkLabs/mustard/raw/master/data/screenshots/architecture.png "Architecture")
+
+### Work items
+
+![Work Items](https://github.com/CodethinkLabs/mustard/raw/master/data/screenshots/work-items.png "Work Items")
+
+### History
+
+![History](https://github.com/CodethinkLabs/mustard/raw/master/data/screenshots/history.png "History")
+
+![Diffs](https://github.com/CodethinkLabs/mustard/raw/master/data/screenshots/diffs.png "Diffs")
+
+
+2. Mustard data format
 ----------------------
 
 ### General concepts
@@ -340,7 +363,7 @@ Tags (kind: tag, t)
       The architect needs to think here, it's not ready.
 
 
-2. Installing Mustard
+3. Installing Mustard
 ---------------------
 
 ### Dependencies
@@ -404,7 +427,7 @@ web server. See the following section for more details on how to
 deploy Mustard using Apache.
 
 
-3. Deploying Mustard using Apache2
+4. Deploying Mustard using Apache2
 ----------------------------------
 
 Mustard can be set up as an Apache site easily using mod_wsgi. It ships
@@ -440,7 +463,7 @@ located in `/var/www/someserver.com`. The source tree with
 `adapter.wsgi` may also be located somewhere outside `DocumentRoot`.
 
 
-4. Hacking Mustard
+5. Hacking Mustard
 ------------------
 
 To hack on mustard and have your changed immediately testable in a web
@@ -458,7 +481,7 @@ You will need to install cliapp to use the commandline tooling.
 See http://liw.fi/cliapp/.
 
 
-5. Contributing
+6. Contributing
 ---------------
 
 Mustard is a Codethink Labs project. As such, its development takes
@@ -470,7 +493,7 @@ Anyone interested in improving Mustard is welcome to clone the project
 repository and send pull requests.
 
 
-6. Copyright & License
+7. Copyright & License
 ----------------------
 
 Copyright (C) 2012-2013 Codethink Ltd.
