@@ -28,7 +28,7 @@ import mustard
 
 
 defaults = {
-    'auth': 'git',
+    'auth': 'none',
     'port': 8080,
     'plantuml-jar': '/usr/local/share/plantuml.jar',
     'reload': False,
@@ -54,7 +54,7 @@ class App(cliapp.Application):
     def add_settings(self):
         self.settings.string(['auth'],
                              'Authentication mechanism '
-                             '(git, codethink; default: %s)' %
+                             '(none, git, codethink; default: %s)' %
                              defaults['auth'],
                              metavar='MECHANISM',
                              default=defaults['auth'])
