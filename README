@@ -10,7 +10,9 @@ Contents:
   1. Mustard data format
   2. Installing Mustard
   3. Deploying Mustard Using Apache2
-  4. Copyright
+  4. Hacking Mustard
+  5. Contributing
+  6. Copyright & License
 
 
 
@@ -357,7 +359,7 @@ Work Items (kind: work-item, work, w):
 
 Tags (kind: tag, t)
 
-  Used to provide generic tagging of other nodes in the MUSTARD.
+  Used to provide generic tagging of other nodes in the Mustard.
 
   Supported keys:
 
@@ -380,7 +382,7 @@ Tags (kind: tag, t)
 Dependencies
 ------------
 
-In order to use MUSTARD, you'll need the following components:
+In order to use Mustard, you'll need the following components:
 
   * Python >= 2.6
   * PyYAML
@@ -494,7 +496,28 @@ See http://liw.fi/cliapp/.
 
 
 
-4. Copyright
-============
+5. Contributing
+===============
 
-Copyright (C) 2012 Codethink Ltd.
+The development of Mustard takes place within the CodethinkLtd project
+on GitHub:
+
+  http://github.com/CodethinkLtd/mustard
+
+Anyone interested in improving Mustard is welcome to clone the project
+repository and send pull requests.
+
+
+
+6. Copyright & License
+======================
+
+Copyright (C) 2012-2013 Codethink Ltd.
+
+Mustard is licensed under the GNU Affero General Public License
+Version 3, (AGPLv3). The full text of the license can be found
+in the COPYING file distributed along with this README.
+
+Mustard ships a copy of jQuery in views/public/, which is licensed
+under the MIT license (see COPYING.jquery for more information about
+the license).
