@@ -1,3 +1,4 @@
+% this_path = path
 <hr />
 <div class="element">
   % if level < 7:
@@ -179,7 +180,7 @@
   % end
 
   % if forms.get('%s[path]' % element.kind):
-    <p>Path: <code>{{path}}</code></p>
+    <p>Path: <code>{{this_path}}</code></p>
   % end
 
   % index = index + [1]
