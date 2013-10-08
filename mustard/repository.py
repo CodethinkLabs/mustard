@@ -63,7 +63,10 @@ class Repository(object):
             commit2 = self.commit(ref2)
             tree1 = commit1.tree
             tree2 = commit2.tree
-            return tree1.diff(tree2).patch
+            try:
+                return tree1.diff(tree2).patch
+            except AttributeError:
+                return tree1.diff_to_tree(tree2).patch
         else:
             try:
                 return self.repo.head.tree.diff().patch
