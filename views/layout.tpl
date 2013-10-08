@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>{{tree.project.title or 'Unnamed Mustard Project'}}</title>
-    <link rel="stylesheet" type="text/css" href="/public/style.css"/>
-    <link rel="shortcut icon" type="image/x-icon" href="/public/favicon.ico"/>
-    <script type="text/javascript" src="/public/jquery-1.8.2.min.js"></script>
-    <script type="text/javascript" src="/public/effects.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{tree.state.app.base_url}}/public/style.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="{{tree.state.app.base_url}}/public/favicon.ico"/>
+    <script type="text/javascript" src="{{tree.state.app.base_url}}/public/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="{{tree.state.app.base_url}}/public/effects.js"></script>
   </head>
   <body>
     <div id="body">
