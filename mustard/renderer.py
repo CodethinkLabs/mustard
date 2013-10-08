@@ -207,111 +207,111 @@ class App(cliapp.Application):
         base_url = self.settings['base-url']
         self.base_url = base_url
 
-        @route(base_url + '/')
+        @route('/')
         @self.auth.protected
         def index():
             return bottle.redirect(self.base_url + '/HEAD')
 
-        @route(base_url + '/favicon.ico')
+        @route('/favicon.ico')
         def favicon():
             return None
 
-        @route(base_url + '/<stateid>')
+        @route('/<stateid>')
         @self.auth.protected
         def state_redirect(stateid):
             return bottle.redirect(self.base_url + '/%s/' % stateid)
 
-        @route(base_url + '/<stateid>/')
+        @route('/<stateid>/')
         @self.auth.protected
         def state_index(stateid):
             return self.render_repository(stateid, 'index')
 
-        @route(base_url + '/<stateid>/overview')
+        @route('/<stateid>/overview')
         @self.auth.protected
         def overview(stateid):
             return self.render_repository(stateid, 'overview')
 
-        @route(base_url + '/<stateid>/requirements')
+        @route('/<stateid>/requirements')
         @self.auth.protected
         def requirements(stateid):
             return self.render_repository(stateid, 'requirements')
 
         # only exists for backwards-compatibility, /architecture is the new way
-        @route(base_url + '/<stateid>/architectures')
+        @route('/<stateid>/architectures')
         @self.auth.protected
         def old_architectures(stateid):
             return self.render_repository(stateid, 'components')
 
         # only exists for backwards-compatibility, /architecture is the new way
-        @route(base_url + '/<stateid>/components')
+        @route('/<stateid>/components')
         @self.auth.protected
         def old_components(stateid):
             return self.render_repository(stateid, 'components')
 
-        @route(base_url + '/<stateid>/architecture')
+        @route('/<stateid>/architecture')
         @self.auth.protected
         def architecture(stateid):
             return self.render_repository(stateid, 'components')
 
-        @route(base_url + '/<stateid>/tags')
+        @route('/<stateid>/tags')
         @self.auth.protected
         def tags(stateid):
             return self.render_repository(stateid, 'tags')
 
-        @route(base_url + '/<stateid>/work-items')
+        @route('/<stateid>/work-items')
         @self.auth.protected
         def work_items(stateid):
             return self.render_repository(stateid, 'work-items')
 
-        @route(base_url + '/<stateid>/interfaces')
+        @route('/<stateid>/interfaces')
         @self.auth.protected
         def interfaces(stateid):
             return self.render_repository(stateid, 'interfaces')
 
-        @route(base_url + '/<stateid>/integration-strategies')
+        @route('/<stateid>/integration-strategies')
         @self.auth.protected
         def integration_strategies(stateid):
             return self.render_repository(stateid, 'integration-strategies')
 
-        @route(base_url + '/<stateid>/verification-criteria')
+        @route('/<stateid>/verification-criteria')
         @self.auth.protected
         def verification_criteria(stateid):
             return self.render_repository(stateid, 'verification-criteria')
 
-        @route(base_url + '/<stateid>/history')
+        @route('/<stateid>/history')
         @self.auth.protected
         def history(stateid):
             return self.render_repository(stateid, 'history')
 
-        @route(base_url + '/<stateid>/diff')
+        @route('/<stateid>/diff')
         @self.auth.protected
         def diff(stateid):
             return self.render_repository(stateid, 'diff')
 
-        @route(base_url + '/<state1>/diff/<state2>')
+        @route('/<state1>/diff/<state2>')
         @self.auth.protected
         def diff_states(state1, state2):
             return self.render_diff(state1, state2, 'diff')
 
-        @route(base_url + '/<stateid>/export')
+        @route('/<stateid>/export')
         @self.auth.protected
         def export(stateid):
             return self.render_export(stateid, 'export')
 
-        @route(base_url + '/<stateid>/export', method='POST')
+        @route('/<stateid>/export', method='POST')
         @self.auth.protected
         def perform_export(stateid):
             return self.render_export(
                 stateid, 'export-html', bottle.request.forms)
 
-        @route(base_url + '/public/<filename>')
+        @route('/public/<filename>')
         @self.auth.protected
         def public(filename):
             public_dir = os.path.join(os.path.dirname(__file__),
                                       '..', 'views', 'public')
             return bottle.static_file(filename, root=public_dir)
 
-        @route(base_url + '/<stateid>/files/<filename:re:.*>')
+        @route('/<stateid>/files/<filename:re:.*>')
         @self.auth.protected
         def file(stateid, filename):
             if stateid == 'admin':
@@ -334,7 +334,7 @@ class App(cliapp.Application):
                 bottle.response.status = 404
                 return bottle.template('error', error=err)
 
-        @route(base_url + '/plantuml/<content:re:.*>')
+        @route('/plantuml/<content:re:.*>')
         @self.auth.protected
         def plantuml(content):
             if not content in self.uml:
@@ -347,7 +347,10 @@ class App(cliapp.Application):
             return self.uml[content]
 
         if self.settings['run-bottle']:
-            bottle.run(host='0.0.0.0',
+            root = bottle.Bottle()
+            root.mount(self.base_url, bottle.app())
+            bottle.run(app=root,
+                       host='0.0.0.0',
                        port=self.settings['port'],
                        server=self.settings['server'],
                        reloader=self.settings['reload'])
