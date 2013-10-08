@@ -14,14 +14,14 @@
         <form>
           <select id="state">
             % for tag, identifier in tree.state.repository.tags():
-              <option{{!' selected="selected" class="active"' if tree.state.identifier == identifier else ''}} value="/{{identifier}}">{{tag.replace('refs/tags/', 'T ')}}</option>
+              <option{{!' selected="selected" class="active"' if tree.state.identifier == identifier else ''}} value="{{tree.state.app.base_url}}/{{identifier}}">{{tag.replace('refs/tags/', 'T ')}}</option>
             % end
             % for branch, identifier in tree.state.repository.branches():
-              <option{{!' selected="selected" class="active"' if tree.state.identifier == identifier else ''}} value="/{{identifier}}">{{branch.replace('refs/heads/', 'B ')}}</option>
+              <option{{!' selected="selected" class="active"' if tree.state.identifier == identifier else ''}} value="{{tree.state.app.base_url}}/{{identifier}}">{{branch.replace('refs/heads/', 'B ')}}</option>
             % end
-            <option{{!' selected="selected" class="active"' if tree.state.identifier == 'HEAD' else ''}} value="/HEAD">&gt; HEAD</option>
+            <option{{!' selected="selected" class="active"' if tree.state.identifier == 'HEAD' else ''}} value="{{tree.state.app.base_url}}/HEAD">&gt; HEAD</option>
             % if not tree.state.repository.is_bare():
-              <option{{!' selected="selected" class="active"' if tree.state.identifier == 'UNCOMMITTED' else ''}} value="/UNCOMMITTED">&gt; UNCOMMITTED</option>
+              <option{{!' selected="selected" class="active"' if tree.state.identifier == 'UNCOMMITTED' else ''}} value="{{tree.state.app.base_url}}/UNCOMMITTED">&gt; UNCOMMITTED</option>
             % end
           </select>
         </form>
