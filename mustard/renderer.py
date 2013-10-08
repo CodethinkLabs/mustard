@@ -354,3 +354,4 @@ class App(cliapp.Application):
                        port=self.settings['port'],
                        server=self.settings['server'],
                        reloader=self.settings['reload'])
+            return root
