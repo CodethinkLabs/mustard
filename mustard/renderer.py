@@ -346,12 +346,12 @@ class App(cliapp.Application):
             bottle.response.content_type = 'image/png'
             return self.uml[content]
 
+        root = bottle.Bottle()
+        root.mount(self.base_url, bottle.app())
         if self.settings['run-bottle']:
-            root = bottle.Bottle()
-            root.mount(self.base_url, bottle.app())
             bottle.run(app=root,
                        host='0.0.0.0',
                        port=self.settings['port'],
                        server=self.settings['server'],
                        reloader=self.settings['reload'])
-            return root
+        return root
