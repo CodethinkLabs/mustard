@@ -1,6 +1,6 @@
 % if detail == 'list':
   % if criterion:
-    <a class="verificationcriterion" href="/{{criterion.tree.state.url}}/verification-criteria#{{path}}">{{criterion.title}} <span>{{path}}</span></a>
+    <a class="verificationcriterion" href="{{criterion.tree.state.url}}/verification-criteria#{{path}}">{{criterion.title}} <span>{{path}}</span></a>
   % else:
     % include pathnotfound path=path, detail=detail
   % end

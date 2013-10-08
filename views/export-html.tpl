@@ -16,7 +16,7 @@
   <body>
     <div id="body">
       <div id="title">
-        <h1><a href="/{{tree.state.url}}">{{tree.project.title or 'Unnamed Mustard Project'}}</a></h1>
+        <h1><a href="{{tree.state.url}}">{{tree.project.title or 'Unnamed Mustard Project'}}</a></h1>
         <p>{{!tree.project.description}}</p>
       </div>
       <div id="nav">

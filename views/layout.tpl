@@ -10,7 +10,7 @@
   <body>
     <div id="body">
       <h1 id="title">
-        <a href="/{{tree.state.url}}">{{tree.project.title or 'Unnamed Mustard Project'}}</a>
+        <a href="{{tree.state.url}}">{{tree.project.title or 'Unnamed Mustard Project'}}</a>
         <form>
           <select id="state">
             % for tag, identifier in tree.state.repository.tags():
@@ -28,19 +28,19 @@
       </h1>
       <div id="nav">
         <ul>
-          <li><a href="/{{tree.state.url}}/requirements">Requirements</a></li>
-          <li><a href="/{{tree.state.url}}/architecture">Architecture</a></li>
-          <li><a href="/{{tree.state.url}}/interfaces">Interfaces</a></li>
-          <li><a href="/{{tree.state.url}}/work-items">Work Items</a></li>
-          <li><a href="/{{tree.state.url}}/tags">Tags</a></li>
+          <li><a href="{{tree.state.url}}/requirements">Requirements</a></li>
+          <li><a href="{{tree.state.url}}/architecture">Architecture</a></li>
+          <li><a href="{{tree.state.url}}/interfaces">Interfaces</a></li>
+          <li><a href="{{tree.state.url}}/work-items">Work Items</a></li>
+          <li><a href="{{tree.state.url}}/tags">Tags</a></li>
           <li id="nav-more">
             <a>More...</a>
             <ul>
-              <li><a href="/{{tree.state.url}}/overview">Overview</a></li>
-              <li><a href="/{{tree.state.url}}/integration-strategies">Integration Strategies</a></li>
-              <li><a href="/{{tree.state.url}}/verification-criteria">Verification Criteria</a></li>
-              <li><a href="/{{tree.state.url}}/history">History</a></li>
-              <li><a href="/{{tree.state.url}}/export">Export</a></li>
+              <li><a href="{{tree.state.url}}/overview">Overview</a></li>
+              <li><a href="{{tree.state.url}}/integration-strategies">Integration Strategies</a></li>
+              <li><a href="{{tree.state.url}}/verification-criteria">Verification Criteria</a></li>
+              <li><a href="{{tree.state.url}}/history">History</a></li>
+              <li><a href="{{tree.state.url}}/export">Export</a></li>
             </ul>
           </li>
         </ul>

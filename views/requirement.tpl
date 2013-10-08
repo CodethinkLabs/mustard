@@ -1,6 +1,6 @@
 % if detail == 'list':
   % if requirement:
-    <a class="requirement" href="/{{requirement.tree.state.url}}/requirements#{{path}}">
+    <a class="requirement" href="{{requirement.tree.state.url}}/requirements#{{path}}">
       {{!'<span class="error">☐</span>' if not [x for x in requirement.mapped_to.itervalues() if x.kind == 'component'] else '☑'}} {{requirement.title}} <span>{{path}}</span>
     </a>
   % else:

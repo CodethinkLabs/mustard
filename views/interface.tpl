@@ -1,6 +1,6 @@
 % if detail == 'list':
   % if interface:
-    <a class="interface" href="/{{interface.tree.state.url}}/interfaces#{{path}}">{{interface.title}} <span>{{path}}</span></a>
+    <a class="interface" href="{{interface.tree.state.url}}/interfaces#{{path}}">{{interface.title}} <span>{{path}}</span></a>
   % else:
     % include pathnotfound path=path, detail=detail
   % end

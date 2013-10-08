@@ -40,7 +40,7 @@ def application(environ, start_response):
         os.chdir(os.path.dirname(__file__))
 
         import mustard
-        app = mustard.renderer.App().run([
+        mustard.renderer.App().run([
             '-p', project_path,
             '-j', plantuml_jar,
             '-s', 'cherrypy',
@@ -50,5 +50,7 @@ def application(environ, start_response):
             '--config', config_file,
             '--project-code', project_code,
             ])
+
+        app = bottle.default_app()
 
     return app(environ, start_response)
