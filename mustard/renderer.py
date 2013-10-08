@@ -30,6 +30,7 @@ import mustard
 
 defaults = {
     'auth': 'none',
+    'base-url': '',
     'port': 8080,
     'plantuml-jar': '/usr/local/share/plantuml.jar',
     'reload': False,
@@ -82,6 +83,10 @@ class App(cliapp.Application):
         self.settings.string(['auth-password'],
                              'Authentication lookup password (optional)',
                              metavar='PASSWORD')
+        self.settings.string(['base-url'],
+                             'Base URL to the Mustard service (optional)',
+                             metavar='URL',
+                             default=defaults['base-url'])
         self.settings.integer(['port'],
                               'Port to listen on',
                               metavar='PORTNUM',
@@ -199,10 +204,13 @@ class App(cliapp.Application):
         self.auth = auth_module.Authenticator(
                 self, self.settings, self.repository)
 
+        base_url = self.settings['base-url']
+        self.base_url = base_url
+
         @route('/')
         @self.auth.protected
         def index():
-            return bottle.redirect('/HEAD')
+            return bottle.redirect(self.base_url + '/HEAD')
 
         @route('/favicon.ico')
         def favicon():
@@ -211,7 +219,7 @@ class App(cliapp.Application):
         @route('/<stateid>')
         @self.auth.protected
         def state_redirect(stateid):
-            return bottle.redirect('/%s/' % stateid)
+            return bottle.redirect(self.base_url + '/%s/' % stateid)
 
         @route('/<stateid>/')
         @self.auth.protected
