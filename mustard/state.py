@@ -60,6 +60,7 @@ class UncommittedState(State):
         self.sha1 = 'UNCOMMITTED'
         self.title = 'UNCOMMITTED'
         self.diff = self.repository.diff(None)
+        self.url = os.path.join(app.base_url, self.identifier)
 
     def filenames(self):
         return self._list_files()
@@ -96,6 +97,7 @@ class CommittedState(State):
 
         self.identifier = ref
         self.sha1 = sha1
+        self.url = os.path.join(app.base_url, self.identifier)
 
         commit = self.repository.commit(self.sha1)
 

@@ -1,6 +1,6 @@
 % if detail == 'list':
   % if item:
-    <a class="workitem" href="/{{item.tree.state.identifier}}/work-items#{{path}}">
+    <a class="workitem" href="/{{item.tree.state.url}}/work-items#{{path}}">
       {{item.title}} <span>{{path}}</span>
     </a>
   % else:

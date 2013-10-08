@@ -1,6 +1,6 @@
 % if detail == 'list':
   % if strategy:
-    <a class="strategy" href="/{{strategy.tree.state.identifier}}/integration-strategies#{{path}}">
+    <a class="strategy" href="/{{strategy.tree.state.url}}/integration-strategies#{{path}}">
       {{!'<span class="error">☐</span>' if not strategy.verificationcriteria else '☑'}} {{strategy.title}} <span>{{path}}</span>
     </a>
   % else:

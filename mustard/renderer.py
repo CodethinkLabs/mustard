@@ -30,6 +30,7 @@ import mustard
 
 defaults = {
     'auth': 'none',
+    'base-url': '',
     'port': 8080,
     'plantuml-jar': '/usr/local/share/plantuml.jar',
     'reload': False,
@@ -82,6 +83,10 @@ class App(cliapp.Application):
         self.settings.string(['auth-password'],
                              'Authentication lookup password (optional)',
                              metavar='PASSWORD')
+        self.settings.string(['base-url'],
+                             'Base URL to the Mustard service (optional)',
+                             metavar='URL',
+                             default=defaults['base-url'])
         self.settings.integer(['port'],
                               'Port to listen on',
                               metavar='PORTNUM',
@@ -199,111 +204,114 @@ class App(cliapp.Application):
         self.auth = auth_module.Authenticator(
                 self, self.settings, self.repository)
 
-        @route('/')
+        base_url = self.settings['base-url']
+        self.base_url = base_url
+
+        @route(base_url + '/')
         @self.auth.protected
         def index():
-            return bottle.redirect('/HEAD')
+            return bottle.redirect(self.base_url + '/HEAD')
 
-        @route('/favicon.ico')
+        @route(base_url + '/favicon.ico')
         def favicon():
             return None
 
-        @route('/<stateid>')
+        @route(base_url + '/<stateid>')
         @self.auth.protected
-        def state_redirect(stateid):
-            return bottle.redirect('/%s/' % stateid)
+        def state_redirect(self.base_url + stateid):
+            return bottle.redirect(self.base_url + '/%s/' % stateid)
 
-        @route('/<stateid>/')
+        @route(base_url + '/<stateid>/')
         @self.auth.protected
         def state_index(stateid):
             return self.render_repository(stateid, 'index')
 
-        @route('/<stateid>/overview')
+        @route(base_url + '/<stateid>/overview')
         @self.auth.protected
         def overview(stateid):
             return self.render_repository(stateid, 'overview')
 
-        @route('/<stateid>/requirements')
+        @route(base_url + '/<stateid>/requirements')
         @self.auth.protected
         def requirements(stateid):
             return self.render_repository(stateid, 'requirements')
 
         # only exists for backwards-compatibility, /architecture is the new way
-        @route('/<stateid>/architectures')
+        @route(base_url + '/<stateid>/architectures')
         @self.auth.protected
         def old_architectures(stateid):
             return self.render_repository(stateid, 'components')
 
         # only exists for backwards-compatibility, /architecture is the new way
-        @route('/<stateid>/components')
+        @route(base_url + '/<stateid>/components')
         @self.auth.protected
         def old_components(stateid):
             return self.render_repository(stateid, 'components')
 
-        @route('/<stateid>/architecture')
+        @route(base_url + '/<stateid>/architecture')
         @self.auth.protected
         def architecture(stateid):
             return self.render_repository(stateid, 'components')
 
-        @route('/<stateid>/tags')
+        @route(base_url + '/<stateid>/tags')
         @self.auth.protected
         def tags(stateid):
             return self.render_repository(stateid, 'tags')
 
-        @route('/<stateid>/work-items')
+        @route(base_url + '/<stateid>/work-items')
         @self.auth.protected
         def work_items(stateid):
             return self.render_repository(stateid, 'work-items')
 
-        @route('/<stateid>/interfaces')
+        @route(base_url + '/<stateid>/interfaces')
         @self.auth.protected
         def interfaces(stateid):
             return self.render_repository(stateid, 'interfaces')
 
-        @route('/<stateid>/integration-strategies')
+        @route(base_url + '/<stateid>/integration-strategies')
         @self.auth.protected
         def integration_strategies(stateid):
             return self.render_repository(stateid, 'integration-strategies')
 
-        @route('/<stateid>/verification-criteria')
+        @route(base_url + '/<stateid>/verification-criteria')
         @self.auth.protected
         def verification_criteria(stateid):
             return self.render_repository(stateid, 'verification-criteria')
 
-        @route('/<stateid>/history')
+        @route(base_url + '/<stateid>/history')
         @self.auth.protected
         def history(stateid):
             return self.render_repository(stateid, 'history')
 
-        @route('/<stateid>/diff')
+        @route(base_url + '/<stateid>/diff')
         @self.auth.protected
         def diff(stateid):
             return self.render_repository(stateid, 'diff')
 
-        @route('/<state1>/diff/<state2>')
+        @route(base_url + '/<state1>/diff/<state2>')
         @self.auth.protected
         def diff_states(state1, state2):
             return self.render_diff(state1, state2, 'diff')
 
-        @route('/<stateid>/export')
+        @route(base_url + '/<stateid>/export')
         @self.auth.protected
         def export(stateid):
             return self.render_export(stateid, 'export')
 
-        @route('/<stateid>/export', method='POST')
+        @route(base_url + '/<stateid>/export', method='POST')
         @self.auth.protected
         def perform_export(stateid):
             return self.render_export(
                 stateid, 'export-html', bottle.request.forms)
 
-        @route('/public/<filename>')
+        @route(base_url + '/public/<filename>')
         @self.auth.protected
         def public(filename):
             public_dir = os.path.join(os.path.dirname(__file__),
                                       '..', 'views', 'public')
             return bottle.static_file(filename, root=public_dir)
 
-        @route('/<stateid>/files/<filename:re:.*>')
+        @route(base_url + '/<stateid>/files/<filename:re:.*>')
         @self.auth.protected
         def file(stateid, filename):
             if stateid == 'admin':
@@ -326,7 +334,7 @@ class App(cliapp.Application):
                 bottle.response.status = 404
                 return bottle.template('error', error=err)
 
-        @route('/plantuml/<content:re:.*>')
+        @route(base_url + '/plantuml/<content:re:.*>')
         @self.auth.protected
         def plantuml(content):
             if not content in self.uml:
