@@ -3,7 +3,7 @@
     <td>
       <a href="{{state.app.base_url}}/{{state.sha1}}">Browse</a>
       % if state.right:
-        <a href="{{state.app.base_url}}/diff/{{state.sha1}}~1">Diff</a>
+        <a href="{{state.app.base_url}}/{{state.sha1}}/diff/{{state.sha1}}~1">Diff</a>
       % else:
         <a href="{{state.app.base_url}}/{{state.sha1}}/diff">Diff</a>
       % end
