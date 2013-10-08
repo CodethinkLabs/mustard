@@ -197,6 +197,8 @@ class Element(object):
         for tagref in data.get('tags', []):
             self.tags[tagref] = None
 
+        self.base_url = data.get('base-url', '')
+
     def is_toplevel(self):
         return self.parent == (None, None)
 
@@ -227,8 +229,9 @@ class Element(object):
         return '\n'.join(resolved_text)
 
     def _generate_uml_image(self, uml):
-        url = '/plantuml/%s' % base64.urlsafe_b64encode(
-            zlib.compress("\n".join(uml)))
+        url = '%s/plantuml/%s' % (
+            self.base_url, base64.urlsafe_b64encode(
+                zlib.compress("\n".join(uml))))
         return '[![UML diagram](%s)](%s)' % (url, url)
 
     def get_parents(self):
