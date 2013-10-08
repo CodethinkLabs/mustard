@@ -5,7 +5,7 @@
       % if state.right:
         <a href="{{state.app.base_url}}/diff/{{state.sha1}}~1">Diff</a>
       % else:
-        <a href="{{state.app.base_url}}/diff">Diff</a>
+        <a href="{{state.app.base_url}}/{{state.sha1}}/diff">Diff</a>
       % end
     </td>
     <td>{{state.title if state.title and len(state.title) < 73 else '%s...' % state.title[0:72]}}</td>
