@@ -45,8 +45,8 @@ class Tree(object):
             self._load_node(os.path.join(path, segment), child)
 
     def _load_element(self, path, node):
-        node['base-url'] = self.state.app.base_url
         element = self.element_factory.create(node)
+        element.base_url = self.state.app.base_url
         element.title = element.title or os.path.basename(path)
         element.tree = self
         element.name = path

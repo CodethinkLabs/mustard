@@ -197,8 +197,6 @@ class Element(object):
         for tagref in data.get('tags', []):
             self.tags[tagref] = None
 
-        self.base_url = data.get('base-url', '')
-
     def is_toplevel(self):
         return self.parent == (None, None)
 
