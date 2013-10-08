@@ -2,45 +2,45 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>{{tree.project.title or 'Unnamed Mustard Project'}}</title>
-    <link rel="stylesheet" type="text/css" href="/public/style.css"/>
-    <link rel="shortcut icon" type="image/x-icon" href="/public/favicon.ico"/>
-    <script type="text/javascript" src="/public/jquery-1.8.2.min.js"></script>
-    <script type="text/javascript" src="/public/effects.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{tree.state.app.base_url}}/public/style.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="{{tree.state.app.base_url}}/public/favicon.ico"/>
+    <script type="text/javascript" src="{{tree.state.app.base_url}}/public/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="{{tree.state.app.base_url}}/public/effects.js"></script>
   </head>
   <body>
     <div id="body">
       <h1 id="title">
-        <a href="/{{tree.state.identifier}}">{{tree.project.title or 'Unnamed Mustard Project'}}</a>
+        <a href="{{tree.state.url}}">{{tree.project.title or 'Unnamed Mustard Project'}}</a>
         <form>
           <select id="state">
             % for tag, identifier in tree.state.repository.tags():
-              <option{{!' selected="selected" class="active"' if tree.state.identifier == identifier else ''}} value="/{{identifier}}">{{tag.replace('refs/tags/', 'T ')}}</option>
+              <option{{!' selected="selected" class="active"' if tree.state.identifier == identifier else ''}} value="{{tree.state.app.base_url}}/{{identifier}}">{{tag.replace('refs/tags/', 'T ')}}</option>
             % end
             % for branch, identifier in tree.state.repository.branches():
-              <option{{!' selected="selected" class="active"' if tree.state.identifier == identifier else ''}} value="/{{identifier}}">{{branch.replace('refs/heads/', 'B ')}}</option>
+              <option{{!' selected="selected" class="active"' if tree.state.identifier == identifier else ''}} value="{{tree.state.app.base_url}}/{{identifier}}">{{branch.replace('refs/heads/', 'B ')}}</option>
             % end
-            <option{{!' selected="selected" class="active"' if tree.state.identifier == 'HEAD' else ''}} value="/HEAD">&gt; HEAD</option>
+            <option{{!' selected="selected" class="active"' if tree.state.identifier == 'HEAD' else ''}} value="{{tree.state.app.base_url}}/HEAD">&gt; HEAD</option>
             % if not tree.state.repository.is_bare():
-              <option{{!' selected="selected" class="active"' if tree.state.identifier == 'UNCOMMITTED' else ''}} value="/UNCOMMITTED">&gt; UNCOMMITTED</option>
+              <option{{!' selected="selected" class="active"' if tree.state.identifier == 'UNCOMMITTED' else ''}} value="{{tree.state.app.base_url}}/UNCOMMITTED">&gt; UNCOMMITTED</option>
             % end
           </select>
         </form>
       </h1>
       <div id="nav">
         <ul>
-          <li><a href="/{{tree.state.identifier}}/requirements">Requirements</a></li>
-          <li><a href="/{{tree.state.identifier}}/architecture">Architecture</a></li>
-          <li><a href="/{{tree.state.identifier}}/interfaces">Interfaces</a></li>
-          <li><a href="/{{tree.state.identifier}}/work-items">Work Items</a></li>
-          <li><a href="/{{tree.state.identifier}}/tags">Tags</a></li>
+          <li><a href="{{tree.state.url}}/requirements">Requirements</a></li>
+          <li><a href="{{tree.state.url}}/architecture">Architecture</a></li>
+          <li><a href="{{tree.state.url}}/interfaces">Interfaces</a></li>
+          <li><a href="{{tree.state.url}}/work-items">Work Items</a></li>
+          <li><a href="{{tree.state.url}}/tags">Tags</a></li>
           <li id="nav-more">
             <a>More...</a>
             <ul>
-              <li><a href="/{{tree.state.identifier}}/overview">Overview</a></li>
-              <li><a href="/{{tree.state.identifier}}/integration-strategies">Integration Strategies</a></li>
-              <li><a href="/{{tree.state.identifier}}/verification-criteria">Verification Criteria</a></li>
-              <li><a href="/{{tree.state.identifier}}/history">History</a></li>
-              <li><a href="/{{tree.state.identifier}}/export">Export</a></li>
+              <li><a href="{{tree.state.url}}/overview">Overview</a></li>
+              <li><a href="{{tree.state.url}}/integration-strategies">Integration Strategies</a></li>
+              <li><a href="{{tree.state.url}}/verification-criteria">Verification Criteria</a></li>
+              <li><a href="{{tree.state.url}}/history">History</a></li>
+              <li><a href="{{tree.state.url}}/export">Export</a></li>
             </ul>
           </li>
         </ul>

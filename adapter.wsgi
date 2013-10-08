@@ -34,6 +34,7 @@ def application(environ, start_response):
         project_path = environ['MUSTARD_PROJECT_PATH']
         plantuml_jar = environ['MUSTARD_PLANTUML_JAR']
         project_code = environ.get('MUSTARD_PROJECT_CODE', '')
+        base_url = environ.get('MUSTARD_BASE_URL', '')
 
         sys.path.append(server_path)
         os.chdir(os.path.dirname(__file__))
@@ -45,6 +46,7 @@ def application(environ, start_response):
             '-s', 'cherrypy',
             '--auth', auth,
             '--auth-server=%s' % auth_server,
+            '--base-url', base_url,
             '--config', config_file,
             '--project-code', project_code,
             ])

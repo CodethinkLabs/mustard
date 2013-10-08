@@ -2,7 +2,7 @@
 
 <p>Select which elements and fields to include in the exported data.</p>
 
-<form action="/{{tree.state.identifier}}/export" method="post">
+<form action="{{tree.state.url}}/export" method="post">
   <fieldset>
     <table>
     % index = 0
