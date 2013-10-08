@@ -218,7 +218,7 @@ class App(cliapp.Application):
 
         @route(base_url + '/<stateid>')
         @self.auth.protected
-        def state_redirect(self.base_url + stateid):
+        def state_redirect(stateid):
             return bottle.redirect(self.base_url + '/%s/' % stateid)
 
         @route(base_url + '/<stateid>/')
