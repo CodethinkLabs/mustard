@@ -185,6 +185,7 @@ element_descriptions = {
 class Element(object):
 
     def __init__(self, data):
+        self.base_url = data.get('base-url', '')
         self.kind = data.get('kind', None)
         self.title = data.get('title', None)
         self.location = data.get('_location', '')
@@ -279,8 +280,9 @@ class Element(object):
 
 class ElementFactory(object):
 
-    def create(self, data):
+    def create(self, data, base_url):
         data['kind'] = kind_aliases.get(data['kind'], data['kind'])
+        data['base-url'] = base_url
         if data['kind'] == 'requirement':
             return mustard.requirement.Requirement(data)
         elif data['kind'] == 'tag':
