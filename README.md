@@ -10,11 +10,12 @@ Contents
 
 1. Screenshots
 2. Mustard data format
-3. Installing Mustard
-4. Deploying Mustard Using Apache2
-5. Hacking Mustard
-6. Contributing
-7. Copyright and License
+3. Creating UML diagrams
+4. Installing Mustard
+5. Deploying Mustard Using Apache2
+6. Hacking Mustard
+7. Contributing
+8. Copyright and License
 
 
 1. Screenshots
@@ -363,7 +364,42 @@ Tags (kind: tag, t)
       The architect needs to think here, it's not ready.
 
 
-3. Installing Mustard
+3. Creating UML diagrams
+------------------------
+
+All elements in a Mustard repository can include UML diagrams in their
+`description` field. Mustard is using PlantUML to parse the descriptions
+of these diagrams and generate images that can be embedded in the web
+interface or printed output.
+
+### Defining a UML diagram in an element
+
+Descriptions of Mustard elements are Markdown. Mustard, however, extends
+the Markdown format by UML blocks opened with `@startuml` and closed with
+`@enduml`. The content inside these blocks has to be PlantUML syntax.
+
+An example interface with a simple sequence diagram could look as
+follows:
+
+    kind: interface
+    title: Public service interface
+    description: |
+      The public interface of the `Foo` service.
+
+      @startuml
+      Client -> Service : subscribe()
+      Service -> Client : subscribed()
+      @enduml
+
+### The PlantUML syntax
+
+For the syntax and supported variants of UML diagrams, please refer to
+the PlantUML website, which provides an extensive list of examples:
+
+  http://plantuml.sourceforge.net/
+
+
+4. Installing Mustard
 ---------------------
 
 ### Dependencies
@@ -427,7 +463,7 @@ web server. See the following section for more details on how to
 deploy Mustard using Apache.
 
 
-4. Deploying Mustard using Apache2
+5. Deploying Mustard using Apache2
 ----------------------------------
 
 Mustard can be set up as an Apache site easily using mod_wsgi. It ships
@@ -463,7 +499,7 @@ located in `/var/www/someserver.com`. The source tree with
 `adapter.wsgi` may also be located somewhere outside `DocumentRoot`.
 
 
-5. Hacking Mustard
+6. Hacking Mustard
 ------------------
 
 To hack on mustard and have your changed immediately testable in a web
@@ -481,7 +517,7 @@ You will need to install cliapp to use the commandline tooling.
 See http://liw.fi/cliapp/.
 
 
-6. Contributing
+7. Contributing
 ---------------
 
 Mustard is a Codethink Labs project. As such, its development takes
@@ -493,7 +529,7 @@ Anyone interested in improving Mustard is welcome to clone the project
 repository and send pull requests.
 
 
-7. Copyright & License
+8. Copyright & License
 ----------------------
 
 Copyright (C) 2012-2013 Codethink Ltd.
