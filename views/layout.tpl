@@ -3,9 +3,11 @@
   <head>
     <title>{{tree.project.title or 'Unnamed Mustard Project'}}</title>
     <link rel="stylesheet" type="text/css" href="{{tree.state.app.base_url}}public/style.css"/>
+    <link rel="stylesheet" href="{{tree.state.app.base_url}}public/annotator.min.css">
     <link rel="shortcut icon" type="image/x-icon" href="{{tree.state.app.base_url}}public/favicon.ico"/>
     <script type="text/javascript" src="{{tree.state.app.base_url}}public/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" src="{{tree.state.app.base_url}}public/effects.js"></script>
+    <script type="text/javascript" src="{{tree.state.app.base_url}}public/annotator-full.min.js"></script>
   </head>
   <body>
     <div id="body">
@@ -69,5 +71,6 @@
       </div>
     </div>
     <p class="center">Mustard &copy; 2012-2014 Codethink Ltd{{!' &#8212; Content &copy; %s' % tree.project.copyright if tree.project.copyright else ''}}</p>
+    <script>$('#content').annotator();</script>
   </body>
 </html>
