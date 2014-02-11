@@ -60,6 +60,7 @@
             </select>
             % end
             <input type="button" id="unhappy-filter" name="unhappy-filter" value="☐" />
+            <input type="button" id="expand-all" name="expand-all" value="[+]" />
           </p>
         </form>
       </div>
