@@ -30,7 +30,7 @@ import mustard
 
 defaults = {
     'auth': 'none',
-    'base-url': '',
+    'base-url': '/',
     'port': 8080,
     'plantuml-jar': '/usr/local/share/plantuml.jar',
     'reload': False,
@@ -207,10 +207,13 @@ class App(cliapp.Application):
         base_url = self.settings['base-url']
         self.base_url = base_url
 
+        print 'base url: %s' % self.base_url
+
         @route('/')
         @self.auth.protected
         def index():
-            return bottle.redirect(self.base_url + '/HEAD')
+            print 'redirect to %s' % os.path.join(self.base_url, '/HEAD')
+            return bottle.redirect(os.path.join(self.base_url, '/HEAD'))
 
         @route('/favicon.ico')
         def favicon():
@@ -219,7 +222,8 @@ class App(cliapp.Application):
         @route('/<stateid>')
         @self.auth.protected
         def state_redirect(stateid):
-            return bottle.redirect(self.base_url + '/%s/' % stateid)
+            return bottle.redirect(
+                os.path.join(self.base_url, '/%s/' % stateid))
 
         @route('/<stateid>/')
         @self.auth.protected

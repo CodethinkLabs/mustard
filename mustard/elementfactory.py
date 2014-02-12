@@ -19,6 +19,7 @@ import collections
 import markdown
 from markdown.treeprocessors import Treeprocessor
 import base64
+import os
 import zlib
 
 import mustard
@@ -185,7 +186,7 @@ element_descriptions = {
 class Element(object):
 
     def __init__(self, data):
-        self.base_url = data.get('base-url', '')
+        self.base_url = data.get('base-url', '/')
         self.kind = data.get('kind', None)
         self.title = data.get('title', None)
         self.location = data.get('_location', '')
@@ -228,9 +229,9 @@ class Element(object):
         return '\n'.join(resolved_text)
 
     def _generate_uml_image(self, uml):
-        url = '%s/plantuml/%s' % (
-            self.base_url, base64.urlsafe_b64encode(
-                zlib.compress("\n".join(uml))))
+        url = os.path.join(
+            self.base_url, 'plantuml',
+            base64.urlsafe_b64encode(zlib.compress("\n".join(uml))))
         return '[![UML diagram](%s)](%s)' % (url, url)
 
     def get_parents(self):

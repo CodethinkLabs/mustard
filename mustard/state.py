@@ -98,6 +98,7 @@ class CommittedState(State):
         self.identifier = ref
         self.sha1 = sha1
         self.url = os.path.join(app.base_url, self.identifier)
+        print 'committed state url: %s' % self.url
 
         commit = self.repository.commit(self.sha1)
 
