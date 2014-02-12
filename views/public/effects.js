@@ -353,6 +353,22 @@ $(document).ready(function() {
     }
   );
 
+  $('#expand-all').toggle(
+    function() {
+      $(this).val('[-]');
+      $(this).addClass('pressed');
+      $('h2').each(function() {
+        expand($(this));
+      });
+    },
+    function() {
+      $(this).val('[+]');
+      $(this).removeClass('pressed');
+      $('h2').each(function() {
+        collapse($(this));
+      });    
+  });
+
   $('#predefined-filters').change(function() {
       $('#filter').val($(this).val());
       update_filter();
