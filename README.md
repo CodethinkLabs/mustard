@@ -532,7 +532,7 @@ repository and send pull requests.
 8. Copyright & License
 ----------------------
 
-Copyright (C) 2012-2013 Codethink Ltd.
+Copyright (C) 2012-2014 Codethink Ltd.
 
 Mustard is licensed under the GNU Affero General Public License
 Version 3, (AGPLv3). The full text of the license can be found
