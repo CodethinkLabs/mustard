@@ -7,6 +7,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{tree.state.app.base_url}}public/favicon.ico"/>
     <script type="text/javascript" src="{{tree.state.app.base_url}}public/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" src="{{tree.state.app.base_url}}public/effects.js"></script>
+    <script type="text/javascript" src="{{tree.state.app.base_url}}public/showdown.js"></script>
     <script type="text/javascript" src="{{tree.state.app.base_url}}public/annotator-full.min.js"></script>
   </head>
   <body>
@@ -75,6 +76,7 @@
       var content = $(document.body).annotator();
       content.annotator('addPlugin', 'Tags');
       content.annotator('addPlugin', 'Filter');
+      content.annotator('addPlugin', 'Markdown');
       content.annotator('addPlugin', 'Store', {
         // The endpoint of the store on your server.
         prefix: window.location.protocol + '//' + window.location.hostname + ':5000',

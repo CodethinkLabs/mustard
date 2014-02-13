@@ -545,3 +545,7 @@ the license).
 Mustard ships a copy of Annotator in views/public/, which is licensed
 under the MIT license (see COPYING.annotator for more information about
 the license).
+
+Mustard ships a copy of Showdown.js in views/public/, which is licensed
+under a BSD-style license (see COPYING.showdown for more information about
+the license).
