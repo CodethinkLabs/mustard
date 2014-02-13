@@ -71,6 +71,27 @@
       </div>
     </div>
     <p class="center">Mustard &copy; 2012-2014 Codethink Ltd{{!' &#8212; Content &copy; %s' % tree.project.copyright if tree.project.copyright else ''}}</p>
-    <script>$('#content').annotator();</script>
+    <script>
+      var content = $(document.body).annotator();
+      content.annotator('addPlugin', 'Tags');
+      content.annotator('addPlugin', 'Filter');
+      content.annotator('addPlugin', 'Store', {
+        // The endpoint of the store on your server.
+        prefix: window.location.protocol + '//' + window.location.hostname + ':5000',
+
+        // Attach the uri of the current page to all annotations to allow search.
+        annotationData: {
+          'uri': document.URL
+        },
+
+        // This will perform a "search" action rather than "read" when the plugin
+        // loads. Will request the last 20 annotations for the current url.
+        // eg. /store/endpoint/search?limit=20&uri=http://this/document/only
+        loadFromSearch: {
+          'limit': 2000,
+          'uri': document.URL
+        }
+      });
+    </script>  
   </body>
 </html>
