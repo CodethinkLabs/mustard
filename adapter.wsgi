@@ -29,7 +29,7 @@ def application(environ, start_response):
         config_file = environ.get(
                 'MUSTARD_CONFIG_FILE', '/home/mustard/.mustard.conf')
         auth = environ.get('MUSTARD_AUTH', 'git')
-        auth_server = environ['MUSTARD_AUTH_SERVER']
+        auth_server = environ.get('MUSTARD_AUTH_SERVER', None)
         server_path = environ['MUSTARD_SERVER_PATH']
         project_path = environ['MUSTARD_PROJECT_PATH']
         plantuml_jar = environ['MUSTARD_PLANTUML_JAR']
