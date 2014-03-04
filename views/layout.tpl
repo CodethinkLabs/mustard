@@ -69,5 +69,10 @@
       </div>
     </div>
     <p class="center">Mustard &copy; 2012-2014 Codethink Ltd{{!' &#8212; Content &copy; %s' % tree.project.copyright if tree.project.copyright else ''}}</p>
+    <script>
+      $(function(){
+        $("#expand-all").click();
+      });
+    </script>
   </body>
 </html>
