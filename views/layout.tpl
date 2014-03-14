@@ -2,10 +2,32 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>{{tree.project.title or 'Unnamed Mustard Project'}}</title>
-    <link rel="stylesheet" type="text/css" href="{{tree.state.app.base_url}}public/style.css"/>
     <link rel="shortcut icon" type="image/x-icon" href="{{tree.state.app.base_url}}public/favicon.ico"/>
     <script type="text/javascript" src="{{tree.state.app.base_url}}public/jquery-1.8.2.min.js"></script>
+    % if tree.state.app.settings['annotator-service']:
+      <link rel="stylesheet" type="text/css" href="{{tree.state.app.base_url}}public/annotator.min.css"/>
+      <script type="text/javascript" src="{{tree.state.app.base_url}}public/annotator-full.min.js"></script>
+      <script type="text/javascript">
+        $(document).ready(function() {
+          $('body').annotator()
+                   .annotator('addPlugin', 'Tags')
+                   .annotator('addPlugin', 'Filter')
+                   //.annotator('addPlugin', 'Markdown')
+                   .annotator('addPlugin', 'Store', {
+                     prefix: '{{tree.state.app.base_url}}annotator',
+                     annotationData: {
+                       'uri': document.URL
+                     },
+                     loadFromSearch: {
+                       'limit': 2000,
+                       'uri': document.URL
+                     }
+                   });
+        });
+      </script>
+    % end
     <script type="text/javascript" src="{{tree.state.app.base_url}}public/effects.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{tree.state.app.base_url}}public/style.css"/>
   </head>
   <body>
     <div id="body">

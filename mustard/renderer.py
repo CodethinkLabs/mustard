@@ -21,6 +21,8 @@ import mimetypes
 import os
 import pkgutil
 import urllib
+import urllib2
+import urlparse
 import zlib
 
 from bottle import route
@@ -66,6 +68,9 @@ class App(cliapp.Application):
                 pass
 
     def add_settings(self):
+        self.settings.string(['annotator-service'],
+                             'Annotator service (default: none)',
+                             metavar='URL')
         self.settings.string(['auth'],
                              'Authentication mechanism '
                              '(%s; default: %s)' % (
@@ -184,6 +189,18 @@ class App(cliapp.Application):
         except cliapp.AppException, err:
             return bottle.template('error', error=err)
 
+    def annotator_proxy_url(self, request):
+        source = urlparse.urljoin(self.settings['base-url'], 'annotator')
+        target = self.settings['annotator-service']
+        return request.url.replace(source, target)
+
+    def relay_to_annotator(self, request, method='GET',
+                           content_type='application/json'):
+        request.add_header('Content-Type', 'application/json')
+        request.get_method = lambda: method
+        bottle.response.content_type = 'application/json'
+        return urllib2.urlopen(request).read()
+
     def process_args(self, args):
         if not self.settings['project']:
             raise cliapp.AppException('Input project directory not defined')
@@ -202,12 +219,8 @@ class App(cliapp.Application):
 
         auth_module = self.auth_mechanisms[self.settings['auth']]
         self.auth = auth_module.Authenticator(
-                self, self.settings, self.repository)
-
-        base_url = self.settings['base-url']
-        self.base_url = base_url
-
-        print 'base url: %s' % self.base_url
+            self, self.settings, self.repository)
+        self.base_url = self.settings['base-url']
 
         @route('/')
         @self.auth.protected
@@ -349,6 +362,50 @@ class App(cliapp.Application):
                          "-tpng", "-p"], feed_stdin=uml)
             bottle.response.content_type = 'image/png'
             return self.uml[content]
+
+        @route('/annotator/')
+        @self.auth.protected
+        def annotator_metadata():
+            request = urllib2.Request(self.annotator_proxy_url(bottle.request))
+            return self.relay_to_annotator(request)
+
+        @route('/annotator/annotations')
+        @self.auth.protected
+        def annotations():
+            request = urllib2.Request(self.annotator_proxy_url(bottle.request))
+            return self.relay_to_annotator(request)
+
+        @route('/annotator/annotations', method='POST')
+        @self.auth.protected
+        def create_annotation():
+            request = urllib2.Request(self.annotator_proxy_url(bottle.request),
+                                      bottle.request.body.read())
+            return self.relay_to_annotator(request, 'POST')
+
+        @route('/annotator/annotations/:annotation')
+        @self.auth.protected
+        def annotation(annotation):
+            request = urllib2.Request(self.annotator_proxy_url(bottle.request))
+            return self.relay_to_annotator(request)
+
+        @route('/annotator/annotations/:annotation', method='PUT')
+        @self.auth.protected
+        def update_annotation(annotation):
+            request = urllib2.Request(self.annotator_proxy_url(bottle.request),
+                                      bottle.request.body.read())
+            return self.relay_to_annotator(request, 'PUT')
+
+        @route('/annotator/annotations/:annotation', method='DELETE')
+        @self.auth.protected
+        def delete_annotation(annotation):
+            request = urllib2.Request(self.annotator_proxy_url(bottle.request))
+            return self.relay_to_annotator(request, 'DELETE')
+
+        @route('/annotator/search')
+        @self.auth.protected
+        def search():
+            request = urllib2.Request(self.annotator_proxy_url(bottle.request))
+            return self.relay_to_annotator(request)
 
         if self.settings['run-bottle']:
             bottle.run(host='0.0.0.0',

@@ -541,3 +541,7 @@ in the COPYING file distributed along with this README.
 Mustard ships a copy of jQuery in views/public/, which is licensed
 under the MIT license (see COPYING.jquery for more information about
 the license).
+
+Mustard ships a copy of Annotator.js in views/public, which is
+dual-licensed under GNU GPLv3 and the MIT license (see
+COPYING.annotator for more information about the license).
