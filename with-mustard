@@ -31,6 +31,7 @@ raw_tree_cache = mustard.rawtree.Cache()
 element_tree_cache = mustard.elementtree.Cache(raw_tree_cache)
 
 thingy = Thingy()
+thingy.base_url = "http://localhost:8080/"
 
 repository = mustard.repository.Repository(thingy, ".")
 state_cache = mustard.state.Cache(thingy, repository)
