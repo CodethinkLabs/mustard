@@ -25,7 +25,6 @@ class Repository(object):
         self.app = app
         self.dirname = dirname
         self.repo = pygit2.Repository(self.dirname)
-
         self.checked_out = True if self.repo.workdir else False
 
     def is_bare(self):
