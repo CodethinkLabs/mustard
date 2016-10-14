@@ -18,10 +18,10 @@ import os
 import os.path
 
 import mustard
+import sys
 
 
-class Tree(object):
-
+class ElementTree(object):
     def __init__(self, raw_tree):
         self.raw_tree = raw_tree
         self.state = raw_tree.state
@@ -213,6 +213,11 @@ class Tree(object):
     def yaml(self):
         return self.raw_tree.yaml()
 
+class MustardTree(ElementTree):
+    pass
+
+class OpenControlTree(ElementTree):
+    pass
 
 class Cache(object):
 
@@ -223,5 +228,9 @@ class Cache(object):
     def get(self, state):
         if not state in self.trees:
             raw_tree = self.raw_tree_cache.get(state)
-            self.trees[state] = Tree(raw_tree)
+            print("Creating an elementTree from the raw tree...")
+            if 'opencontrol' in raw_tree.data:
+                self.trees[state] = OpenControlTree(raw_tree)
+            else:
+                self.trees[state] = MustardTree(raw_tree)
         return self.trees[state]

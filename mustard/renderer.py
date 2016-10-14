@@ -121,6 +121,7 @@ class App(cliapp.Application):
 
             if state_id == 'UNCOMMITTED':
                 raw_tree = mustard.rawtree.Tree(state)
+                #TODO: Needs fixing for OpenControl
                 element_tree = mustard.elementtree.Tree(raw_tree)
                 return bottle.template(view, tree=element_tree)
             else:
@@ -149,6 +150,7 @@ class App(cliapp.Application):
 
             if state1.identifier == 'UNCOMMITTED':
                 raw_tree1 = mustard.rawtree.Tree(state1)
+                #TODO: Needs fixing for OpenControl
                 element_tree1 = mustard.elementtree.Tree(raw_tree1)
                 element_tree2 = self.element_tree_cache.get(state2)
 

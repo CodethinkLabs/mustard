@@ -44,16 +44,42 @@ class Tree(object):
         self._load()
 
     def _load(self):
+        filenames = self.state.filenames()
+
+        print("Loading raw tree from the initial list of filenames: %s"%filenames)
+        if 'opencontrol.yaml' in filenames:
+            self._load_opencontrol_data()
+            return
+
         errors = []
-        for filename in self.state.filenames():
+        for filename in filenames:
             content = self.state.read(filename)
             io = StringIO.StringIO(content)
             setattr(io, 'name', filename)
             try:
                 data = load_yaml(io, filename.replace('.yaml', ''))
-                self._insert_raw(filename.replace('.yaml', ''), data)
+                path = filename.replace('.yaml', '')
+                print("Loading raw tree from the file %s into the path %s"%(filename, path))
+                self._insert_raw(path, data)
             except Exception, error:
                 errors.append(error)
+        if errors:
+            raise LoadError(errors)
+
+    def _load_opencontrol_data(self):
+        errors = []
+        filename = "opencontrol.yaml"
+        content = self.state.read(filename)
+        io = StringIO.StringIO(content)
+        setattr(io, 'name', filename)
+        try:
+            data = load_yaml(io, filename.replace('.yaml', ''))
+            path = filename.replace('.yaml', '')
+            print("Loading raw tree from the file %s into the path %s"%(filename, path))
+            self._insert_raw(path, data)
+        except Exception, error:
+            errors.append(error)
+            
         if errors:
             raise LoadError(errors)
 
