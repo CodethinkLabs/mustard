@@ -61,7 +61,7 @@ class Tree(object):
                 path = filename.replace('.yaml', '')
                 print("Loading raw tree from the file %s into the path %s"%(filename, path))
                 self._insert_raw(path, data)
-            except Exception, error:
+            except Exception as error:
                 errors.append(error)
         if errors:
             raise LoadError(errors)
@@ -77,7 +77,7 @@ class Tree(object):
             path = filename.replace('.yaml', '')
             print("Loading raw tree from the file %s into the path %s"%(filename, path))
             self._insert_raw(path, data)
-        except Exception, error:
+        except Exception as error:
             errors.append(error)
             
         if errors:
