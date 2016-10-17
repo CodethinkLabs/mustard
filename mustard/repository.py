@@ -90,7 +90,7 @@ class Repository(object):
         while queue:
             (tree, path) = queue.popleft()
             for entry in tree:
-                if entry.filemode == 040000:
+                if entry.filemode == 0o40000:
                     subtree = self.repo[entry.oid]
                     queue.append((subtree, os.path.join(path, entry.name)))
                 else:

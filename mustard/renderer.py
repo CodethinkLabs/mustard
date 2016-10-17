@@ -130,9 +130,9 @@ class App(cliapp.Application):
                     self.content[content_id] = bottle.template(
                         view, tree=element_tree)
                 return self.content[content_id]
-        except mustard.MustardError, err:
+        except mustard.MustardError as err:
             return bottle.template('treeerror', error=err)
-        except cliapp.AppException, err:
+        except cliapp.AppException as err:
             return bottle.template('error', error=err)
 
     def render_diff(self, state1, state2, view):
@@ -163,9 +163,9 @@ class App(cliapp.Application):
                     self.content[content_id] = bottle.template(
                         'diff', tree=tree1, other_tree=tree2)
                 else:
-                    print 'using cached rendering of (%s, %s, %s)' % content_id
+                    print ('using cached rendering of (%s, %s, %s)' % content_id)
                 return self.content[content_id]
-        except cliapp.AppException, err:
+        except cliapp.AppException as err:
             return bottle.template('error', error=err)
 
     def render_export(self, stateid, view, forms=None):
@@ -181,7 +181,7 @@ class App(cliapp.Application):
             return bottle.template(
                 view, tree=element_tree, forms=forms,
                 elements=mustard.elementfactory.element_descriptions)
-        except cliapp.AppException, err:
+        except cliapp.AppException as err:
             return bottle.template('error', error=err)
 
     def process_args(self, args):
@@ -207,12 +207,12 @@ class App(cliapp.Application):
         base_url = self.settings['base-url']
         self.base_url = base_url
 
-        print 'base url: %s' % self.base_url
+        print ('base url: %s' % self.base_url)
 
         @route('/')
         @self.auth.protected
         def index():
-            print 'redirect to %s' % os.path.join(self.base_url, '/HEAD')
+            print ('redirect to %s' % os.path.join(self.base_url, '/HEAD'))
             return bottle.redirect(os.path.join(self.base_url, '/HEAD'))
 
         @route('/favicon.ico')
@@ -334,7 +334,7 @@ class App(cliapp.Application):
                 bottle.response.set_header('Content-Encoding', encoding)
 
                 return self.content[content_id]
-            except Exception, err:
+            except Exception as err:
                 bottle.response.status = 404
                 return bottle.template('error', error=err)
 

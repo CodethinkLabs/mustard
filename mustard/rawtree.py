@@ -52,7 +52,7 @@ class Tree(object):
             try:
                 data = load_yaml(io, filename.replace('.yaml', ''))
                 self._insert_raw(filename.replace('.yaml', ''), data)
-            except Exception, error:
+            except Exception as error:
                 errors.append(error)
         if errors:
             raise LoadError(errors)
