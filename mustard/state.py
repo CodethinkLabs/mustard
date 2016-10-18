@@ -27,8 +27,8 @@ class InvalidStateError(cliapp.AppException):
 
 class State(object):
 
-    def __init__(self, app, cache, repository):
-        self.app = app
+    def __init__(self, dest_url, cache, repository):
+        self.dest_url = dest_url
         self.cache = cache
         self.repository = repository
         self.title = None
@@ -53,14 +53,14 @@ class State(object):
 
 class UncommittedState(State):
 
-    def __init__(self, app, cache, repository):
-        State.__init__(self, app, cache, repository)
+    def __init__(self, dest_url, cache, repository):
+        State.__init__(self, dest_url, cache, repository)
 
         self.identifier = 'UNCOMMITTED'
         self.sha1 = 'UNCOMMITTED'
         self.title = 'UNCOMMITTED'
         self.diff = self.repository.diff(None)
-        self.url = os.path.join(app.base_url, self.identifier)
+        self.url = os.path.join(dest_url, self.identifier)
 
     def filenames(self):
         return self._list_files()
@@ -92,12 +92,12 @@ class UncommittedState(State):
 
 class CommittedState(State):
 
-    def __init__(self, app, cache, repository, ref, sha1):
-        State.__init__(self, app, cache, repository)
+    def __init__(self, dest_url, cache, repository, ref, sha1):
+        State.__init__(self, dest_url, cache, repository)
 
         self.identifier = ref
         self.sha1 = sha1
-        self.url = os.path.join(app.base_url, self.identifier)
+        self.url = os.path.join(dest_url, self.identifier)
         print ('committed state url: %s' % self.url)
 
         commit = self.repository.commit(self.sha1)
@@ -145,8 +145,8 @@ class CommittedState(State):
 
 class Cache(object):
 
-    def __init__(self, app, repository):
-        self.app = app
+    def __init__(self, dest_url, repository):
+        self.dest_url = dest_url
         self.repository = repository
         self.states = {}
 
@@ -154,7 +154,7 @@ class Cache(object):
         if ref == 'UNCOMMITTED':
             if not ref in self.states:
                 self.states[ref] = UncommittedState(
-                    self.app, self, self.repository)
+                    self.dest_url, self, self.repository)
             return self.states[ref]
         else:
             try:
@@ -173,7 +173,7 @@ class Cache(object):
                 if not key in self.states:
                     print ('%s not in cache' % sha1)
                     self.states[key] = CommittedState(
-                        self.app, self, self.repository, ref, sha1)
+                        self.dest_url, self, self.repository, ref, sha1)
                 print ('%s now cached' % sha1)
                 return self.states[key]
             except cliapp.AppException:
