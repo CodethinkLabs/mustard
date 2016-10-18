@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>{{tree.project.title or 'Unnamed Mustard Project'}}</title>
-    <link rel="stylesheet" type="text/css" href="{{tree.state.app.base_url}}public/style.css"/>
-    <link rel="shortcut icon" type="image/x-icon" href="{{tree.state.app.base_url}}public/favicon.ico"/>
-    <script type="text/javascript" src="{{tree.state.app.base_url}}public/jquery-1.8.2.min.js"></script>
-    <script type="text/javascript" src="{{tree.state.app.base_url}}public/effects.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{tree.state.dest_url}}public/style.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="{{tree.state.dest_url}}public/favicon.ico"/>
+    <script type="text/javascript" src="{{tree.state.dest_url}}public/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="{{tree.state.dest_url}}public/effects.js"></script>
   </head>
   <body>
     <div id="body">
@@ -14,14 +14,14 @@
         <form>
           <select id="state">
             % for tag, identifier in tree.state.repository.tags():
-              <option{{!' selected="selected" class="active"' if tree.state.identifier == identifier else ''}} value="{{tree.state.app.base_url}}{{identifier}}">{{tag.replace('refs/tags/', 'T ')}}</option>
+              <option{{!' selected="selected" class="active"' if tree.state.identifier == identifier else ''}} value="{{tree.state.dest_url}}{{identifier}}">{{tag.replace('refs/tags/', 'T ')}}</option>
             % end
             % for branch, identifier in tree.state.repository.branches():
-              <option{{!' selected="selected" class="active"' if tree.state.identifier == identifier else ''}} value="{{tree.state.app.base_url}}{{identifier}}">{{branch.replace('refs/heads/', 'B ')}}</option>
+              <option{{!' selected="selected" class="active"' if tree.state.identifier == identifier else ''}} value="{{tree.state.dest_url}}{{identifier}}">{{branch.replace('refs/heads/', 'B ')}}</option>
             % end
-            <option{{!' selected="selected" class="active"' if tree.state.identifier == 'HEAD' else ''}} value="{{tree.state.app.base_url}}HEAD">&gt; HEAD</option>
+            <option{{!' selected="selected" class="active"' if tree.state.identifier == 'HEAD' else ''}} value="{{tree.state.dest_url}}HEAD">&gt; HEAD</option>
             % if not tree.state.repository.is_bare():
-              <option{{!' selected="selected" class="active"' if tree.state.identifier == 'UNCOMMITTED' else ''}} value="{{tree.state.app.base_url}}UNCOMMITTED">&gt; UNCOMMITTED</option>
+              <option{{!' selected="selected" class="active"' if tree.state.identifier == 'UNCOMMITTED' else ''}} value="{{tree.state.dest_url}}UNCOMMITTED">&gt; UNCOMMITTED</option>
             % end
           </select>
         </form>

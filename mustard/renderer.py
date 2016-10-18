@@ -197,8 +197,6 @@ class App(cliapp.Application):
         except KeyError:
             raise cliapp.AppException('Input project directory is not a git directory')
 
-        self.state_cache = mustard.state.Cache(self, self.repository)
-
         if not self.settings['auth'] in self.auth_mechanisms:
             raise cliapp.AppException(
                 'Unsupported authentication mechanism: %s' %
@@ -210,6 +208,8 @@ class App(cliapp.Application):
 
         base_url = self.settings['base-url']
         self.base_url = base_url
+
+        self.state_cache = mustard.state.Cache(self.base_url, self.repository)
 
         print ('base url: %s' % self.base_url)
 
