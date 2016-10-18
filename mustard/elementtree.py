@@ -20,31 +20,32 @@ import os.path
 import mustard
 import sys
 
+import logging
+
+try:
+    from typing import Any, Sequence, List
+except ImportError:
+    pass
 
 class ElementTree(object):
     def __init__(self, raw_tree):
+        print("Initialize tree")
         self.raw_tree = raw_tree
         self.state = raw_tree.state
         self.element_factory = mustard.elementfactory.ElementFactory()
-        self.elements = {}
+        self.elements = {} # type: dict[str, mustard.elementFactory.Element]
 
-        self.project = mustard.project.Project({})
-        self.project.tree = self
+        self.project = mustard.project.Project({}) # type: mustard.project.Project
+        self.project.tree = self 
 
+        print("Performing initial load with no path")
         self._load_node('', self.raw_tree.data)
         self._resolve_project()
         self._resolve_links()
 
-    def _load_node(self, path, node):
-        if 'kind' in node:
-            self._load_element(path, node)
-
-        children = [(x, y) for x, y in node.iteritems()
-                    if isinstance(y, dict)]
-        for segment, child in children:
-            self._load_node(os.path.join(path, segment), child)
-
     def _load_element(self, path, node):
+        # type: (ElementTree, str, dict) -> None
+        print("Loading element: %s"%path)
         element = self.element_factory.create(node, self.state.app.base_url)
         element.title = element.title or os.path.basename(path)
         element.tree = self
@@ -52,6 +53,7 @@ class ElementTree(object):
         self.elements[path] = element
 
     def _resolve_project(self):
+        # Type: (ElementTree) -> None
         projects = [(x, y) for x, y in self.find_all(kind='project')]
         if len(projects) == 0:
             raise mustard.MustardError('No project defined')
@@ -257,6 +259,8 @@ class Cache(object):
         self.trees = {}
 
     def get(self, state):
+        # type: (Cache, object) -> object
+        print("cache::get")
         if not state in self.trees:
             raw_tree = self.raw_tree_cache.get(state)
             print("Creating an elementTree from the raw tree...")

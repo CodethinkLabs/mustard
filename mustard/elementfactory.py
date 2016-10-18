@@ -24,6 +24,11 @@ import zlib
 
 import mustard
 
+try:
+    from typing import Any, Sequence
+except ImportError:
+    pass
+
 kind_aliases = {
     # Aliases to reduce wrist-strain for Mustardy people
     'r':      'requirement',
@@ -186,16 +191,17 @@ element_descriptions = {
 class Element(object):
 
     def __init__(self, data):
+        # type: (Element, dict[str, Any]) -> None
         self.base_url = data.get('base-url', '/')
         self.kind = data.get('kind', None)
         self.title = data.get('title', None)
         self.location = data.get('_location', '')
         self.set_description(data.get('description', None))
-        self.parent = (data.get('parent', None), None)
-        self.work_items = {}
-        self.children = {}
+        self.parent = (data.get('parent', None), None) # type: Sequence[Any]
+        self.work_items = {} # type: dict[str, mustard.WorkItem]
+        self.children = {} # type: dict[str, Element]
 
-        self.tags = {}
+        self.tags = {} # type: dict[str, mustard.Tag]
         for tagref in data.get('tags', []):
             self.tags[tagref] = None
 
@@ -282,6 +288,7 @@ class Element(object):
 class ElementFactory(object):
 
     def create(self, data, base_url):
+        # type: (ElementFactory, Dict[str, Any], str) -> mustard.elementFactory.Element
         data['kind'] = kind_aliases.get(data['kind'], data['kind'])
         data['base-url'] = base_url
         if data['kind'] == 'requirement':

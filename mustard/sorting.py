@@ -16,6 +16,10 @@
 
 from itertools import groupby
 
+try:
+    from typing import Any, Sequence
+except ImportError:
+    pass
 
 def comparator(sort_key):
     def compare_elements(pair1, pair2):
@@ -51,9 +55,9 @@ def comparator(sort_key):
 
 
 def sort_elements(elements, args):
-    real_elements = [e for p, e in elements if e is not None]
+    real_elements = [e for p, e in elements if e is not None] # type: sequence [Element]
     if real_elements:
-        default_sort_by = real_elements[0].tree.project.sort_by
+        default_sort_by = real_elements[0].tree.project.sort_by # Not all elements have a tree...
     else:
         default_sort_by = None
     sort_by = args.get('sort_by', None)
