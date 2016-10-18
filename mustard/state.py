@@ -98,7 +98,7 @@ class CommittedState(State):
         self.identifier = ref
         self.sha1 = sha1
         self.url = os.path.join(app.base_url, self.identifier)
-        print 'committed state url: %s' % self.url
+        print ('committed state url: %s' % self.url)
 
         commit = self.repository.commit(self.sha1)
 
@@ -171,10 +171,10 @@ class Cache(object):
                        tuple(self.repository.branches()))
 
                 if not key in self.states:
-                    print '%s not in cache' % sha1
+                    print ('%s not in cache' % sha1)
                     self.states[key] = CommittedState(
                         self.app, self, self.repository, ref, sha1)
-                print '%s now cached' % sha1
+                print ('%s now cached' % sha1)
                 return self.states[key]
             except cliapp.AppException:
                 raise InvalidStateError(ref)

@@ -19,12 +19,6 @@ import collections
 import yaml
 import yaml.constructor
 
-
-if not hasattr(collections, 'OrderedDict'):
-    import ordereddict
-    collections.OrderedDict = ordereddict.OrderedDict
-
-
 class OrderedDictYAMLLoader(yaml.cyaml.CLoader):
     """
     A YAML loader that loads mappings into ordered dictionaries.
@@ -56,7 +50,7 @@ class OrderedDictYAMLLoader(yaml.cyaml.CLoader):
             key = self.construct_object(key_node, deep=deep)
             try:
                 hash(key)
-            except TypeError, exc:
+            except TypeError as exc:
                 raise yaml.constructor.ConstructorError(
                     'while constructing a mapping',
                     node.start_mark, 'found unacceptable key (%s)' %
