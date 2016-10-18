@@ -191,8 +191,12 @@ class App(cliapp.Application):
         if not os.path.isdir(self.settings['project']):
             raise cliapp.AppException('Input project directory does not exist')
 
-        self.repository = mustard.repository.Repository(
-            self, self.settings['project'])
+        try:
+            self.repository = mustard.repository.Repository(
+                self, self.settings['project'])
+        except KeyError:
+            raise cliapp.AppException('Input project directory is not a git directory')
+
         self.state_cache = mustard.state.Cache(self, self.repository)
 
         if not self.settings['auth'] in self.auth_mechanisms:
