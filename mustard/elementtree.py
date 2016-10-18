@@ -214,10 +214,41 @@ class ElementTree(object):
         return self.raw_tree.yaml()
 
 class MustardTree(ElementTree):
-    pass
+    def _load_node(self, path, node):
+        # type: (MustardTree, str, dict[str, Any]) -> None
+        # node is the raw data from the input YAML
+        print("_load_node: %s for node %s"%(path, node))
+        if 'kind' in node:
+            print(" - This is of kind %s"%node['kind'])
+            self._load_element(path, node)
+        children = [(x, y) for x, y in node.items()
+                    if isinstance(y, dict)]
+        for segment, child in children:
+            self._load_node(os.path.join(path, segment), child)
 
 class OpenControlTree(ElementTree):
-    pass
+    def _load_node(self, path, raw_tree_data):
+        # type: (MustardTree, str, dict[str, Any]) -> None
+        print("_load_node: %s for node %s"%(path, raw_tree_data))
+        raw_tree_data['kind'] = "project"
+
+        element = self.element_factory.create(raw_tree_data, self.state.app.base_url) # type: mustard.elementFactory.Element
+        element.tree = self
+        self.elements['project'] =  element
+        for (k,v) in raw_tree_data.items():
+            if k.lower() == 'dependencies':
+                self._load_dependencies(v)
+            elif k.lower() == 'components':
+                self._load_components(v)
+            elif k.lower() == 'name':
+                self.elements['project'].name = v
+
+    def _load_dependencies(self, deps):
+        pass
+
+    def _load_components(self, deps):
+        pass
+        
 
 class Cache(object):
 
