@@ -237,7 +237,8 @@ class OpenControlTree(ElementTree):
         element = self.element_factory.create(raw_tree_data, self.state.app.base_url) # type: mustard.elementFactory.Element
         element.tree = self
         self.elements['project'] =  element
-        for (k,v) in raw_tree_data.items():
+        for (k,v) in raw_tree_data['opencontrol'].items():
+            print("Processing the field %s from the project file"%k);
             if k.lower() == 'dependencies':
                 self._load_dependencies(v)
             elif k.lower() == 'components':
@@ -245,9 +246,41 @@ class OpenControlTree(ElementTree):
             elif k.lower() == 'name':
                 self.elements['project'].name = v
 
-    def _load_dependencies(self, deps):
-        pass
+    def _make_element(self, raw_data, path):
+        element = self.element_factory.create(raw_data,self.state.app.base_url)
+        element.tree = self
+        self.elements[path] = element
 
+    def _load_dependent_standards(self, standard_list):
+        # type: (Sequence[ dict[str,str]]) -> None
+        for s in standard_list:
+            url = s['url']
+            revision = s['revision']
+            print("At this point we should attempt a clone of %s:%s"%(url, revision))
+            # This should be a new elementTree...
+
+            # Create an example of the kind of data we want in requirements:
+            
+            self._make_element({'kind': 'requirement', 'name': 'req-ex-1', 'title': 'Example requirement 1'}, 'req1')
+            self._make_element({'kind': 'requirement', 'name': 'req-ex-2', 'title': 'Example requirement 2'}, 'req1/req2')
+
+    def _load_dependent_certifications(self, cert_list):
+        pass
+    def _load_dependent_systems(self, cert_list):
+        pass
+    
+    def _load_dependencies(self, deps):
+        # type: (dict[str, Any]) -> None
+        for (k,v) in deps.items():
+            print("Processing the dependency %s"%k)
+            if k.lower() == 'standards':
+                self._load_dependent_standards(v)
+            elif k.lower() == 'certifications':
+                self._load_dependent_certifications(v)
+            elif k.lower() == 'systems':
+                self._load_dependent_systems(v)
+            else:
+                print("Unidentified dependency type: %s?"%k)
     def _load_components(self, deps):
         pass
         
