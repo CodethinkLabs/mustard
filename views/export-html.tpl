@@ -21,7 +21,7 @@
       </div>
       <div id="nav">
         <ol>
-          % for field, info in sorted(elements.iteritems(), key=lambda x: x[1]['title-plural']):
+          % for field, info in sorted(elements.iteritems(), key=lambda x: x[1]['sort-order']):
             % if forms.get('select-%s' % field):
               % kind_elements = tree.find_all(kind=field, top_level=True)
               % if kind_elements:
@@ -35,7 +35,7 @@
         % index = [1]
         % level = 3
 
-        % for field, info in sorted(elements.iteritems(), key=lambda x: x[1]['title-plural']):
+        % for field, info in sorted(elements.iteritems(), key=lambda x: x[1]['sort-order']):
           % if forms.get('select-%s' % field):
             % kind_elements = tree.find_all(kind=field, sort_by='DEFAULT', top_level=True)
             % if kind_elements:
