@@ -434,7 +434,7 @@ To build libgit2 statically and pygit2 with that, do the following:
     $ git clone git://github.com/libgit2/libgit2.git
     $ git clone git://github.com/libgit2/pygit2.git
     $ cd libgit2
-    $ git checkout v0.16.0-1553-g5a36f12
+    $ git checkout v0.23.4
     $ mkdir build
     $ cd build
     $ cmake -DBUILD_SHARED_LIBS:BOOLEAN=OFF \
@@ -442,8 +442,9 @@ To build libgit2 statically and pygit2 with that, do the following:
     $ make
     $ make install DESTDIR=""
     $ cd ../../pygit2
-    $ git checkout v0.17.3-51-g81078e2
-    $ LIBGIT2="$(pwd)/../libgit2/build/install" LIBGIT2="$(pwd)/../libgit2/build/install"  python setup.py build
+    $ git checkout v0.23.3
+    $ LIBGIT2="$(pwd)/../libgit2/build/install" LIBGIT2="$(pwd)/../libgit2/build/install" \
+      LDFLAGS="-Wl,-rpath='$LIBGIT2/lib',--enable-new-dtags $LDFLAGS" python setup.py build
     $ python setup.py install --user
 
 This will install pygit2 into $HOME/.local -- obviously you can tweak the
