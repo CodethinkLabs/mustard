@@ -79,6 +79,7 @@ element_descriptions = {
   'requirement': {
     'title-plural':   'Requirements',
     'title-singular': 'Requirement',
+    'sort-order': 1,
     'default': True,
     'fields': [
       { 'name': 'description',  'title': 'Description',  'default': True  },
@@ -91,6 +92,7 @@ element_descriptions = {
   'component': {
     'title-plural':   'Components',
     'title-singular': 'Component',
+    'sort-order': 2,
     'default': True,
     'fields': [
       { 'name': 'description',  'title': 'Description',  'default': True  },
@@ -113,6 +115,7 @@ element_descriptions = {
   'interface': {
     'title-plural':   'Interfaces',
     'title-singular': 'Interface',
+    'sort-order': 3,
     'default': True,
     'fields': [
       { 'name': 'description',  'title': 'Description',  'default': True  },
@@ -130,6 +133,7 @@ element_descriptions = {
   'work-item': {
     'title-plural':   'Work Items',
     'title-singular': 'Work Item',
+    'sort-order': 4,
     'default': True,
     'fields': [
       { 'name': 'description',  'title': 'Description',  'default': True  },
@@ -144,6 +148,7 @@ element_descriptions = {
   'tag': {
     'title-plural':   'Tags',
     'title-singular': 'Tag',
+    'sort-order': 5,
     'default': True,
     'fields': [
       { 'name': 'description',  'title': 'Description',  'default': True  },
@@ -153,6 +158,7 @@ element_descriptions = {
   'integration-strategy': {
     'title-plural':   'Integration Strategies',
     'title-singular': 'Integration Strategy',
+    'sort-order': 6,
     'default': True,
     'fields': [
       { 'name': 'description',  'title': 'Description',  'default': True  },
@@ -169,6 +175,7 @@ element_descriptions = {
   'verification-criterion': {
     'title-plural':   'Verification Criteria',
     'title-singular': 'Verification Criterion',
+    'sort-order': 7,
     'default': True,
     'fields': [
       { 'name': 'description',  'title': 'Description',  'default': True  },
