@@ -1,18 +1,18 @@
 % if detail == 'list':
   <tr class="row" id="{{state.sha1}}">
     <td>
-      <a href="{{state.app.base_url}}{{state.sha1}}">Browse</a>
+      <a href="{{state.dest_url}}{{state.sha1}}">Browse</a>
       % if state.right:
-        <a href="{{state.app.base_url}}{{state.sha1}}/diff/{{state.sha1}}~1">Diff</a>
+        <a href="{{state.dest_url}}{{state.sha1}}/diff/{{state.sha1}}~1">Diff</a>
       % else:
-        <a href="{{state.app.base_url}}{{state.sha1}}/diff">Diff</a>
+        <a href="{{state.dest_url}}{{state.sha1}}/diff">Diff</a>
       % end
     </td>
     <td>{{state.title if state.title and len(state.title) < 73 else '%s...' % state.title[0:72]}}</td>
     <td><a href="mailto:{{state.author_email}}">{{state.author or ' '}}</a></td>
     <td>
       % if state.right:
-        <a href="{{state.app.base_url}}{{state.right}}/history">{{state.right[0:8]}}...</a>
+        <a href="{{state.dest_url}}{{state.right}}/history">{{state.right[0:8]}}...</a>
       % end
     </td>
   </tr>

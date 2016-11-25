@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2014 Codethink Limited
+# Copyright (C) 2012-2016 Codethink Limited
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
