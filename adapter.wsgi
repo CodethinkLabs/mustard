@@ -35,12 +35,12 @@ def application(environ, start_response):
         plantuml_jar = environ['MUSTARD_PLANTUML_JAR']
         project_code = environ.get('MUSTARD_PROJECT_CODE', '')
         base_url = environ.get('MUSTARD_BASE_URL', '/')
+        auto_fetch = environ.get('MUSTARD_AUTOFETCH', False)
 
         sys.path.append(server_path)
         os.chdir(os.path.dirname(__file__))
 
-        import mustard
-        mustard.renderer.App().run([
+        parameters = [
             '-p', project_path,
             '-j', plantuml_jar,
             '-s', 'cherrypy',
@@ -49,7 +49,13 @@ def application(environ, start_response):
             '--base-url', base_url,
             '--config', config_file,
             '--project-code', project_code,
-            ])
+        ]
+
+        if auto_fetch:
+            parameters.append('--auto-fetch')
+
+        import mustard
+        mustard.renderer.App().run(parameters)
 
         app = bottle.default_app()
 
