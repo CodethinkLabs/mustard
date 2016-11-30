@@ -5,22 +5,16 @@ This is the official repository for the development of Mustard,
 the Mapped Uniform System for Tracking Architecture, Requirements
 and Design.
 
-Contents
---------
+## Contents
 
 1. Screenshots
 2. Mustard data format
 3. Creating UML diagrams
-4. Installing Mustard
-5. Deploying Mustard Using Apache2
-6. Hacking Mustard
-7. Automatically updating from upstream repositories
-8. Contributing
-9. Copyright and License
+4. Installing and running Mustard
+5. Contributing
+6. Copyright and License
 
-
-1. Screenshots
---------------
+## Screenshots
 
 ### Requirements
 
@@ -41,8 +35,7 @@ Contents
 ![Diffs](https://github.com/CodethinkLabs/mustard/raw/master/data/screenshots/diff.png "Diffs")
 
 
-2. Mustard data format
-----------------------
+## Mustard data format
 
 ### General concepts
 
@@ -365,8 +358,7 @@ Tags (kind: tag, t)
       The architect needs to think here, it's not ready.
 
 
-3. Creating UML diagrams
-------------------------
+## Creating UML diagrams
 
 All elements in a Mustard repository can include UML diagrams in their
 `description` field. Mustard is using PlantUML to parse the descriptions
@@ -400,12 +392,35 @@ the PlantUML website, which provides an extensive list of examples:
   http://plantuml.sourceforge.net/
 
 
-4. Installing Mustard
----------------------
+## Installing and running Mustard
 
-### Dependencies
+### Using Vagrant
 
-In order to use Mustard, you'll need the following components:
+If you have VirtualBox and vagrant, just run `vagrant up` to create a new VM from the supplied Vagrantfile.
+
+The VM will be created with two directories mounted to your host system:
+
+- /src/mustard containing the mustard checkout itself
+- /src/mustard-example containing a checkout of some example mustard content 
+
+The Vagrantfile launches mustard to serve the sample content at port 8080 of the default ip address for the VM.
+
+### Local Installation
+
+Mustard can be run locally from its source directory, after running the provided ./install_depencencies.sh script.
+
+    ./mustard-render -b -r -j ./plantuml.jar -p /path/to/mustard/to/render
+
+This method serves content at http://0.0.0.0:8080 by default. It should NOT be used for deployment.
+
+The usual way to run a mustard service is to clone the source code repository
+and integrate it with Apache or any WSGI-compatible web server. See the
+following  section for more details on how to deploy Mustard using Apache.
+
+
+#### Dependencies
+
+Mustard requires the following:
 
   * Python >= 2.6
   * PyYAML
@@ -418,7 +433,7 @@ Most of the dependencies should be available in your distro, apart from
 libgit2 and pygit2. The section below explains how to install these two
 easily.
 
-### Installing pygit2
+#### Installing pygit2
 
 If you lack pygit2 in your distribution, the safest way to get it is to
 prepare a statically built libgit2 in a temporary installation location
@@ -451,22 +466,7 @@ To build libgit2 statically and pygit2 with that, do the following:
 This will install pygit2 into $HOME/.local -- obviously you can tweak the
 `setup.py` invocations if you wish to alter where it installs to.
 
-### Installing Mustard itself
-
-Mustard cannot currently be installed into the system. It can, however,
-be run directly from the source directory:
-
-    ./mustard-render -b -r -j /path/to/plantuml.jar \
-      -p /path/to/mustard/to/render
-
-The usual way to run it is to clone the source code repository
-somehwere and then integrate it with Apache or any WSGI-compatible
-web server. See the following section for more details on how to
-deploy Mustard using Apache.
-
-
-5. Deploying Mustard using Apache2
-----------------------------------
+### Deploying Mustard using Apache2
 
 Mustard can be set up as an Apache site easily using mod_wsgi. It ships
 an `adapter.wsgi` file that can be set up to handle HTTP requests as
@@ -500,26 +500,7 @@ For the above to work, Mustard, or at least its `adapter.wsgi` must be
 located in `/var/www/someserver.com`. The source tree with
 `adapter.wsgi` may also be located somewhere outside `DocumentRoot`.
 
-
-6. Hacking Mustard
-------------------
-
-To hack on mustard and have your changed immediately testable in a web
-browser, you can use
-
-    ./mustard-render -b -r -j /path/to/plantuml.jar \
-      -p /path/to/mustard/to/render
-
-Replacing /path/to/plantuml.jar and /path/to/mustard/to/render as
-appropriate
-
-This method should NOT be used for deployment.
-
-You will need to install cliapp to use the commandline tooling.
-See http://liw.fi/cliapp/.
-
-7. Automatically updating from upstream repositories
-----------------------------------------------------
+#### Automatically updating from upstream repositories
 
 Mustard can automatically update the source repository it uses from
 its remotes. To enable this, use the command-line option "--auto-fetch" to
@@ -542,8 +523,7 @@ Fetching from remote repositories will happen as soon as a page is served,
 but it is asynchronous, so you may need to perform two refreshes to see an
 update.
 
-8. Contributing
----------------
+## Contributing
 
 Mustard is a Codethink Labs project. As such, its development takes
 place within the Codethink Labs project on GitHub:
@@ -554,10 +534,9 @@ Anyone interested in improving Mustard is welcome to clone the project
 repository and send pull requests.
 
 
-8. Copyright & License
-----------------------
+## Copyright & License
 
-Copyright (C) 2012-2014 Codethink Ltd.
+Copyright (C) 2012-2016 Codethink Ltd.
 
 Mustard is licensed under the GNU Affero General Public License
 Version 3, (AGPLv3). The full text of the license can be found
@@ -566,3 +545,7 @@ in the COPYING file distributed along with this README.
 Mustard ships a copy of jQuery in views/public/, which is licensed
 under the MIT license (see COPYING.jquery for more information about
 the license).
+
+Musta also ships a copy of PlantUML, which is licensed under GPLv3. See
+http://plantuml.com/faq for information about this and other license
+options.
