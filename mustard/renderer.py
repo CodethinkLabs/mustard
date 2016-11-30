@@ -34,6 +34,7 @@ defaults = {
     'port': 8080,
     'plantuml-jar': '/usr/local/share/plantuml.jar',
     'reload': False,
+    'auto-fetch': False,
     'run-bottle': False,
     'server': 'wsgiref',
 }
@@ -83,6 +84,11 @@ class App(cliapp.Application):
         self.settings.string(['auth-password'],
                              'Authentication lookup password (optional)',
                              metavar='PASSWORD')
+        self.settings.boolean(['auto-fetch'],
+                              'Automatically fetch the source repo from its '
+                              'remotes periodically',
+                              metavar='AUTOFETCH',
+                              default=defaults['auto-fetch'])
         self.settings.string(['base-url'],
                              'Base URL to the Mustard service (optional)',
                              metavar='URL',

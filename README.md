@@ -14,8 +14,9 @@ Contents
 4. Installing Mustard
 5. Deploying Mustard Using Apache2
 6. Hacking Mustard
-7. Contributing
-8. Copyright and License
+7. Automatically updating from upstream repositories
+8. Contributing
+9. Copyright and License
 
 
 1. Screenshots
@@ -517,8 +518,31 @@ This method should NOT be used for deployment.
 You will need to install cliapp to use the commandline tooling.
 See http://liw.fi/cliapp/.
 
+7. Automatically updating from upstream repositories
+----------------------------------------------------
 
-7. Contributing
+Mustard can automatically update the source repository it uses from
+its remotes. To enable this, use the command-line option "--auto-fetch" to
+'mustard-render', or the 'SetEnv MUSTARD_AUTOFETCH 1' directive in an Apache
+WSGI configuration.
+
+For this to work, you'll need to use a mirrored, bare git repository as the
+project repository. You can clone one of these with:
+
+    git clone --mirror <url>
+
+You should clone using a method that does not require authentication, such
+as HTTP/HTTPS, or ssh/git protocol with a authentication mechanism
+available to your www user without a password.
+
+You can have several remotes with different transports - as long as one
+works, it will be fetched.
+
+Fetching from remote repositories will happen as soon as a page is served,
+but it is asynchronous, so you may need to perform two refreshes to see an
+update.
+
+8. Contributing
 ---------------
 
 Mustard is a Codethink Labs project. As such, its development takes

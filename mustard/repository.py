@@ -17,15 +17,18 @@
 import collections
 import os
 import pygit2
-
+import time
 
 class Repository(object):
+    min_time_between_fetches = 15 # Seconds
 
     def __init__(self, app, dirname):
         self.app = app
         self.dirname = dirname
         self.repo = pygit2.Repository(self.dirname)
         self.checked_out = True if self.repo.workdir else False
+        self.outstanding_transfers = []
+        self.last_update_time = 0
 
     def is_bare(self):
         return self.repo.config['core.bare']
@@ -108,5 +111,46 @@ class Repository(object):
         return ref.replace(':', '/')
 
     def resolve_ref(self, ref):
+        if self.app.settings['auto-fetch']:
+            self.update_repo()
+
         ref = self.unescape_ref(ref)
         return self.repo.revparse_single(ref).hex
+
+    def check_outstanding_transfers(self):
+        # Filter all outstanding transfers and keep the ones
+        # which are not complete.
+        new_outstanding_transfers = []
+        for t in self.outstanding_transfers:
+            if t.received_objects < t.total_objects:
+                new_outstanding_transfers.append(t)
+        self.outstanding_transfers = new_outstanding_transfers
+
+    def update_repo(self):
+        self.check_outstanding_transfers()
+        if len(self.outstanding_transfers) > 0:
+            print ('Not updating repo because an update is already running.')
+            return
+
+        now = time.time()
+        time_since_last_update = now - self.last_update_time
+        if time_since_last_update < Repository.min_time_between_fetches:
+            print ('Not updating repo because it\'s been less than %d '
+                   'seconds since the last update.' %
+                   Repository.min_time_between_fetches)
+            return
+
+        print ('Running fetch of repository.')
+        self.last_update_time = now
+
+        for remote in self.repo.remotes:
+            try:
+                self.outstanding_transfers.append(remote.fetch())
+                # If the above command didn't throw an exception, we are
+                # finished.
+                return
+            except TypeError:
+                print ('Fetch failed for %s, probably due to credentials'
+                       % remote.url)
+                # This isn't necessarily a problem - we fetch from all
+                # remotes and if one works, we're fine.
