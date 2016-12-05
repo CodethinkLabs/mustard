@@ -1,7 +1,12 @@
+Deprecation notice
+==================
+The official repositoy for Mustard is now https://gitlab.com/trustable/mustard. Please use that version
+for all development.
+
 Mustard README
 ==============
 
-This is the official repository for the development of Mustard,
+This is a GitHub mirror of of Mustard,
 the Mapped Uniform System for Tracking Architecture, Requirements
 and Design.
 
