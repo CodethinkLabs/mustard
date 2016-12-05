@@ -1,6 +1,6 @@
 Deprecation notice
 ==================
-The official repositoy for Mustard is now https://gitlab.com/trustable/mustard. Please use that version
+The official repository for Mustard is now https://gitlab.com/trustable/mustard. Please use that version
 for all development.
 
 Mustard README
