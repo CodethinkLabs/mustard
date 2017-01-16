@@ -222,8 +222,8 @@ class App(cliapp.Application):
         @route('/')
         @self.auth.protected
         def index():
-            print ('redirect to %s' % os.path.join(self.base_url, 'HEAD'))
-            return bottle.redirect(os.path.join(self.base_url, 'HEAD'))
+            print ('redirect to %s' % os.path.join(self.base_url, 'HEAD/'))
+            return bottle.redirect(os.path.join(self.base_url, 'HEAD/'))
 
         @route('/favicon.ico')
         def favicon():
@@ -233,7 +233,7 @@ class App(cliapp.Application):
         @self.auth.protected
         def state_redirect(stateid):
             return bottle.redirect(
-                os.path.join(self.base_url, '/%s/' % stateid))
+                os.path.join(self.base_url, '%s/' % stateid))
 
         @route('/<stateid>/')
         @self.auth.protected
